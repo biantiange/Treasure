@@ -179,10 +179,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setFragment() {
-        map.get(tabStrId[0]).setFragment(new ObserFragment());
-        map.get(tabStrId[1]).setFragment(new ObserFragment());
-        map.get(tabStrId[2]).setFragment(new ObserFragment());
-        map.get(tabStrId[3]).setFragment(new ObserFragment());
+        map.get(tabStrId[0]).setFragment(new CommunityFragment());
+        map.get(tabStrId[1]).setFragment(new CommunityFragment());
+        map.get(tabStrId[2]).setFragment(new CommunityFragment());
+        map.get(tabStrId[3]).setFragment(new CommunityFragment());
     }
 
     private void findView() {

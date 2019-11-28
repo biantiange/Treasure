@@ -5,8 +5,8 @@ import java.sql.Timestamp;
 public class Comment {
     private int id;
     private int postId;
-    private int commentatorId; //评论人ID
-    private int responderId;   //回复人ID
+    private Parent commentator; //评论人
+    private Parent responder;   //回复人
     private int resComId;      //回复评论ID
     private Timestamp time;    //时间
     private String content;    //内容
@@ -27,20 +27,20 @@ public class Comment {
         this.postId = postId;
     }
 
-    public int getCommentatorId() {
-        return commentatorId;
+    public Parent getCommentator() {
+        return commentator;
     }
 
-    public void setCommentatorId(int commentatorId) {
-        this.commentatorId = commentatorId;
+    public void setCommentator(Parent commentator) {
+        this.commentator = commentator;
     }
 
-    public int getResponderId() {
-        return responderId;
+    public Parent getResponder() {
+        return responder;
     }
 
-    public void setResponderId(int responderId) {
-        this.responderId = responderId;
+    public void setResponder(Parent responder) {
+        this.responder = responder;
     }
 
     public int getResComId() {
@@ -72,8 +72,8 @@ public class Comment {
         return "Comment{" +
                 "id=" + id +
                 ", postId=" + postId +
-                ", commentatorId=" + commentatorId +
-                ", responderId=" + responderId +
+                ", commentator=" + commentator +
+                ", responder=" + responder +
                 ", resComId=" + resComId +
                 ", time=" + time +
                 ", content='" + content + '\'' +

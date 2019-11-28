@@ -11,15 +11,18 @@ import com.example.lenovo.maandroid.R;
 
 import java.util.List;
 
-public class postAdapter extends BaseAdapter {
-    List<Post> posts;
-    Context context;
-    int item_id;
+public class PostAdapter extends BaseAdapter {
 
-    public postAdapter(List<Post> posts, Context context, int itemid) {
+    private List<Post> posts;
+    private Context context;
+    private int item_id;
+    private List<Comment> comments;
+
+    public PostAdapter(List<Post> posts, Context context, int item_id, List<Comment> comments) {
         this.posts = posts;
         this.context = context;
-        this.item_id = itemid;
+        this.item_id = item_id;
+        this.comments = comments;
     }
 
     @Override
@@ -51,6 +54,14 @@ public class postAdapter extends BaseAdapter {
         content.setText(posts.get(position).getContent());
         TextView praiseCount = convertView.findViewById(R.id.community_praiseNum);
         praiseCount.setText(posts.get(position).getPraiseCount()+"");
+
+        TextView comment1 = convertView.findViewById(R.id.community_comment1);
+        comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
+        TextView comment2 = convertView.findViewById(R.id.community_comment2);
+        comment2.setText(comments.get(1).getCommentator().getNickName()+":"+comments.get(1).getContent());
+        TextView comment3 = convertView.findViewById(R.id.community_comment3);
+        comment3.setText(comments.get(2).getCommentator().getNickName()+":"+comments.get(2).getContent());
+
         return convertView;
     }
 }

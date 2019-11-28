@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <!--LightPink   浅粉红 #FFB6C1 255,182,193-->
+    <color name="LightPink">#FFB6C1</color>
+    　<!-- Pink 粉红 #FFC0CB 255,192,203-->
+    <color name="Pink">#FFC0CB</color>
+    <!--Crimson 猩红 #DC143C 220,20,60-->
+    <color name="Crimson">#DC143C</color>
+    <!--LavenderBlush 脸红的淡紫色 #FFF0F5 255,240,245-->
+    <color name="LavenderBlush">#FFF0F5</color>
+    <!--PaleVioletRed 苍白的紫罗兰红色 #DB7093 219,112,147-->
+    <color name="PaleVioletRed">#DB7093</color>
+    <!--HotPink 热情的粉红 #FF69B4 255,105,180-->
+    <color name="HotPink">#FF69B4</color>
+    <!--DeepPink 深粉色 #FF1493 255,20,147-->
+    <color name="DeepPink">#FF1493</color>
+    <!--MediumVioletRed 适中的紫罗兰红色 #C71585 199,21,133-->
+    <color name="MediumVioletRed">#C71585</color>
+    <!--plum 李子 #DDA0DD 221,160,221-->
+    <color name="plum">#DDA0DD</color>
+    <!--Violet 紫罗兰 #EE82EE 238,130,238-->
+    <color name="Violet">#EE82EE</color>
+    　<!-- Magenta 洋红 #FF00FF 255,0,255-->
+    <color name="Magenta">#FF00FF</color>
+    <!--Fuchsia 灯笼海棠(紫红色) #FF00FF 255,0,255-->
+    <color name="Fuchsia">#FF00FF</color>
+    <!--DarkMagenta 深洋红色 #8B008B 139,0,139-->
+    <color name="DarkMagenta">#8B008B</color>
+    <!--Purple 紫色 #800080 128,0,128-->
+    <color name="Purple">#800080</color>
+    <!--MediumOrchid 适中的兰花紫 #BA55D3 186,85,211-->
+    <color name="MediumOrchid">#BA55D3</color>
+    <!--DarkVoilet 深紫罗兰色 #9400D3 148,0,211-->
+    <color name="DarkVoilet">#9400D3</color>
+    <!--DarkOrchid 深兰花紫 #9932CC 153,50,204-->
+    <color name="DarkOrchid">#9932CC</color>
+    <!-- LightSlateGray 浅石板灰 #778899 119,136,153-->
+    <color name="LightSlateGray">#778899</color>
+    <!--MintCream 薄荷奶油 #F5FFFA 245,255,250-->
+    <color name="MintCream">#F5FFFA</color>
+    <!--Beige 米色(浅褐色) #F5F5DC 245,245,220-->
+    <color name="Beige">#F5F5DC</color>
+    <!--PaleGodenrod 灰秋麒麟 #EEE8AA 238,232,170-->
+    <color name="PaleGodenrod">#EEE8AA</color>
+    <!-- FloralWhite 花的白色 #FFFAF0 255,250,240-->
+    <color name="FloralWhite">#FFFAF0</color>
+    <!--Snow 雪 #FFFAFA 255,250,250-->
+    <color name="Snow">#FFFAFA</color>
+    <!-- Gainsboro 亮灰色 #DCDCDC 220,220,220-->
+    <color name="Gainsboro">#DCDCDC</color>
+    　<!-- LightGrey 浅灰色 #D3D3D3 211,211,211-->
+    <color name="LightGrey">#D3D3D3</color>
+    　<!-- Silver 银白色 #C0C0C0 192,192,192-->
+    <color name="Silver">#C0C0C0</color>
+
+</resources>

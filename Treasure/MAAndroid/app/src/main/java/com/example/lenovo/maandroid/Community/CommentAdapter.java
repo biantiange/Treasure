@@ -50,7 +50,6 @@ public class CommentAdapter extends BaseAdapter {
         TextView content = convertView.findViewById(R.id.comment_content);
         content.setText(comments.get(position).getContent());
 
-
         return convertView;
     }
 }

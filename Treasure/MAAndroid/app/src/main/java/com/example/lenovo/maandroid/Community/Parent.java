@@ -1,6 +1,8 @@
 package com.example.lenovo.maandroid.Community;
 
-public class Parent {
+import java.io.Serializable;
+
+public class Parent implements Serializable {
     private int id;
     private String phoneNumber;
     private String nickName;

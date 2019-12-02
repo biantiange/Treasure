@@ -1,8 +1,9 @@
 package com.example.lenovo.maandroid.Community;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class PostImg {
+public class PostImg implements Serializable {
     private int id;
     private String path;
     private int postId;

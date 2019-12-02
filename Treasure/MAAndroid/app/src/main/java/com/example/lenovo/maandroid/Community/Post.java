@@ -1,8 +1,9 @@
 package com.example.lenovo.maandroid.Community;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Post {
+public class Post implements Serializable {
     private int id;         //帖子ID
     private String content; //内容
     private Timestamp time; //发布时间

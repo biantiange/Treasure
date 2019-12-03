@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/comment_parentHeader"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/comment_parentName"
+                android:layout_width="match_parent"
+                android:layout_height="15dp"
+                android:paddingLeft="10dp"
+                android:text="爱新觉罗"
+                android:textSize="13dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/comment_time"
+                android:layout_width="match_parent"
+                android:layout_height="12dp"
+                android:paddingLeft="10dp"
+                android:text="21:06:00"
+                android:textColor="#b2aaaa"
+                android:textSize="8dp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:id="@+id/comment_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="扣话费卡快递费和空间的划分看asdfasdf阿斯蒂芬人微服务微软给我如果无人过问如果认为如果无人过问人更让按个爱人给我如果看电脑卡  "
+            android:textSize="12dp" />
+    </LinearLayout>
+
+</LinearLayout>

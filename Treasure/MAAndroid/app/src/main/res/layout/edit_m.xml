@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        android:background="#00bffe"
+        >
+
+        <ImageButton android:layout_width="28dp"
+            android:background="#00bffe"
+            android:src="@drawable/fanhui32"
+            android:id="@+id/return0"
+            android:layout_height="40dp"/>
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:textSize="20dp"
+            android:textColor="#fcfcfc"
+            android:text="编辑个人信息"
+            android:padding="5dp"
+            />
+        <ImageButton android:layout_width="28dp"
+            android:background="#00bffe"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="20dp"
+        >
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <TextView android:layout_width="0dp"
+                android:layout_weight="1"
+                    android:layout_height="50dp"
+                    android:textSize="20dp"
+                android:textColor="#101010"
+                android:text="头像"
+                android:gravity="center"
+                />
+            <ImageView android:layout_height="50dp"
+                android:src="@drawable/aaa"
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:id="@+id/edit_user_img"
+                />
+            <Button android:layout_height="40dp"
+                android:layout_width="0dp"
+                android:text="更换"
+                android:layout_weight="1"
+                android:id="@+id/edit_btn_img"
+                />
+
+
+
+
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#b9b9b9"
+            android:layout_marginTop="15dp"
+            />
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="15dp"
+            >
+            <TextView android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:textSize="20dp"
+                android:textColor="#101010"
+                android:text="昵称"
+                android:gravity="center"
+
+                />
+            <EditText android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="match_parent"
+                android:id="@+id/edit_username"
+
+                android:hint="光子"
+                android:textSize="20dp"
+                android:layout_marginLeft="15dp"
+android:textColor="#101010"
+                android:gravity="center"
+                />
+            <TextView android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:textSize="25dp"
+                />
+
+
+
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#b9b9b9"
+            android:layout_marginTop="15dp"
+            />
+
+
+    </LinearLayout>
+
+    <Button android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:background="@drawable/yuanjiao"
+        android:layout_gravity="center"
+        android:text="完成"
+        android:textColor="#fff"
+        android:id="@+id/edit_submit"
+        android:textSize="20dp"
+        android:backgroundTint="#00bffe"
+        />
+
+</LinearLayout>

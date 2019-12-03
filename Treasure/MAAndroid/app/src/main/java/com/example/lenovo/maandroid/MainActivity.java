@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         initData();
         setListener();
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
         map.get(tabStrId[0]).setFragment(new ObserFragment());
         map.get(tabStrId[1]).setFragment(new RecordFragment());
         map.get(tabStrId[2]).setFragment(new ObserFragment());
-        map.get(tabStrId[3]).setFragment(new ObserFragment());
+        map.get(tabStrId[3]).setFragment(new MineFragment());
     }
 
     private void findView() {

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+
+    android:paddingTop="5dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+ <LinearLayout android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal"
+     >
+     <ImageView android:layout_width="60dp"
+         android:layout_height="60dp"
+         android:id="@+id/comments_user_img"
+         android:src="@drawable/aaa"
+         />
+
+     <LinearLayout
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:paddingLeft="15dp"
+         android:orientation="vertical">
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="horizontal">
+
+             <TextView
+                 android:id="@+id/comment_user_name"
+                 android:layout_width="0dp"
+                 android:layout_height="wrap_content"
+                 android:layout_weight="6"
+                 android:paddingTop="13dp"
+                 android:text="小河mm"
+                 android:textSize="14dp"
+                 android:textColor="#297972" />
+
+             <TextView
+                 android:id="@+id/comment_time"
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_marginTop="9dp"
+                 android:layout_weight="2"
+                 android:text="今天12:24"
+                 android:textSize="13dp" />
+         </LinearLayout>
+
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:orientation="vertical"
+             android:layout_marginTop="8dp"
+
+             >
+
+             <TextView
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:text="回复我：????what"
+                 android:textColor="#101010"
+                 android:textSize="14dp"
+                 android:id="@+id/comment_to_me"
+                 />
+             <TextView android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:text="我的评论："
+                 android:layout_marginTop="5dp"
+                 android:textColor="#101010"
+                 android:paddingTop="3dp"
+                 android:paddingLeft="5dp"
+                 android:paddingBottom="3dp"
+                 android:paddingRight="5dp"
+                 android:textSize="13dp"
+                 android:id="@+id/my_comments"
+                 android:background="@drawable/yuanjiao"
+
+
+                 />
+
+         </LinearLayout>
+
+
+
+     </LinearLayout>
+
+ </LinearLayout>
+    <TextView
+        android:layout_marginTop="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#b9b9b9" />
+
+
+</LinearLayout>

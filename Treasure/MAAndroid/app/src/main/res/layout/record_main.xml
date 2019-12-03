@@ -11,44 +11,25 @@
         android:layout_weight="1">
         <TextView
             android:text="成长记录"
-            android:textSize="20dp"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="5dp"
-            android:textColor="#d81e06"
             android:layout_width="0dp"
             android:layout_weight="3"
             android:layout_height="match_parent" />
         <ImageView
-            android:id="@+id/look"
             android:src="@drawable/look"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"/>
-        <ImageView
-            android:id="@+id/add"
-            android:src="@drawable/add"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"/>
-
     </LinearLayout>
-    <com.youth.banner.Banner
-        android:id="@+id/home_play_banner"
-        android:layout_width="match_parent"
-        android:layout_gravity="center_horizontal"
-        android:layout_height="0dp"
-        android:layout_weight="8"></com.youth.banner.Banner>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3">
-        <com.example.lenovo.maandroid.HorizontalListView
-            android:id="@+id/mlv"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.example.lenovo.maandroid.HorizontalListView>
-
+        android:layout_weight="1">
+        <ImageView
+            android:src="@drawable/add"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
     </LinearLayout>
-
 </LinearLayout>

@@ -18,20 +18,16 @@ import com.example.lenovo.maandroid.R;
 import java.util.List;
 
 public class PostAdapter extends BaseAdapter {
-    private int isPraise = 0;
     private List<Post> posts;
     private Context context;
     private int item_id;
-    private List<Comment> comments;//三条评论
     private List<PostImg> imgs;
+    private List<Comment> comments;
 
-    public PostAdapter(int isPraise, List<Post> posts, Context context, int item_id, List<Comment> comments, List<PostImg> imgs) {
-        this.isPraise = isPraise;
+    public PostAdapter( List<Post> posts, Context context, int item_id) {
         this.posts = posts;
         this.context = context;
         this.item_id = item_id;
-        this.comments = comments;
-        this.imgs = imgs;
     }
 
     @Override
@@ -56,6 +52,7 @@ public class PostAdapter extends BaseAdapter {
             convertView = inflater.inflate(item_id,null);
         }
 //img
+        imgs = posts.get(position).getImgs();
         ImageView img1 = convertView.findViewById(R.id.iv1);
         ImageView img2 = convertView.findViewById(R.id.iv2);
         ImageView img3 = convertView.findViewById(R.id.iv3);
@@ -142,17 +139,17 @@ public class PostAdapter extends BaseAdapter {
         final TextView praiseCount = convertView.findViewById(R.id.community_praiseNum);
         praiseCount.setText(posts.get(position).getPraiseCount()+"");
         final ImageView praising = convertView.findViewById(R.id.community_praising);//点赞
-        if (isPraise > 0){
+        if (posts.get(position).getIsPraise() > 0){
             praising.setImageResource(R.drawable.dianzaned);
         }
         praising.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isPraise == 0) {
+                if (posts.get(position).getIsPraise() == 0) {
                     praiseCount.setText(posts.get(position).getPraiseCount()+1 + "");
                     posts.get(position).setPraiseCount(posts.get(position).getPraiseCount()+1);
                     praising.setImageResource(R.drawable.dianzaned);
-                    isPraise++;
+                    posts.get(position).setIsPraise(posts.get(position).getIsPraise()+1);
                     //数据库
 
                 }
@@ -164,7 +161,7 @@ public class PostAdapter extends BaseAdapter {
             public void onClick(View v) {
 
                 Intent intent = new Intent(context, PostDetailActivity.class);
-                intent.putExtra("isPraise",isPraise);
+                intent.putExtra("isPraise",posts.get(position).getIsPraise());
                 intent.putExtra("post",posts.get(position));
                 intent.putExtra("imgSize",imgs.size());
                 for (int i = 0;i<imgs.size();i++){
@@ -175,6 +172,7 @@ public class PostAdapter extends BaseAdapter {
         });
 
         //三条评论
+        comments = posts.get(position).getComments();
         TextView comment1 = convertView.findViewById(R.id.community_comment1);
         comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
         TextView comment2 = convertView.findViewById(R.id.community_comment2);

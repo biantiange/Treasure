@@ -38,8 +38,7 @@ public class CommunityFragment extends Fragment {
         //假数据
         Parent parent = new Parent(1, "13513028117", "尼古拉斯", "12138", "afas/rgerg/143/");
         Post post = new Post(1, "我于杀戮中绽放，亦如黎明中的花朵", new Timestamp(System.currentTimeMillis()), 250, parent);
-        posts.add(post);
-        posts.add(post);
+
 
         Parent parentC = new Parent(1, "13513028117", "大不列颠", "12138", "afas/rgerg/143/");
         Parent parentR = new Parent(1, "13513028117", "美利坚", "12138", "afas/rgerg/143/");
@@ -54,6 +53,7 @@ public class CommunityFragment extends Fragment {
         comments.add(comment);
         comments.add(comment);
         comments.add(comment);
+        //img
         PostImg img1 = new PostImg();
         img1.setId(1);
         img1.setPath("");//图片URL
@@ -63,7 +63,13 @@ public class CommunityFragment extends Fragment {
         imgs.add(img1);
         imgs.add(img1);
         imgs.add(img1);
-        postAdapter = new PostAdapter(isPraise, posts, getActivity(), R.layout.community_item, comments, imgs);
+        post.setIsPraise(1);
+        post.setComments(comments);
+        post.setImgs(imgs);
+        posts.add(post);
+        posts.add(post);
+
+        postAdapter = new PostAdapter( posts, getActivity(), R.layout.community_item);
 
         listView.setAdapter(postAdapter);
 

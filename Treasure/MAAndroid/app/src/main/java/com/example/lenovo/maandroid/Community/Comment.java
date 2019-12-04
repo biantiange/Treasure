@@ -1,8 +1,9 @@
 package com.example.lenovo.maandroid.Community;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class Comment {
+public class Comment implements Serializable {
     private int id;
     private int postId;
     private Parent commentator; //评论人

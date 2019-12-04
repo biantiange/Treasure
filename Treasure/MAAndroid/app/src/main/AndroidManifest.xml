@@ -41,6 +41,8 @@
         <activity android:name=".Mine.Edit_m" />
         <activity android:name=".Mine.MyChild" />
         <activity android:name=".Mine.MyMessage" />
+        <activity android:name=".Login.RegisterActivity" />
+        <activity android:name=".Login.LoginActivity" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"

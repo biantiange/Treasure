@@ -68,7 +68,6 @@ public class RecordFragment extends Fragment {
      * 这里用虚拟数据实现，仅供参考
      */
     private void initData() {
-        // TODO Auto-generated method stub
         Dates item1 = new Dates();
         //  item1.setTitle("提交订单");
         item1.setTime("2017-03-14");

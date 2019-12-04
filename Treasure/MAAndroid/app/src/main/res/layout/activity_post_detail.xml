@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/community_detail_parent_header"
+                android:layout_width="50dp"
+                android:layout_height="50dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/community_detail_parent_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:gravity="left"
+                    android:padding="3dp"
+                    android:text="尼古拉斯"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/community_detail_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="24dp"
+                    android:padding="3dp"
+                    android:text="今天 19:12" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/community_detail_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="#宝贝今天太棒了，介绍给大家看#" />
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="3"
+                android:padding="20dp"
+                android:rowCount="2">
+
+                <ImageView
+                    android:id="@+id/im1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/jiankong0" />
+
+                <ImageView
+                    android:id="@+id/im2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/jiankong0" />
+
+                <ImageView
+                    android:id="@+id/im3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/jiankong0" />
+
+                <ImageView
+                    android:id="@+id/im4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/jiankong0" />
+
+                <ImageView
+                    android:id="@+id/im5"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/jiankong0" />
+
+                <ImageView
+                    android:id="@+id/im6"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/jiankong0" />
+            </GridLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="right"
+            android:orientation="horizontal"
+            android:padding="6dp">
+
+            <TextView
+                android:id="@+id/community_detail_praiseNum"
+                android:layout_width="50dp"
+                android:layout_height="30dp"
+                android:gravity="center"
+                android:text="2432" />
+
+            <ImageView
+                android:id="@+id/community_detail_praising"
+                android:layout_width="40dp"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:src="@drawable/dianzan" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="#b9b9b9" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:padding="3dp">
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ListView
+        android:divider="#F0FFFF"
+        android:dividerHeight="2dp"
+        android:id="@+id/comment_listView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10" />
+
+    <Button
+        android:id="@+id/community_commenting"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/shape"
+        android:layout_marginBottom="10dp"
+        android:hint="评论" />
+
+</LinearLayout>

@@ -1,27 +1,20 @@
-package com.example.lenovo.maandroid;
+package com.example.lenovo.maandroid.Mine;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.text.format.Time;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Timer;
+import com.example.lenovo.maandroid.R;
 
 public class MyChild extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        getSupportActionBar().hide();
         setContentView( R.layout.add_child );
         //获取数据库数据---评论数据init();
 

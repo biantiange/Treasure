@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.lenovo.maandroid.Mine.MineFragment;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         setContentView(R.layout.activity_main);
         initData();
         setListener();
@@ -182,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
     private void setFragment() {
         map.get(tabStrId[0]).setFragment(new ObserFragment());
         map.get(tabStrId[1]).setFragment(new RecordFragment());
-        map.get(tabStrId[2]).setFragment(new ObserFragment());
+        map.get(tabStrId[2]).setFragment(new CommunityFragment());
         map.get(tabStrId[3]).setFragment(new MineFragment());
     }
 

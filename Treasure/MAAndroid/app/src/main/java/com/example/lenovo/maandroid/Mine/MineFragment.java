@@ -1,6 +1,5 @@
-package com.example.lenovo.maandroid;
+package com.example.lenovo.maandroid.Mine;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.lenovo.maandroid.R;
 
 public class MineFragment extends Fragment {
     private ImageView user_img;

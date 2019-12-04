@@ -1,7 +1,6 @@
-package com.example.lenovo.maandroid;
+package com.example.lenovo.maandroid.Mine;
 
 import android.content.SharedPreferences;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -10,13 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.example.lenovo.maandroid.R;
 
 public class Edit_m extends AppCompatActivity {
     private ImageButton return1;//返回按钮
@@ -29,8 +24,7 @@ public class Edit_m extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        getSupportActionBar().hide();
-        setContentView( R.layout.edit_m);
+      setContentView( R.layout.edit_m);
 
         user_img=findViewById( R.id.edit_user_img);
         username=findViewById( R.id.edit_username);

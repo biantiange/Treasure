@@ -1,4 +1,4 @@
-package com.example.lenovo.maandroid;
+package com.example.lenovo.maandroid.Mine;
 
 public class Child {
     private String imgPath;

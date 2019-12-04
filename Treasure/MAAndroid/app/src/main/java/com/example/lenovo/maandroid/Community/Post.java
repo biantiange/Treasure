@@ -2,6 +2,7 @@ package com.example.lenovo.maandroid.Community;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Post implements Serializable {
     private int id;         //帖子ID
@@ -9,6 +10,9 @@ public class Post implements Serializable {
     private Timestamp time; //发布时间
     private int praiseCount;//点赞数
     private Parent parent;  //发帖人
+    private int isPraise = 0;       //点赞与否
+    private List<PostImg> imgs;     //Images
+    private List<Comment> comments; //3_Comments
 
     public Post() {
     }
@@ -59,6 +63,30 @@ public class Post implements Serializable {
 
     public void setParent(Parent parent) {
         this.parent = parent;
+    }
+
+    public int getIsPraise() {
+        return isPraise;
+    }
+
+    public void setIsPraise(int isPraise) {
+        this.isPraise = isPraise;
+    }
+
+    public List<PostImg> getImgs() {
+        return imgs;
+    }
+
+    public void setImgs(List<PostImg> imgs) {
+        this.imgs = imgs;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override

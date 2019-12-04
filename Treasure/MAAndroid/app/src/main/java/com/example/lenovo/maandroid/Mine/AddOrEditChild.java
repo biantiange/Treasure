@@ -1,18 +1,15 @@
-package com.example.lenovo.maandroid;
+package com.example.lenovo.maandroid.Mine;
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,22 +20,21 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.lenovo.maandroid.R;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.sql.Time;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-
-
-import javax.security.auth.callback.Callback;
 
 import okhttp3.Call;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class AddOrEditChild extends AppCompatActivity {
@@ -49,14 +45,16 @@ public class AddOrEditChild extends AppCompatActivity {
     private EditText child_years;//年a
     private EditText child_months;//月
     private EditText child_day;//日
+    private SharedPreferences sharedPreferences;
     private int po;
     private OkHttpClient okHttpClient;
     private Time time;
     private  SharedPreferences usermessage;
+    private String imgPath;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        getSupportActionBar().hide();
+
         setContentView( R.layout.addoreditchild);
         child_submit=findViewById( R.id.child_submit);
         child_img=findViewById( R.id.child_img);
@@ -137,7 +135,7 @@ public class AddOrEditChild extends AppCompatActivity {
                     if (years != null && mon != null && day != null && (childname.length() > 0 && childname.length() < 8)) {
                         Log.e( "position",po+"" );
                         if (ye && mo && da) {
-                            String s = years + "," + mon + "," + day;
+
 
 
                             if (po != -1) {
@@ -172,10 +170,18 @@ public class AddOrEditChild extends AppCompatActivity {
                                 Data.datasources.add(po,map);*/
                             } else {
                                 //数据库添加
+                                sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
+                                String phoneNumber = sharedPreferences.getString("phoneNumber","");
+                                   Log.e( "phone",phoneNumber);
+String id= String.valueOf( Integer.parseInt( phoneNumber )+1 );
                                 OkHttpClient okHttpClient = new OkHttpClient();
                                 /*id,parentId,birthday,imgPath,name*/
-                                FormBody body = new FormBody.Builder(  ).add( "","" ).add( "","" ).build();
-                                Request request = new Request.Builder().url("" ).post( body ).build();
+                                FormBody body = new FormBody.Builder(  ).add( "id",id).add( "parentId",phoneNumber )
+                                        .add( "birthday", String.valueOf( birth ) )
+                                        .add( "imgPath",imgPath)
+                                        .add( "name",childname)
+                                        .build();
+                                Request request = new Request.Builder().url("htttl://127.0.0.1:8080/mychild/AddChildServlet").post( body ).build();
                                 Call call = okHttpClient.newCall( request );
                                 call.enqueue( new okhttp3.Callback() {
                                     @Override
@@ -253,14 +259,14 @@ public class AddOrEditChild extends AppCompatActivity {
             Uri uri=data.getData();
             Cursor cursor=getContentResolver().query(uri,null,null,null,null);
             if(cursor.moveToFirst()){
-                String imgPath=cursor.getString(cursor.getColumnIndex("_data"));
+                imgPath=cursor.getString(cursor.getColumnIndex("_data"));
                 RequestOptions options=new RequestOptions().circleCrop();
                 Glide.with(this).load(imgPath).apply(options).into(child_img);
                 //上传头像到服务器端
-                           /* File file=new File(imgPath);
-                            RequestBody body=RequestBody.create(MediaType.parse("image/*"),file);
+                           File file=new File(imgPath);
+                            RequestBody body=RequestBody.create( MediaType.parse("image/*"),file);
                             Request request=new Request.Builder().url("upload").post(body).build();
-                            Call call=okHttpClient.newCall(request);
+                          /*  Call call=okHttpClient.newCall(request);
                             call.enqueue(new Callback() {
                                 @Override
                                 public void onFailure(Call call, IOException e) {

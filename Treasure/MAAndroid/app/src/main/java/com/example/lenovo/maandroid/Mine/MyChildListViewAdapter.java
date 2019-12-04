@@ -1,7 +1,6 @@
-package com.example.lenovo.maandroid;
+package com.example.lenovo.maandroid.Mine;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.lenovo.maandroid.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

@@ -6,7 +6,7 @@ public class Post {
 	private int id;
 	private String content;
 	private Timestamp time;
-	private int priaseCount;
+	private int praiseCount;
 	private int posterId;
 	
 	
@@ -28,11 +28,11 @@ public class Post {
 	public void setTime(Timestamp time) {
 		this.time = time;
 	}
-	public int getPriaseCount() {
-		return priaseCount;
+	public int getPraiseCount() {
+		return praiseCount;
 	}
-	public void setPriaseCount(int priaseCount) {
-		this.priaseCount = priaseCount;
+	public void setPraiseCount(int praiseCount) {
+		this.praiseCount = praiseCount;
 	}
 	public int getPosterId() {
 		return posterId;
@@ -42,7 +42,7 @@ public class Post {
 	}
 	@Override
 	public String toString() {
-		return "Post [id=" + id + ", content=" + content + ", time=" + time + ", priaseCount=" + priaseCount
+		return "Post [id=" + id + ", content=" + content + ", time=" + time + ", praiseCount=" + praiseCount
 				+ ", posterId=" + posterId + "]";
 	}
 

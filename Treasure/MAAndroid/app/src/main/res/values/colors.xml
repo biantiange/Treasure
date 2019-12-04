@@ -6,6 +6,6 @@
     <color name="touming">#00000000</color>
     <color name="white">#F0FFFF</color>
     <color name="dot_hong">#E73111</color>
-    <!--<color name="text_bottom_comment">#9B9B9B</color>-->
-    <!--<color name="line">#EED5D2</color>-->
+    <color name="text_bottom_comment">#9B9B9B</color>
+    <color name="line">#EED5D2</color>
 </resources>

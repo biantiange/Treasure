@@ -3,8 +3,6 @@ package Post.dao;
 import java.util.List;
 import java.util.Map;
 
-import com.sun.org.apache.bcel.internal.generic.Select;
-
 import entity.Post;
 import util.DBUtil;
 

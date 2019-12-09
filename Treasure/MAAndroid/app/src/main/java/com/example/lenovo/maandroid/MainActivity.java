@@ -99,6 +99,7 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("parent",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("phoneNumber","15231174460");
+
         editor.putInt("parentId",12);
         editor.commit();
         //---------虚假数据到此结束-------------

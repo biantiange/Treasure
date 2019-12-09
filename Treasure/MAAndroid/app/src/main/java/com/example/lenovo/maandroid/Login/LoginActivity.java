@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
                     userPhone = etUserPhone.getText().toString();
                     userPwd = etUserPwd.getText().toString();
                     Log.e("LoginActivity","手机号："+userPhone+"密码："+userPwd);
-                    MyOkHttp(Constant.BASE_IP+"user/findUser/"+userPhone);
+                    MyOkHttp(Constant.BASE_IP+"Java/LoginServlet/"+userPhone);
                     break;
                 case R.id.btn_regist:
                     //跳转到注册界面

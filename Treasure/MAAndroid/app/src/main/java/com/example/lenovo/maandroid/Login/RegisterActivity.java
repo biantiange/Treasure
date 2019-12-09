@@ -100,12 +100,12 @@ public class RegisterActivity extends AppCompatActivity {
                         Intent intent = getIntent();
                         //注册
                         if (intent.getIntExtra("flag",0) ==1){
-                            MyOkHttp(Constant.BASE_IP+"user/addUser/"+etPhone.getText().toString()+"-"+etPwd.getText().toString());
+                            MyOkHttp(Constant.BASE_IP+"Java/AddUserServlet/"+etPhone.getText().toString()+"-"+etPwd.getText().toString());
                             finish();
                         }
                         //忘记密码
                         else{
-                            MyOkHttp(Constant.BASE_IP+"user/forget/"+etPhone.getText().toString()+"-"+etPwd.getText().toString());
+                            MyOkHttp(Constant.BASE_IP+"Java/ForgetServlet/"+etPhone.getText().toString()+"-"+etPwd.getText().toString());
                             finish();
                         }
 

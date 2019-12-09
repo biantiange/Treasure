@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter;
@@ -27,11 +28,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.lenovo.maandroid.Login.Constant;
 import com.example.library.AutoFlowLayout;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -41,6 +45,7 @@ import java.util.zip.Inflater;
 import me.nereo.multi_image_selector.MultiImageSelectorActivity;
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -58,11 +63,19 @@ public class AddActivity extends AppCompatActivity {
     private ImageView addPicture;
     private GridView gridView;
     private  GrideAdapter grideAdapter;
+    private EditText etContent;
     private  List<String> list=new ArrayList<>();
+
+    private GrowthRecord growthRecord;
+    private Grimg grimg;
+    private ArrayList<String> mSelectPath;  //从相册选择的图片路径
+    private String tags;     //标签数组
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_record);
+        //初始化控件
+        initView();
 
         mFlowLayout =  findViewById(R.id.afl_cotent);
         for (int i = 0; i< 9; i ++ ){
@@ -74,7 +87,13 @@ public class AddActivity extends AppCompatActivity {
             tvAttrTag.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                        tvAttrTag.setTextColor(Color.parseColor("#d71345"));
+                        tvAttrTag.setBackgroundColor(Color.parseColor("#d71345"));
+                        if (tags.equals("")){
+                            tags = tags+tvAttrTag.getText().toString();
+                        }else{
+                            tags=tags+"-"+tvAttrTag.getText().toString();
+                        }
+                        Log.e("AddActivity成长记录的字符串",tags);
                 }
 
             });
@@ -86,13 +105,124 @@ public class AddActivity extends AppCompatActivity {
 
         okHttpClient=new OkHttpClient();
         addUpload=findViewById(R.id.add_upload);
+        //上传按钮
         addUpload.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //先上传到growthRecord表
+                initData();
+                Log.e("AddActivity",growthRecord.toString());
+                FormBody body = new FormBody.Builder()
+                        .add("parentId", growthRecord.getParentId() + "")
+                        .add("upTime", growthRecord.getUpTime())
+                        .add("content", growthRecord.getContent())
+                        /*.add("imgPath",grimg.getImgPath())*/
+                        //.add("tag",grimg.getTag())
+                        .build();
+                final Request request = new Request.Builder().url(Constant.BASE_IP + "AddGrowthRecordServlet").post(body).build();
+                Call call = okHttpClient.newCall(request);
+                call.enqueue(new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+                        e.printStackTrace();
+                    }
 
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+                        String str = response.body().string();
+                        Log.e("插入的成长记录的id值", str);
+                        if (str != null && !str.equals("")) {
+                            //返回的是插入的growthRecord的id值
+                            growthRecord.setId(Integer.parseInt(str));
+                            grimg.setGrowthRecordId(Integer.parseInt(str));
+                            //在根据这个growthRecordID插入grimg表
+                            addRecordImgPath();
+                        }
+                    }
+                });
             }
         });
     }
+    //初始化视图
+    public void initView(){
+        etContent = findViewById(R.id.et_content);
+        tags="";
+    }
+    //初始化数据
+    public void initData() {
+        growthRecord = new GrowthRecord();
+        grimg = new Grimg();
+        //获得控件值
+        String content = etContent.getText().toString();
+        //int parentId = getSharedPreferences("parent",MODE_PRIVATE).getInt("parentId",-1);
+        int parentId = 1;
+        //String tag = "";
+        //String imgPath = "";
+        //初始化GrowthRecord
+        growthRecord.setContent(content);
+        growthRecord.setParentId(parentId);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        growthRecord.setUpTime(simpleDateFormat.format(date));
+        //初始化Grimg
+        //grimg.setImgPath(imgPath);
+        grimg.setTag(tags);
+        grimg.setUpTime(simpleDateFormat.format(date));
+    }
+    public void addRecordImgPath() {
+        for (int i = 0; i < mSelectPath.size(); i++) {
+            Log.e("路径", mSelectPath.get(i).toString());
+            //上传至服务器
+            File file = new File(mSelectPath.get(i).toString());
+            //Log.e("图片名字",file.getName());
+            RequestBody body = RequestBody.create(MediaType.parse("image/*"), file);
+            Request request = new Request.Builder().url(Constant.BASE_IP + "UploadServlet").post(body).build();
+            Call call = okHttpClient.newCall(request);
+            call.enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    int id = Integer.parseInt(response.body().string());
+                    if (id != -1) { //说明插入图片成功，返回的是插入图片的id
+                        //根据图片id插入其他值
+                        addRecordImgOther(id);
+                    }
+                }
+            });
+        }
+    }
+
+    public void addRecordImgOther(int imgId){
+        //修改数据库
+        FormBody body = new FormBody.Builder()
+                .add("id",imgId+"")
+                .add("growthRecordId", grimg.getGrowthRecordId() + "")
+                .add("upTime", grimg.getUpTime())
+                .add("tag", grimg.getTag())
+                .build();
+        final Request request = new Request.Builder().url(Constant.BASE_IP + "GrimgServlet").post(body).build();
+        Call call = okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String str = response.body().string();
+                //Log.e("插入的成长图片的id值", str);
+                if (str.equals("OK")) {
+                    Toast.makeText(AddActivity.this,"上传成功",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.add_picture:
@@ -123,11 +253,9 @@ public class AddActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if(requestCode==2&&resultCode==RESULT_OK){
             if (data != null) {
-                ArrayList<String> mSelectPath = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                mSelectPath = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
                 grideAdapter=new GrideAdapter(this,mSelectPath,R.layout.list_gride);
                 gridView.setAdapter(grideAdapter);
-                for(int i=0;i<mSelectPath.size();i++){
-                    Log.e("路径",mSelectPath.get(i).toString());
                 }
             }
 //            Uri uri=data.getData();
@@ -138,7 +266,6 @@ public class AddActivity extends AppCompatActivity {
 //                grideAdapter=new GrideAdapter(this,list,R.layout.list_gride);
 //                gridView.setAdapter(grideAdapter);
 //            }
-        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 

@@ -36,6 +36,7 @@
         android:layout_height="0dp"
         android:layout_weight="8">
         <EditText
+            android:id="@+id/et_content"
             android:gravity="top"
             android:inputType="textMultiLine"
             android:minLines="3"

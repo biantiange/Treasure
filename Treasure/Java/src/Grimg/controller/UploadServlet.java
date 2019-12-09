@@ -1,4 +1,4 @@
-package GrowthRecord.controller;
+package Grimg.controller;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -11,20 +11,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import GrowthRecord.service.GrowthRecordService;
-import entity.GrowthRecord;
+import Grimg.service.GrimgService;
+
 
 /**
- * Servlet implementation class AddGrowthRecordServlet
+ * Servlet implementation class UploadServlet
  */
-@WebServlet("/AddGrowthRecordServlet")
-public class AddGrowthRecordServlet extends HttpServlet {
+@WebServlet("/UploadServlet")
+public class UploadServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddGrowthRecordServlet() {
+    public UploadServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,8 +33,6 @@ public class AddGrowthRecordServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		doPost(request, response);
 	}
 
@@ -42,30 +40,18 @@ public class AddGrowthRecordServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("AddGrowthRecordServlet");
-		String parentId = request.getParameter("parentId");
-		String upTime = request.getParameter("upTime");
-		String content = request.getParameter("content");
-		if(parentId!=null && upTime!=null){
-			GrowthRecord growthRecord = new GrowthRecord(upTime, Integer.parseInt(parentId), content);
-			int id = new GrowthRecordService().addGrowthRecord(growthRecord);  //返回的是id
-			if(id != 0){
-				System.out.println("插入成长记录成功");
-				response.getWriter().append(id+"");    //将id返回
-			}else{
-				System.out.println("插入成长记录失败");
-				response.getWriter().append("");
-			}
-		}
-		/*System.out.println("上传文件");
+		//上传到服务器
+		System.out.println("UploadServlet");
 		response.setCharacterEncoding("UTF-8");
 		InputStream is = request.getInputStream();
-		String path = request.getServletContext().getRealPath("/")+"grimg/";  //上传到grimg文件夹
-		File file = new File(path);
+		String path = request.getServletContext().getRealPath("/")+"grimg/";
+		
+		File file = new File(path);   //绝对路径
 		if(!file.exists()){
 			file.mkdirs();
 		}
-		String imgPath = path+System.currentTimeMillis()+".jpg";
+		String str = System.currentTimeMillis()+".jpg";
+		String imgPath = path+str;
 		System.out.println("要上传的文件路径"+imgPath);
 		File img = new File(imgPath);
 		FileOutputStream fos = new FileOutputStream(img);   
@@ -74,7 +60,16 @@ public class AddGrowthRecordServlet extends HttpServlet {
 		while((len = is.read(buffer))!=-1){
 			fos.write(buffer,0,len);
 		}   //写入成功
-		response.getWriter().append("上传成功");*/
+		//上传一个，插入一个grimg
+		//request.setAttribute("imgPath", "/grimg/"+str);
+		//先插入imgPath，让其返回id，然后根据id在插入其他值
+		int id = -1;
+		id=new GrimgService().addGrimgPath(str);
+		System.out.println("插入记录图片成功");
+		response.getWriter().append(id+"");
+		
 	}
+
+	
 
 }

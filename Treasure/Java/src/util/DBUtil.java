@@ -89,6 +89,61 @@ public class DBUtil {
 			close(rs, pstm, con);
 		}
 	}
+	
+	public static Object findById(Class cls, Object id) {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		try {
+			con = getCon();
+			pstm = con.prepareStatement("select * from " + cls.getSimpleName() + " where id=?");
+			pstm.setObject(1, id);
+			rs = pstm.executeQuery();
+			ResultSetMetaData metaData = rs.getMetaData();
+			Object obj = cls.newInstance();
+			if (rs.next()) {
+				for (int i = 0; i < metaData.getColumnCount(); i++) {
+					Field field = cls.getDeclaredField(metaData.getColumnLabel(i + 1));
+					field.setAccessible(true);
+					field.set(obj, rs.getObject(i + 1));
+				}
+			}
+			return obj;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			close(rs, pstm, con);
+		}
+	}
+	
+	public static Object findByIdForParent(Class cls, Object id) {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		try {
+			con = getCon();
+			pstm = con.prepareStatement("select * from " + "tbl_parent" + " where id=?");
+			pstm.setObject(1, id);
+			rs = pstm.executeQuery();
+			ResultSetMetaData metaData = rs.getMetaData();
+			Object obj = cls.newInstance();
+			if (rs.next()) {
+				for (int i = 0; i < metaData.getColumnCount(); i++) {
+					Field field = cls.getDeclaredField(metaData.getColumnLabel(i + 1));
+					field.setAccessible(true);
+					field.set(obj, rs.getObject(i + 1));
+				}
+			}
+			return obj;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			close(rs, pstm, con);
+		}
+	}
+	
 	/**
 	 * �ر����ݿ����ӵȶ���
 	 * 

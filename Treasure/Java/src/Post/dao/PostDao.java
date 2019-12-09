@@ -6,7 +6,7 @@ import java.util.Map;
 import entity.Post;
 import util.DBUtil;
 
-public class PostDaolmpl {
+public class PostDao {
 	public List<Map<String,Object>> findAll(){
 		return DBUtil.findAll("select * from tbl_post");
 	}

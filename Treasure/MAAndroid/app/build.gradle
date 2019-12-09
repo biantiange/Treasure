@@ -10,6 +10,8 @@ MobSDK {
 }
 android {
     compileSdkVersion 28
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
     defaultConfig {
         applicationId "com.example.lenovo.maandroid"
         minSdkVersion 15

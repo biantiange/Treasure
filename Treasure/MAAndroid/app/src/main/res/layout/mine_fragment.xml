@@ -25,7 +25,7 @@
             android:layout_height="70dp"
             android:layout_weight="4"
             android:scaleType="fitCenter"
-            android:src="@drawable/aaa"
+
 
             />
 
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="user_name"
+                android:text="请编辑你的个人信息"
                 android:textColor="#101010"
                 android:textSize="19dp"
 
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:text="乖号：15233319950"
+                android:text="乖号："
                 android:textColor="#101010"
                 android:textSize="16dp" />
 

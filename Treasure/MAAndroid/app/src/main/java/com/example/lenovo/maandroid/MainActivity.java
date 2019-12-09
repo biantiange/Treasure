@@ -1,5 +1,6 @@
 package com.example.lenovo.maandroid;
 
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -16,12 +17,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
+
+    //虚假数据SharedPreferences，合成的时候删除
+    private SharedPreferences sharedPreferences;
+
+
     private class MyTabSpec {
         private ImageView imageView = null;
         private TextView textView = null;
         private int normalImage;
         private int selectImage;
         private Fragment fragment = null;
+
 
 
         private void setSelect(boolean b) {
@@ -88,6 +95,14 @@ public class MainActivity extends AppCompatActivity {
         initData();
         setListener();
         changeTab(tabStrId[0]);
+        //虚假存入数据，合成时删除
+        sharedPreferences = getSharedPreferences("parent",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("phoneNumber","15231174460");
+        editor.putInt("parentId",12);
+        editor.commit();
+        //---------虚假数据到此结束-------------
+
     }
 
     private class MyListener implements View.OnClickListener{

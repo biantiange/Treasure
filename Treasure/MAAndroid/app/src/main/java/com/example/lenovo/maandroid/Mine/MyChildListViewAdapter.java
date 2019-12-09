@@ -1,6 +1,7 @@
 package com.example.lenovo.maandroid.Mine;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -25,7 +27,7 @@ public class MyChildListViewAdapter extends BaseAdapter{
     public static List<Map<String,Object>> dataSource=null;
     /* private List<cakes> dataSource;*/
     //上下文环境
-    private Context context=null;
+    private Context context;
     //item对应的布局文件
     private int item_layout_id;
 
@@ -45,14 +47,18 @@ public MyChildListViewAdapter(Context context, List<Map<String,Object>>dataSourc
 }
     @Override
     public int getCount() {
-        return dataSource.size();
+    if(dataSource==null)
+    {return 0;}else{
+        return dataSource.size();}
     }
 
     @Override
     public Object getItem(int position) {
-        return dataSource.get( position );
+        if (dataSource != null) {
+            return dataSource.get( position );
+        }
+        else return null;
     }
-
     @Override
     public long getItemId(int position) {
         return position;
@@ -63,52 +69,75 @@ public MyChildListViewAdapter(Context context, List<Map<String,Object>>dataSourc
 
 
         ViewHolder holder=null;
-      /*  if(null==convertView){*/
+       if(null==convertView){
             convertView= LayoutInflater.from(context).inflate( R.layout.mychild_item,null);
             //关联VIewHolder
             holder=new ViewHolder();
             holder.childImg=convertView.findViewById( R.id.child_img_a);
             holder.child_nicknam=convertView.findViewById( R.id.child_nickname );
             holder.child_years=convertView.findViewById( R.id.child_years);
-
             holder.xiugai=convertView.findViewById( R.id.child_xiugai);
+            holder.child_item_i=convertView.findViewById( R.id.child_item_i );
+            convertView.setTag( holder );
 
-     /*   }else{
+        }else{
             holder=(ViewHolder)convertView.getTag();
-        }*/
+        }
         //给缓存的holder绑定数据对象
 
         //从数据库中获取信息
-        Map<String,Object>map=dataSource.get( position);
-        int url= (int) map.get("child_img_a");
+        Map<String,Object> map=dataSource.get( position);
+        final Object ur=map.get( "imgPath" );
+        final String url= ur.toString();
+        final Object ow=map.get( "id" );
+        final String id=ow.toString();
+        final Object pid=map.get( "parentId" );
+        final String parentId=pid.toString();
         RequestOptions options=new RequestOptions().circleCrop();
         Glide.with(context)
-                .load(url)
+                .load(R.drawable.aaa)
                 .apply(options)
                 .into( holder.childImg );
-        holder.child_nicknam.setText(map.get("child_nickname").toString());
+        final String name=(String) map.get("nickName");
+        holder.child_nicknam.setText( name );
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");// HH:mm:ss
         Date date = new Date(System.currentTimeMillis());
 
-        Log.e("dangqiannian",simpleDateFormat.format(date));
-
         int t= Integer.parseInt( simpleDateFormat.format(date) );
-        String old=map.get("child_old").toString();
-        String[] olda =old.split( "," );
-        int j= t-(Integer.parseInt( olda[0] ));
+        final Object ol=map.get("birthday");
+        final String old= ol.toString();
+        final String olda =old.substring( 0,4 );
+        final String mon=old.substring( 4,6 );
+        final String day=old.substring( 6,8 );
+        Log.e("olda",olda);
+        int y=Integer.parseInt( olda );
+        int j= t-y;
         holder.child_years.setText(j+"岁");
+        if(holder.xiugai==null){
+            Log.e( "xiugai","kongzhi" );
 
-        /*holder.xiugai.setOnClickListener( new View.OnClickListener() {
+        }else{
+            Log.e( "xiugai",holder.xiugai.toString() );
+        }
+
+       holder.child_item_i.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //点击进入mychild详情可编辑页面，待写
-                Intent intent=new Intent(context,AddOrEditChild.class);
-                intent.putExtra( "childposition",position);//孩子的位置是哪个
-                startActivity(intent);
-
+                Log.e( "jinxingtiaozhuan","进行跳转" );
+                Intent intent=new Intent( context,AddOrEditChild.class );
+                intent.putExtra( "position",position);
+                intent.putExtra( "years",olda);
+                intent.putExtra( "mon",mon);
+                intent.putExtra( "day",day);
+                intent.putExtra( "nickname",name);
+                intent.putExtra( "id",id);
+                intent.putExtra( "imgPath",url );
+               // 需要设置为数据库的，需要更改
+                intent.putExtra( "url",R.drawable.aaa );
+                intent.putExtra( "parentId",parentId );
+                context.startActivity( intent );
             }
-        } );*/
-        notifyDataSetChanged();
+        } );
         return convertView;
     }
 
@@ -117,5 +146,6 @@ public MyChildListViewAdapter(Context context, List<Map<String,Object>>dataSourc
         TextView child_nicknam;
         TextView child_years;
        ImageButton xiugai;
+       LinearLayout child_item_i;
     }
 }

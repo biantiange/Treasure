@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -44,10 +43,10 @@ public class MineFragment extends Fragment {
     private Map<String, Object> map;
     private String url;
     private String name;
-    private Handler mHandler = new Handler();
     private OkHttpClient okHttpClient;
     private String phoneNumber;
     private RequestOptions options;
+    private int parentId;
 
     @Nullable
     @Override
@@ -62,6 +61,8 @@ public class MineFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated( savedInstanceState );
         options = new RequestOptions().circleCrop().placeholder( R.drawable.aaa ).error( R.drawable.aaa ).fallback( R.drawable.aaa );
+        sharedPreferences=getContext().getSharedPreferences( "parent",MODE_PRIVATE);
+        parentId=sharedPreferences.getInt( "parentId",0 );
         findView();
         init();
         initData();
@@ -85,11 +86,6 @@ public class MineFragment extends Fragment {
             }
         };
         broadcastManager.registerReceiver( mItemViewListClickReceiver, intentFilter );
-        //在主页的class中从数据库中获取并创建本地文件夹将信息存入其中
-        //在这里获取，头像，username，userimg等
-
-        //提交到数据库
-
 
     }
 
@@ -99,13 +95,11 @@ public class MineFragment extends Fragment {
         user_id.setText( "乖号：" + phoneNumber );
         username.setText( name );
         Log.e( "nickname", name );
-        Glide.with( this ).load( url ).apply( options ).into( user_img );
-
-
+        Glide.with( this ).load( Data.url+url ).apply( options ).into( user_img );
     }
 
     private void init() {
-        sharedPreferences = getContext().getSharedPreferences( "parent", MODE_PRIVATE );
+
         phoneNumber = sharedPreferences.getString( "phoneNumber", "" );
     }
 

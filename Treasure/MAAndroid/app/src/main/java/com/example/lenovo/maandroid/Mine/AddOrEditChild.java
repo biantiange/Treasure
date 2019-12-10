@@ -102,7 +102,7 @@ public class AddOrEditChild extends AppCompatActivity {
             String m = getIntent().getStringExtra( "mon" );
             String d = getIntent().getStringExtra( "day" );
             Glide.with( this )
-                    .load( imgPath )
+                    .load( Data.url+imgPath )
                     .apply( options )
                     .into( child_img );
             child_nickname.setText( name );
@@ -112,7 +112,7 @@ public class AddOrEditChild extends AppCompatActivity {
         } else {
             btn_delete.setVisibility( View.INVISIBLE);
             Glide.with( this )
-                    .load( imgPath )
+                    .load( Data.url+imgPath )
                     .apply( options )
                     .into( child_img );
         }
@@ -196,14 +196,14 @@ public class AddOrEditChild extends AppCompatActivity {
                                 if (po != -1) {
                                     FormBody body2 = new FormBody.Builder()
                                             .add( "id", id )
-                                            .add( "parentId", Data.parent )
+                                            .add( "parentId", parentId+"")
                                             .add( "birthday", oldage )
                                             .add( "imgPath", imgPath )
                                             .add( "name", child_name )
                                             .build();
                                     //数据库修改
                                     Log.e( "进入修改：", child_name );
-                                    Request request2 = new Request.Builder().url( Data.ip + "/mychild/EditChildServlet" ).post( body2 ).build();
+                                    Request request2 = new Request.Builder().url( Data.ip + "EditChildServlet" ).post( body2 ).build();
                                     Call call2 = okHttpClient.newCall( request2 );
                                     Log.e( "name", child_name + "2" );
                                     call2.enqueue( new okhttp3.Callback() {
@@ -224,15 +224,15 @@ public class AddOrEditChild extends AppCompatActivity {
                                     } );
                                 } else {
                                     if (imgPath == null) {
-                                        imgPath = "R.drawable.aaa";
+                                        imgPath = "aaa.jpj";
                                     }
                                     FormBody body3 = new FormBody.Builder()
-                                            .add( "parentId", Data.parent )
+                                            .add( "parentId", parentId+"" )
                                             .add( "birthday", oldage )
                                             .add( "imgPath", imgPath )
                                             .add( "name", child_name )
                                             .build();
-                                    Request request3 = new Request.Builder().url( Data.ip + "/mychild/AddChildServlet" ).post( body3 ).build();
+                                    Request request3 = new Request.Builder().url( Data.ip + "AddChildServlet" ).post( body3 ).build();
                                     Call call3 = okHttpClient.newCall( request3);
                                     call3.enqueue( new Callback() {
                                         @Override
@@ -301,7 +301,7 @@ public class AddOrEditChild extends AppCompatActivity {
                 } else {
                     sum = po;
                 }
-                String p = "/mychild/UploadServlet?" + "name=" + parentId + sum;
+                String p = "MineUpLoadServlet?" + "name=" + parentId + sum;
                 Request request = new Request.Builder().url( Data.ip + p ).post( body ).build();
                 Call call = okHttpClient.newCall( request );
                 call.enqueue( new Callback() {
@@ -344,7 +344,7 @@ public void onClick(DialogInterface arg0,int arg1)
             .add( "id", id )
             .build();
     //数据库修改
-    Request request = new Request.Builder().url( Data.ip + "/mychild/DeleteChildServlet" ).post( body ).build();
+    Request request = new Request.Builder().url( Data.ip + "DeleteChildServlet" ).post( body ).build();
     Call call = okHttpClient.newCall( request );
     call.enqueue( new okhttp3.Callback() {
         @Override

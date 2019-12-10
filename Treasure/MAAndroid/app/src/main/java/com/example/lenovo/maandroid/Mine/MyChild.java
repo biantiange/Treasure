@@ -45,14 +45,15 @@ public class MyChild extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private MyChildListViewAdapter myChildListViewAdapter;
     private LinearLayout add_child_a;
-
+    private  int parentId;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.add_child );
         EventBus.getDefault().register( this );
         okHttpClient = new OkHttpClient();
-
+        sharedPreferences=getSharedPreferences( "parent",MODE_PRIVATE);
+        parentId=sharedPreferences.getInt( "parentId",0 );
         findView();
         listViewAdpter();
         Log.e( "child", childs.size() + ".....1" );
@@ -133,8 +134,10 @@ public class MyChild extends AppCompatActivity {
 
     private void init() {
         Log.e( "方法：", "init" );
-        FormBody body = new FormBody.Builder().add( "parentId", Data.parent ).build();
-        Request request = new Request.Builder().url( Data.ip + "/mychild/ChildServlet" )
+
+
+        FormBody body = new FormBody.Builder().add( "parentId",parentId+"" ).build();
+        Request request = new Request.Builder().url( Data.ip + "ChildServlet" )
                 .post( body ).build();
         final Call call = okHttpClient.newCall( request );
         call.enqueue( new Callback() {

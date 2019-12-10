@@ -81,10 +81,10 @@ public class Edit extends AppCompatActivity {
 
     private void init() {
         //查看是否已经存入数据如果已有，则使用
-        imgPath = sharedPreferences.getString( "imgPath", "R.drawable.aaa" );
+        imgPath = sharedPreferences.getString( "imgPath", "aaa.jpg" );
         Log.e( "int.......imgPath", imgPath );
         puser_name = sharedPreferences.getString( "nickName", "" );
-        Glide.with( this ).load( imgPath ).apply( options ).into( user_img );
+        Glide.with( this ).load( Data.url+imgPath ).apply( options ).into( user_img );
         username.setText( puser_name );
         phoneNumber = sharedPreferences.getString( "phoneNumber", "" );
     }
@@ -121,7 +121,7 @@ public class Edit extends AppCompatActivity {
                         FormBody body = new FormBody.Builder().add( "phoneNumber", phoneNumber ).add( "imgPath", imgPath )
                                 .add( "nickname", username0 )
                                 .build();
-                        Request request = new Request.Builder().url( Data.ip + "/mychild/EditUserServlet" ).post( body ).build();
+                        Request request = new Request.Builder().url( Data.ip + "EditUserServlet" ).post( body ).build();
                         Call call = okHttpClient.newCall( request );
                         call.enqueue( new Callback() {
                             @Override
@@ -130,10 +130,7 @@ public class Edit extends AppCompatActivity {
                                 Toast.makeText( Edit.this, "网络连接失败。。。", Toast.LENGTH_SHORT ).show();
                                 finish();
                                 Looper.loop();
-
-
                             }
-
                             @Override
                             public void onResponse(Call call, Response response) throws IOException {
                                 String jsonStr = response.body().string();
@@ -186,7 +183,7 @@ public class Edit extends AppCompatActivity {
                 //上传头像到服务器端
                 File file = new File( imgPath );
                 RequestBody body = RequestBody.create( MediaType.parse( "image/*" ), file );
-                String p = "/mychild/UploadServlet?" + "name=" + phoneNumber;
+                String p = "MineUpLoadServlet?" + "name=" + phoneNumber;
                 Request request = new Request.Builder().url( Data.ip + p ).post( body ).build();
                 Call call = okHttpClient.newCall( request );
                 call.enqueue( new Callback() {
@@ -194,9 +191,7 @@ public class Edit extends AppCompatActivity {
                     public void onFailure(Call call, IOException e) {
                         Looper.prepare();
                         Toast.makeText( Edit.this, "网络连接失败。。。", Toast.LENGTH_SHORT ).show();
-
                         Looper.loop();
-
                     }
 
                     @Override

@@ -2,6 +2,8 @@ package com.example.lenovo.maandroid.Community;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +17,15 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.lenovo.maandroid.R;
 
+import org.json.JSONObject;
+
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
+
+import static android.content.Context.MODE_PRIVATE;
+
 
 public class PostAdapter extends BaseAdapter {
     private List<Post> posts;
@@ -23,6 +33,7 @@ public class PostAdapter extends BaseAdapter {
     private int item_id;
     private List<PostImg> imgs;
     private List<Comment> comments;
+
 
     public PostAdapter( List<Post> posts, Context context, int item_id) {
         this.posts = posts;
@@ -125,6 +136,7 @@ public class PostAdapter extends BaseAdapter {
                     public void onTextSend(String msg) {
                         //获得输入框中的文字（点击发送之后回调）
                         Log.e("comment",msg);
+
                     }
                 });
             }
@@ -150,11 +162,14 @@ public class PostAdapter extends BaseAdapter {
                     posts.get(position).setPraiseCount(posts.get(position).getPraiseCount()+1);
                     praising.setImageResource(R.drawable.dianzaned);
                     posts.get(position).setIsPraise(posts.get(position).getIsPraise()+1);
-                    //数据库
+                    //数据库(点赞)
+                    PraiseTask task = new PraiseTask(position);
+                    task.execute();
 
                 }
             }
         });
+
         LinearLayout detail = convertView.findViewById(R.id.community_2_detail);
         detail.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,13 +188,52 @@ public class PostAdapter extends BaseAdapter {
 
         //三条评论
         comments = posts.get(position).getComments();
-        TextView comment1 = convertView.findViewById(R.id.community_comment1);
-        comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
-        TextView comment2 = convertView.findViewById(R.id.community_comment2);
-        comment2.setText(comments.get(1).getCommentator().getNickName()+":"+comments.get(1).getContent());
-        TextView comment3 = convertView.findViewById(R.id.community_comment3);
-        comment3.setText(comments.get(2).getCommentator().getNickName()+":"+comments.get(2).getContent());
+        if (comments.size()==3){
+            TextView comment1 = convertView.findViewById(R.id.community_comment1);
+            comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
+            TextView comment2 = convertView.findViewById(R.id.community_comment2);
+            comment2.setText(comments.get(1).getCommentator().getNickName()+":"+comments.get(1).getContent());
+            TextView comment3 = convertView.findViewById(R.id.community_comment3);
+            comment3.setText(comments.get(2).getCommentator().getNickName()+":"+comments.get(2).getContent());
+        }else if(comments.size()==2){
+            TextView comment1 = convertView.findViewById(R.id.community_comment1);
+            comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
+            TextView comment2 = convertView.findViewById(R.id.community_comment2);
+            comment2.setText(comments.get(1).getCommentator().getNickName()+":"+comments.get(1).getContent());
+        }else if (comments.size()==1){
+            TextView comment1 = convertView.findViewById(R.id.community_comment1);
+            comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
+        }
+
 
         return convertView;
+    }
+
+    private class PraiseTask extends AsyncTask{
+        private int position;
+
+        public PraiseTask(int position) {
+            this.position = position;
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            try{
+                URL url = new URL("http://10.7.88.125:8080/Java/PraiseAddServlet");
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+                con.setRequestMethod("POST");
+                JSONObject User_id = new JSONObject();
+
+                User_id.put("praiserId",1);//发送登录者ID
+                User_id.put("postId",posts.get(position).getId());
+
+                OutputStream os = con.getOutputStream();
+                os.write(User_id.toString().getBytes());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }

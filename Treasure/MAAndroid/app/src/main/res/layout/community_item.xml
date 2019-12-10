@@ -134,7 +134,7 @@
         android:id="@+id/community_comment1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="卡到了福建奥垃圾袋放辣椒" />
+        />
 
     <TextView
         android:id="@+id/community_comment2"

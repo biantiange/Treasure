@@ -1,4 +1,4 @@
-package Post.controller;
+package Comment.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,22 +15,21 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
-
-import Post.service.PostServicelmpl;
-import entity.Post;
+import Comment.dao.CommentDao;
+import User.dao.UserDao;
+import entity.User;
 
 /**
- * Servlet implementation class PostListServlet
+ * Servlet implementation class CommentListServlet
  */
-@WebServlet("/PostListServlet")
-public class PostListServlet extends HttpServlet {
+@WebServlet("/CommentListServlet")
+public class CommentListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PostListServlet() {
+    public CommentListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -49,35 +48,33 @@ public class PostListServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
-		InputStream iStream = request.getInputStream();
-		iStream.close();
 		OutputStream out = response.getOutputStream();
+		//获得帖子Id
+		InputStream inputStream = request.getInputStream();
+		byte[] bs = new byte[255];
+		int len = inputStream.read(bs);
+		String param = new String(bs,0,len);
+		JSONObject object = new JSONObject(param);
+		int postId = object.getInt("postId");
+		
 		JSONArray jsonArray = new JSONArray();
-        List<Map<String, Object>> list = new PostServicelmpl().listPost();
-        for(Map<String,Object> map:list) {
-        	//post
-        	JSONObject jsonObject = new JSONObject();
-        	jsonObject.put("id", map.get("id"));
-        	jsonObject.put("content", map.get("content"));
-        	jsonObject.put("time", map.get("time"));
-        	jsonObject.put("praiseCount", map.get("praiseCount"));
-        	
-        	//Poster
-        	map.get("posterId");
-        	
-        	//img
-        	
-        	//3_comment
-        	
-        	//isPraise
-        	
-        	
-        	jsonArray.put(jsonObject);
-        	
-        }
-        out.write(jsonArray.toString().getBytes());
-        out.flush();
-        out.close();
+		List<Map<String,Object>> list = new CommentDao().findAll(postId);
+		for(Map<String, Object> map:list) {
+			//comment
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("id", map.get("id"));
+			jsonObject.put("time", map.get("time"));
+			jsonObject.put("content", map.get("content"));
+			//commentator
+			User commentator = new UserDao().findById((int)map.get("commentator"));
+			jsonObject.put("headerPath", commentator.getHeaderPath());
+			jsonObject.put("nickName", commentator.getNickName());
+			//responderId
+			User responderId = new UserDao().findById((int)map.get("responderId"));
+			jsonObject.put("headerPath", responderId.getHeaderPath());
+			jsonObject.put("nickName", responderId.getNickName());
+			//resComid
+		}
 	}
 
 }

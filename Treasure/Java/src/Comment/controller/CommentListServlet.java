@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import Comment.dao.CommentDao;
 import User.dao.UserDao;
+import entity.Comment;
 import entity.User;
 
 /**
@@ -74,7 +75,17 @@ public class CommentListServlet extends HttpServlet {
 			jsonObject.put("headerPath", responderId.getHeaderPath());
 			jsonObject.put("nickName", responderId.getNickName());
 			//resComid
+			Comment resComment = new CommentDao().findById((int)map.get("resComid"));
+			User resCommentator = new UserDao().findById(resComment.getCommentatorId());
+			jsonObject.put("resComment_content", resComment.getContent());
+			jsonObject.put("resCommentatorName", resCommentator.getNickName());
+			jsonArray.put(jsonObject);
+			
 		}
+		inputStream.close();
+		out.write(jsonArray.toString().getBytes());
+		out.flush();
+		out.close();
 	}
 
 }

@@ -29,6 +29,7 @@ public class MyChildListViewAdapter extends BaseAdapter {
     private Context context;
     //item对应的布局文件
     private int item_layout_id;
+    private RequestOptions options;
 
     /**
      * 构造器，完成初始化
@@ -96,9 +97,13 @@ public class MyChildListViewAdapter extends BaseAdapter {
         final String id = ow.toString();
         final Object pid = map.get( "parentId" );
         final String parentId = pid.toString();
-        RequestOptions options = new RequestOptions().circleCrop();
+        options = new RequestOptions()
+                .circleCrop()
+                .placeholder( R.drawable.ertong )
+                .error( R.drawable.ertong )
+                .fallback( R.drawable.ertong );
         Glide.with( context )
-                .load( R.drawable.aaa )
+                .load( Data.ip+"/mychild/childImg/"+url )
                 .apply( options )
                 .into( holder.childImg );
         final String name = (String) map.get( "nickName" );

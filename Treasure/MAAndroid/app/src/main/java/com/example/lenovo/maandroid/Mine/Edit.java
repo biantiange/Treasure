@@ -148,7 +148,7 @@ public class Edit extends AppCompatActivity {
                         } );
                     } else {
                         Toast.makeText( Edit.this, "昵称格式错误,不能为空且小于13个字", Toast.LENGTH_SHORT ).show();
-                        finish();
+
                     }
                     //广播刷新fragment
                     /*Intent intent = new Intent("android.intent.action.CART_BROADCAST");

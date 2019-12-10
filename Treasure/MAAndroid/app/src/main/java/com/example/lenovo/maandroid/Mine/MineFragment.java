@@ -109,10 +109,10 @@ public class MineFragment extends Fragment {
         message_t.setOnClickListener( myListener );
         edit.setOnClickListener( myListener );
         mychild.setOnClickListener( myListener );
+        my_tiezi.setOnClickListener( myListener );
 
     }
 
-    //点击事件
     private void findView() {
         user_img = getActivity().findViewById( R.id.user_img );
         username = getActivity().findViewById( R.id.username );
@@ -141,6 +141,11 @@ public class MineFragment extends Fragment {
                     Intent intent2 = new Intent( getActivity(), MyChild.class );
                     startActivity( intent2 );
                     break;
+                case R.id.my_tiezi:
+                    Intent intent3 = new Intent( getActivity(), MyTieZi.class );
+                    startActivity( intent3 );
+                    break;
+
 
 
             }

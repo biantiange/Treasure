@@ -71,6 +71,7 @@ public class PostListServlet extends HttpServlet {
         	//post
         	JSONObject jsonObject = new JSONObject();
         	jsonObject.put("id", map.get("id"));
+        	System.out.println(map.get("id")+"post");
         	jsonObject.put("content", map.get("content"));
         	jsonObject.put("time", map.get("time"));
         	jsonObject.put("praiseCount", map.get("praiseCount"));
@@ -89,7 +90,7 @@ public class PostListServlet extends HttpServlet {
         	JSONObject img = new JSONObject();
         	for(Map<String,Object> mimg:imgs) {
         		img.put("Pimg_id", mimg.get("id"));
-        		System.out.println(mimg.get("id"));
+        		System.out.println(mimg.get("id")+"img");
         		img.put("path", mimg.get("path"));
         		img.put("Pimg_time", mimg.get("time").toString());
         		
@@ -114,6 +115,8 @@ public class PostListServlet extends HttpServlet {
         	//isPraise
         	int isPraise = new PraiseDao().isPraise(praiserId, (int)map.get("id"));
         	jsonObject.put("isPraise",isPraise);
+        	System.out.println(praiserId+"id");
+        	System.out.println(isPraise);
         	
         	jsonArray.put(jsonObject);
         	

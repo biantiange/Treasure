@@ -42,7 +42,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp">
+        android:paddingLeft="40dp"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/comment_content"
@@ -50,6 +53,7 @@
             android:layout_height="match_parent"
             android:text="扣话费卡快递费和空间的划分看asdfasdf阿斯蒂芬人微服务微软给我如果无人过问如果认为如果无人过问人更让按个爱人给我如果看电脑卡  "
             android:textSize="12dp" />
+
     </LinearLayout>
 
 </LinearLayout>

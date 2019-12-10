@@ -1,6 +1,7 @@
 package com.example.lenovo.maandroid.Community;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,11 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.lenovo.maandroid.R;
 
+import org.json.JSONObject;
+
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +31,7 @@ public class PostDetailActivity extends AppCompatActivity {
     private CommentAdapter adapter;
     private List<Comment> comments = new ArrayList<>();
     private List<PostImg> imgs = new ArrayList<>();
+    private Post post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +39,7 @@ public class PostDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_detail);
         listView = findViewById(R.id.comment_listView);
         Intent intent = getIntent();
-        final Post post = (Post)intent.getSerializableExtra("post");
+        post = (Post)intent.getSerializableExtra("post");
         isPraise = intent.getIntExtra("isPraise",0);
         for (int i = 0;i<intent.getIntExtra("imgSize",0);i++){
             PostImg img = (PostImg) intent.getSerializableExtra("img"+i);
@@ -140,7 +147,8 @@ public class PostDetailActivity extends AppCompatActivity {
                     praising.setImageResource(R.drawable.dianzaned);
                     isPraise++;
                     //数据库
-
+                    PraiseTask task = new PraiseTask();
+                    task.execute();
                 }
             }
         });
@@ -179,5 +187,27 @@ public class PostDetailActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+    private class PraiseTask extends AsyncTask {
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            try{
+                URL url = new URL("http://10.7.88.125:8080/Java/PraiseAddServlet");
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+                con.setRequestMethod("POST");
+                JSONObject User_id = new JSONObject();
+
+                User_id.put("praiserId",1);//发送登录者ID
+                User_id.put("postId",post.getId());
+
+                OutputStream os = con.getOutputStream();
+                os.write(User_id.toString().getBytes());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
     }
 }

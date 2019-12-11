@@ -96,7 +96,7 @@ public class DBUtil {
 		ResultSet rs = null;
 		try {
 			con = getCon();
-			pstm = con.prepareStatement("select * from " + "tbl_"+cls.getSimpleName() + " where id=?");
+			pstm = con.prepareStatement("select * from " + cls.getSimpleName() + " where id=?");
 			pstm.setObject(1, id);
 			rs = pstm.executeQuery();
 			ResultSetMetaData metaData = rs.getMetaData();

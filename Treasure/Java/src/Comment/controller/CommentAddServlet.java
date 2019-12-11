@@ -75,5 +75,4 @@ public class CommentAddServlet extends HttpServlet {
 		out.close();
 		inputStream.close();
 	}
-
 }

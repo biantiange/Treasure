@@ -8,7 +8,7 @@ public class Comment {
 	private int commentatorId;
 	private int responderId;
 	private int resComId;
-	private Timestamp time;
+	private Timestamp timestamp;
 	private String content;
 	
 	public int getId() {
@@ -44,15 +44,19 @@ public class Comment {
 	public String getContent() {
 		return content;
 	}
-	public Timestamp getTime() {
-		return time;
+	public Timestamp getTimestamp() {
+		return timestamp;
 	}
-	public void setTime(Timestamp timestamp) {
-		this.time = timestamp;
+	public void setTimestamp(Timestamp timestamp) {
+		this.timestamp = timestamp;
 	}
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+	@Override
+	public String toString() {
+		return "Comment [id=" + id + ", postId=" + postId + ", commentatorId=" + commentatorId + ", responderId="
+				+ responderId + ", resComId=" + resComId + ", timestamp=" + timestamp + ", content=" + content + "]";
+	}
 	
 }

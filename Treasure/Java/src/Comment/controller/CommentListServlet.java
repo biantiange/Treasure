@@ -67,10 +67,9 @@ public class CommentListServlet extends HttpServlet {
 			jsonObject.put("time", map.get("time"));
 			jsonObject.put("content", map.get("content"));
 			//commentator
-			User commentator = new UserDao().findById((int)map.get("commentatorId"));
-			jsonObject.put("commentatorId", map.get("commentatorId"));
-			jsonObject.put("headerPath_c", commentator.getHeaderPath());
-			jsonObject.put("nickName_c", commentator.getNickName());
+			User commentator = new UserDao().findById((int)map.get("commentator"));
+			jsonObject.put("headerPath", commentator.getHeaderPath());
+			jsonObject.put("nickName", commentator.getNickName());
 			//responderId
 			if ((int)map.get("responderId")!=0) {
 				User responderId = new UserDao().findById((int)map.get("responderId"));
@@ -89,10 +88,6 @@ public class CommentListServlet extends HttpServlet {
 			jsonArray.put(jsonObject);
 			
 		}
-		inputStream.close();
-		out.write(jsonArray.toString().getBytes());
-		out.flush();
-		out.close();
 	}
 
 }

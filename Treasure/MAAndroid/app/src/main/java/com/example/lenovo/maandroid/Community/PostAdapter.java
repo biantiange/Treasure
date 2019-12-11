@@ -13,18 +13,20 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.lenovo.maandroid.R;
 
 import org.json.JSONObject;
 
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.List;
 
-import static android.content.Context.MODE_PRIVATE;
 
 
 public class PostAdapter extends BaseAdapter {
@@ -136,7 +138,8 @@ public class PostAdapter extends BaseAdapter {
                     public void onTextSend(String msg) {
                         //获得输入框中的文字（点击发送之后回调）
                         Log.e("comment",msg);
-
+                        AddCommentTask task = new AddCommentTask(position,msg);
+                        task.execute();
                     }
                 });
             }
@@ -221,7 +224,7 @@ public class PostAdapter extends BaseAdapter {
             try{
                 URL url = new URL("http://10.7.88.125:8080/Java/PraiseAddServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
-
+                InputStream is = con.getInputStream();
                 con.setRequestMethod("POST");
                 JSONObject User_id = new JSONObject();
 
@@ -230,6 +233,52 @@ public class PostAdapter extends BaseAdapter {
 
                 OutputStream os = con.getOutputStream();
                 os.write(User_id.toString().getBytes());
+
+                is.close();
+                os.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    private class AddCommentTask extends AsyncTask {
+        private String content;
+        private int position;
+
+        public AddCommentTask( int position, String content) {
+            this.position = position;
+            this.content = content;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            Toast.makeText(context,"评论成功！",Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected Object doInBackground(Object[] objects) {
+            try{
+                URL url = new URL("http://10.7.88.125:8080/Java/CommentAddServlet");
+                HttpURLConnection con = (HttpURLConnection) url.openConnection();
+
+                con.setRequestMethod("POST");
+                JSONObject jsonObject = new JSONObject();
+                jsonObject.put("postId",posts.get(position).getId());
+                jsonObject.put("commentatorId",1);//登录者ID
+
+                jsonObject.put("content",content);
+                jsonObject.put("time",new Timestamp(System.currentTimeMillis()));
+
+                OutputStream os = con.getOutputStream();
+                os.write(jsonObject.toString().getBytes());
+
+                InputStream is = con.getInputStream();
+
+                is.close();
+                os.close();
             }catch (Exception e){
                 e.printStackTrace();
             }

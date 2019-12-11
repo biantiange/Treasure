@@ -255,7 +255,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     //resCom
                     Comment resCom = new Comment();
                     resCom.setContent(object.optString("resComment_content"));
-                    comment.setResComId(resCom.getId());
+                    comment.setResCom(resCom);
                     comments.add(comment);
 
                 }
@@ -281,7 +281,7 @@ public class PostDetailActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            Toast.makeText(PostDetailActivity.this,"评论成功！",Toast.LENGTH_SHORT).show();
+            Toast.makeText(PostDetailActivity.this,"回复成功！",Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -319,7 +319,6 @@ public class PostDetailActivity extends AppCompatActivity {
         private String content;
 
         public AddCommentTask( String content) {
-
             this.content = content;
         }
 
@@ -332,7 +331,7 @@ public class PostDetailActivity extends AppCompatActivity {
         @Override
         protected Object doInBackground(Object[] objects) {
             try{
-                URL url = new URL("http://10.7.88.125:8080/Java/CommentResServlet");
+                URL url = new URL("http://10.7.88.125:8080/Java/CommentAddServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                 con.setRequestMethod("POST");
@@ -353,7 +352,7 @@ public class PostDetailActivity extends AppCompatActivity {
             }catch (Exception e){
                 e.printStackTrace();
             }
-            return comments;
+            return null;
         }
     }
 }

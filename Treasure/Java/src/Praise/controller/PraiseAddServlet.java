@@ -2,6 +2,7 @@ package Praise.controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -43,6 +44,11 @@ public class PraiseAddServlet extends HttpServlet {
 		response.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		InputStream inputStream = request.getInputStream();
+		OutputStream out = response.getOutputStream();
+		
+		
+		System.out.println("fuck");
+		
 		byte[] bs = new byte[255];
 		int len = inputStream.read(bs);
 		String param = new String(bs,0,len);
@@ -53,6 +59,9 @@ public class PraiseAddServlet extends HttpServlet {
 		if (add>0) {
 			System.out.println("succeed");
 		}
+		
+		inputStream.close();
+		out.close();
 	}
 
 }

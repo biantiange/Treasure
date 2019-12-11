@@ -80,6 +80,7 @@ public class MineFragment extends Fragment {
             }
 
             private void refresh() {
+                Log.e("方法：","refresh");
                 findView();
                 init();
                 initData();

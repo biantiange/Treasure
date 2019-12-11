@@ -55,7 +55,15 @@ public class MineUpLoadServlet extends HttpServlet {
 		    String path=phone+".jpg";
 		    String ipath=imgPath+"/"+path;
 		    File img=new File(ipath);
-		    FileOutputStream fos = new FileOutputStream(img);
+		    if(img.exists()){
+		    	boolean flag=false;
+		    	flag=img.delete();
+		    	if(flag){
+		    		System.out.println("删除无效文件");
+		    	}
+		    }
+		    File img1=new File(ipath);
+		    FileOutputStream fos = new FileOutputStream(img1);
 		    byte[] buffer = new byte[1024];
 		    int len = 0;
 		    while((len = is.read(buffer)) != -1) {

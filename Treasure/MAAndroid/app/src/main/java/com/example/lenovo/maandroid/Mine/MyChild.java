@@ -62,7 +62,6 @@ public class MyChild extends AppCompatActivity {
         setAdapter();
 
     }
-
     private void listViewAdpter() {
         Log.e( "child", childs.size() + ".....2" );
         Log.e( "方法：", "listViewAdapter" );
@@ -134,8 +133,6 @@ public class MyChild extends AppCompatActivity {
 
     private void init() {
         Log.e( "方法：", "init" );
-
-
         FormBody body = new FormBody.Builder().add( "parentId",parentId+"" ).build();
         Request request = new Request.Builder().url( Data.ip + "ChildServlet" )
                 .post( body ).build();
@@ -179,9 +176,6 @@ public class MyChild extends AppCompatActivity {
             Log.e( "childs", childs.toString() );
             listViewAdpter();
         }
-
-
-
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

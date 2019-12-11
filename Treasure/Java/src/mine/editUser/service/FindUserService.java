@@ -16,4 +16,7 @@ public class FindUserService {
 	public List<Map<String,Object>> listUser(String pi) {
 		return new FindUserDao().findAll(pi);
 	}
+	public List<Map<String,Object>> User(String pi) {
+		return new FindUserDao().User(pi);
+	}
 }

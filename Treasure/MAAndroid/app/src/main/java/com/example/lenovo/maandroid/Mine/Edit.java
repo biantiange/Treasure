@@ -198,6 +198,7 @@ public class Edit extends AppCompatActivity {
                     public void onResponse(Call call, Response response) throws IOException {
                         imgPath = response.body().string();
                         Log.e( "上传头像", imgPath );
+                        sharedPreferences.edit().putString( "imgPath",imgPath).apply();
                     }
                 } );
             }

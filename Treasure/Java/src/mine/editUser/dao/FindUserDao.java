@@ -17,6 +17,14 @@ public class FindUserDao {
 			return null;
 		}
 	}
+	public List<Map<String,Object>> User(String pi) {
+		if(pi!=null){
+		return MineDBUtil.findAll("select * from tbl_parent where id=?",new Object[]{pi});
+		}
+		else {
+			return null;
+		}
+	}
 	public List<User> findAllChilds(String pi){
 		if(pi!=null){
 			int p=Integer.parseInt(pi);

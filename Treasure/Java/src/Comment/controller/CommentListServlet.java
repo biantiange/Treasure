@@ -67,18 +67,25 @@ public class CommentListServlet extends HttpServlet {
 			jsonObject.put("time", map.get("time"));
 			jsonObject.put("content", map.get("content"));
 			//commentator
-			User commentator = new UserDao().findById((int)map.get("commentator"));
-			jsonObject.put("headerPath", commentator.getHeaderPath());
-			jsonObject.put("nickName", commentator.getNickName());
+			User commentator = new UserDao().findById((int)map.get("commentatorId"));
+			jsonObject.put("commentatorId", map.get("commentatorId"));
+			jsonObject.put("headerPath_c", commentator.getHeaderPath());
+			jsonObject.put("nickName_c", commentator.getNickName());
 			//responderId
-			User responderId = new UserDao().findById((int)map.get("responderId"));
-			jsonObject.put("headerPath", responderId.getHeaderPath());
-			jsonObject.put("nickName", responderId.getNickName());
-			//resComid
-			Comment resComment = new CommentDao().findById((int)map.get("resComid"));
-			User resCommentator = new UserDao().findById(resComment.getCommentatorId());
-			jsonObject.put("resComment_content", resComment.getContent());
-			jsonObject.put("resCommentatorName", resCommentator.getNickName());
+			if ((int)map.get("responderId")!=0) {
+				User responderId = new UserDao().findById((int)map.get("responderId"));
+				
+	//			jsonObject.put("headerPath_r", responderId.getHeaderPath());
+				jsonObject.put("nickName_r", responderId.getNickName());
+				//resComid
+				Comment resComment = new CommentDao().findById((int)map.get("resComId"));
+	//			User resCommentator = new UserDao().findById(resComment.getCommentatorId());
+				jsonObject.put("resComment_content", resComment.getContent());
+	//			jsonObject.put("resCommentatorName", resCommentator.getNickName());
+			}else {
+				jsonObject.put("nickName_r", "null");
+				jsonObject.put("resComment_content", "null");
+			}
 			jsonArray.put(jsonObject);
 			
 		}

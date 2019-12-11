@@ -17,4 +17,9 @@ public class CommentDao {
 	public Comment findById(int commentId) {
 		return (Comment) DBUtil.findById(Comment.class, commentId);
 	}
+	public int AddComment(Comment comment) {
+		return DBUtil.executeUpdate("insert into tbl_comment(postId,commentatorId,resComId,responderId,content,time) "
+				+ "values(?,?,?,?,?,?)"
+				, new Object[] {comment.getPostId(),comment.getCommentatorId(),comment.getResComId(),comment.getResponderId(),comment.getContent(),comment.getTime()});
+	}
 }

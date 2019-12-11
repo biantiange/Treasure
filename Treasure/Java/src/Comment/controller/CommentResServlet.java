@@ -19,14 +19,14 @@ import entity.Comment;
 /**
  * Servlet implementation class CommentAddServlet
  */
-@WebServlet("/CommentAddServlet")
-public class CommentAddServlet extends HttpServlet {
+@WebServlet("/CommentResServlet")
+public class CommentResServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CommentAddServlet() {
+    public CommentResServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -54,15 +54,17 @@ public class CommentAddServlet extends HttpServlet {
 		JSONObject object = new JSONObject(param);
 		int postId = object.getInt("postId");
 		int commentatorId = object.getInt("commentatorId");
+		int resComId = object.getInt("resComId");
+		int responderId = object.getInt("responderId");
 		String content = object.getString("content");
 		String time = object.getString("time");
 		
 		Comment comment = new Comment();
-		comment.setResComId(0);
+		comment.setResComId(resComId);
 		comment.setCommentatorId(commentatorId);
 		comment.setContent(content);
 		comment.setPostId(postId);
-		comment.setResponderId(0);
+		comment.setResponderId(responderId);
 		comment.setTime(Timestamp.valueOf(time));
 		
 		System.out.println(Timestamp.valueOf(time));//打印传过来的时间

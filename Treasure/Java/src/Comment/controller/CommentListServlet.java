@@ -86,7 +86,6 @@ public class CommentListServlet extends HttpServlet {
 				jsonObject.put("nickName_r", "null");
 				jsonObject.put("resComment_content", "null");
 			}
-			
 			jsonArray.put(jsonObject);
 			
 		}

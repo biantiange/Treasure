@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.lenovo.maandroid.R;
@@ -50,6 +51,16 @@ public class CommentAdapter extends BaseAdapter {
         TextView content = convertView.findViewById(R.id.comment_content);
         content.setText(comments.get(position).getContent());
 
+        //回复
+        if (comments.get(position).getResponder().getNickName().equals("null")){
+            LinearLayout L = convertView.findViewById(R.id.comment_response_L);
+            L.setVisibility(View.GONE);
+        }else{
+            TextView responderName = convertView.findViewById(R.id.responder_name);
+            responderName.setText("回复 @"+comments.get(position).getResponder().getNickName()+"");
+            TextView resContent = convertView.findViewById(R.id.responder_content);
+            resContent.setText(comments.get(position).getResCom().getContent()+"");
+        }
         return convertView;
     }
 }

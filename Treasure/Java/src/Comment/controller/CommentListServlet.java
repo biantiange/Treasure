@@ -70,7 +70,6 @@ public class CommentListServlet extends HttpServlet {
 			jsonObject.put("headerPath", commentator.getHeaderPath());
 			jsonObject.put("nickName", commentator.getNickName());
 			//responderId
-
 			if ((int)map.get("responderId")!=0) {
 				User responderId = new UserDao().findById((int)map.get("responderId"));
 				
@@ -88,7 +87,6 @@ public class CommentListServlet extends HttpServlet {
 			
 			jsonArray.put(jsonObject);
 			
-
 		}
 	}
 

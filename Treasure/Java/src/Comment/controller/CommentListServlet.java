@@ -17,7 +17,6 @@ import org.json.JSONObject;
 
 import Comment.dao.CommentDao;
 import User.dao.UserDao;
-import entity.Comment;
 import entity.User;
 
 /**

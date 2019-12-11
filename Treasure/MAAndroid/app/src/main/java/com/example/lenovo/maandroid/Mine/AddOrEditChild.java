@@ -1,14 +1,11 @@
 package com.example.lenovo.maandroid.Mine;
 
 import android.Manifest;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -48,82 +45,81 @@ public class AddOrEditChild extends AppCompatActivity {
     private EditText child_years;//年a
     private EditText child_months;//月
     private EditText child_day;//日
-    private ImageView btn_delete;
     private SharedPreferences sharedPreferences;
     private int po;//判断是增加还是更改数据
     private OkHttpClient okHttpClient;
     private Time time;
+    private  SharedPreferences usermessage;
     private String imgPath;
-    private String id;
-    private int parentId;
+    private  String id;
+    private String parentId;
     private boolean ye;//年正确否
-    private boolean mo;//月正确否
-    private boolean da;//日正确否
+    private   boolean mo;//月正确否
+    private   boolean da;//日正确否
     private RequestOptions options;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
-        setContentView( R.layout.addoreditchild );
-        po = getIntent().getIntExtra( "position", -1 );//设置默认值-1；如果不是-1；则说明接受到数据
+        setContentView( R.layout.addoreditchild);
         findView();
         //关联设备：
-        initData();
         setAdapter();
+        initData();
+        po=getIntent().getIntExtra("position",-1);//设置默认值-1；如果不是-1；则说明接受到数据
+
+
     }
 
     private void findView() {
-        btn_delete=findViewById( R.id.btn_delete );
-        child_submit = findViewById( R.id.child_submit );
-        child_img = findViewById( R.id.child_img );
-        child_nickname = findViewById( R.id.child_nickname );
-        child_years = findViewById( R.id.child_years );
-        child_back = findViewById( R.id.child_fanhui );
-        child_months = findViewById( R.id.child_month );
-        child_day = findViewById( R.id.child_day );
+        child_submit=findViewById( R.id.child_submit);
+        child_img=findViewById( R.id.child_img);
+        child_nickname=findViewById( R.id.child_nickname);
+        child_years=findViewById( R.id.child_years);
+        child_back=findViewById( R.id.child_fanhui);
+        child_months=findViewById( R.id.child_month);
+        child_day=findViewById( R.id.child_day);
     }
-
     private void initData() {
-        sharedPreferences = getSharedPreferences( "parent", MODE_PRIVATE );
-        parentId = sharedPreferences.getInt( "parentId", 0 );
-        okHttpClient = new OkHttpClient();
-        options = new RequestOptions()
+        sharedPreferences=getSharedPreferences( "parent",MODE_PRIVATE );
+        okHttpClient=new OkHttpClient();
+        options=new RequestOptions()
                 .circleCrop()
                 .placeholder( R.drawable.ertong )
                 .error( R.drawable.ertong )
                 .fallback( R.drawable.ertong );
-        if (po != -1) {
-            btn_delete.setVisibility( View.VISIBLE);
-            imgPath = getIntent().getStringExtra( "imgPath" );
-            String name = getIntent().getStringExtra( "nickname" );
-            id = getIntent().getStringExtra( "id" );
-            Log.e( "id",id);
-            String y = getIntent().getStringExtra( "years" );
-            String m = getIntent().getStringExtra( "mon" );
-            String d = getIntent().getStringExtra( "day" );
-            Glide.with( this )
-                    .load( Data.url+imgPath )
-                    .apply( options )
-                    .into( child_img );
-            child_nickname.setText( name );
+        if(po!=-1){
+            int url=getIntent().getIntExtra("url",0);
+            imgPath=getIntent().getStringExtra( "imgPath" );
+            String name=getIntent().getStringExtra( "nickname" );
+            id=getIntent().getStringExtra( "id" );
+            String y=getIntent().getStringExtra( "years" );
+            String m=getIntent().getStringExtra( "mon" );
+            String d=getIntent().getStringExtra( "day" );
+            parentId=getIntent().getStringExtra( "parentId" );
+
+            RequestOptions options=new RequestOptions().circleCrop();
+            Glide.with(this)
+                    .load(imgPath)
+                    .apply(options)
+                    .into(child_img);
+            child_nickname.setText(name);
             child_years.setText( y );
             child_months.setText( m );
             child_day.setText( d );
-        } else {
-            btn_delete.setVisibility( View.INVISIBLE);
-            Glide.with( this )
-                    .load( Data.url+imgPath )
-                    .apply( options )
-                    .into( child_img );
+        }else {
+            Glide.with(this)
+                    .load(imgPath)
+                    .apply(options)
+                    .into(child_img);
         }
 
     }
 
     private void setAdapter() {
-        MyListener myListener = new MyListener();
-        child_back.setOnClickListener( myListener );
+        MyListener myListener=new MyListener();
+        child_back.setOnClickListener( myListener);
         child_submit.setOnClickListener( myListener );
-        btn_delete.setOnClickListener( myListener );
         child_img.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -132,250 +128,170 @@ public class AddOrEditChild extends AppCompatActivity {
         } );
     }
 
-    private class MyListener implements View.OnClickListener {
+    private class MyListener implements View.OnClickListener{
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.child_fanhui:
                     finish();
                     break;
-
-                case R.id.btn_delete:
-                         showdialog();
-                        break;
-
-
                 case R.id.child_submit:
                     //获取信息,提交到数据库
                     String child_name = child_nickname.getText().toString();
                     String years = child_years.getText().toString();
                     String mon = child_months.getText().toString();
                     String day = child_day.getText().toString();
+                    Log.e("childname",child_name);
+                    Log.e( "year",years );
+                    Log.e( "mon",mon );
+                    Log.e( "day",day );
                     //获取当前时间，判断输入的时间是否正确，
-                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyyMMdd" );// HH:mm:ss
-                    Date date = new Date( System.currentTimeMillis() );
-                    String data0 = simpleDateFormat.format( date );
-                    String t = data0.substring( 0, 4 );
-                    String t2 = data0.substring( 4, 6 );
-                    String t3 = data0.substring( 6, 8 );
-                    if (child_name.length() > 0 && child_name.length() < 13) {
-                        if (years != null && (years.length() == 4) && mon != null && day != null) {
-                            int t1 = Integer.parseInt( t );
-                            int t7 = Integer.parseInt( t2 );
-                            int t8 = Integer.parseInt( t3 );
-                            int yea = Integer.parseInt( years );//2001
-                            int months = Integer.parseInt( mon );
-                            int days0 = Integer.parseInt( day );
-                            if (yea == t1) {//判断是否超过当前日期
-                                if (months <= t7 && days0 <= t8) {
-                                    ye = true;
-                                    mo = true;
-                                    da = true;
-                                }
-                            } else {
-                                ye = (yea < t1);
-                                mo = (months <= 12 && months > 0);
-                                da = (days0 > 0 && days0 <= 31);
-                            }
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");// HH:mm:ss
+                    Date date = new Date(System.currentTimeMillis());
+                    String data0=simpleDateFormat.format( date );
+                    String t=data0.substring( 0,4 );
+                    String t2=data0.substring( 4,6 );
+                    String t3=data0.substring( 6,8 );
+                    int t1= Integer.parseInt( t );
+                    int t7=Integer.parseInt( t2 );
+                    int t8=Integer.parseInt( t3 );
+                    final int yea=Integer.parseInt( years );//2001
+                    int months=Integer.parseInt( mon );
+                    int days0=Integer.parseInt( day );
 
-                            if (mon.length() != 2) {
-                                mon = "0" + mon;
-                            }
-                            if (day.length() != 2) {
-                                day = "0" + day;
-                            }
-                            String oldage = years + mon + day;
-                            //判断输入的日期是否正确
-                            if (ye && mo && da) {
-                                //数据库添加或者更改
-                                //sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
-                                //String phoneNumber = sharedPreferences.getString("phoneNumber","");
-                                OkHttpClient okHttpClient = new OkHttpClient();
-                                /*id,parentId,birthday,imgPath,name*/
-                                Log.e( "position", po + "" );
-                                if (po != -1) {
-                                    FormBody body2 = new FormBody.Builder()
-                                            .add( "id", id )
-                                            .add( "parentId", parentId+"")
-                                            .add( "birthday", oldage )
-                                            .add( "imgPath", imgPath )
-                                            .add( "name", child_name )
-                                            .build();
-                                    //数据库修改
-                                    Log.e( "进入修改：", child_name );
-                                    Request request2 = new Request.Builder().url( Data.ip + "EditChildServlet" ).post( body2 ).build();
-                                    Call call2 = okHttpClient.newCall( request2 );
-                                    Log.e( "name", child_name + "2" );
-                                    call2.enqueue( new okhttp3.Callback() {
-                                        @Override
-                                        public void onFailure(Call call, IOException e) {
-                                            Looper.prepare();
-                                            Toast.makeText( AddOrEditChild.this, "网络连接失败。。。", Toast.LENGTH_SHORT ).show();
-                                            Looper.loop();
-                                        }
-
-                                        @Override
-                                        public void onResponse(Call call, Response response) throws IOException {
-                                            String str = response.body().string();
-                                            Log.e( "s", str );
-                                            setResult( 3 );
-                                            finish();
-                                        }
-                                    } );
-                                } else {
-                                    if (imgPath == null) {
-                                        imgPath = "aaa.jpj";
+                    if(yea==t1){
+                        if(months<=t7&&days0<=t8){
+                            ye=true;
+                            mo=true;
+                            da=true;
+                        }
+                    }else {
+                        ye = (yea < t1);
+                        mo = (months<= 12 && months > 0);
+                        da = (days0> 0 && days0 <= 31);
+                    }
+                    //------------------------------------------------------判断时间格式结束
+                    if (years != null &&(years.length()==4) &&mon != null && day != null && (child_name.length() > 0 && child_name.length() < 13)) {
+                        if(mon.length()!=2){
+                            mon="0"+mon;
+                        }
+                        if(day.length()!=2){
+                            day="0"+day;
+                        }
+                        Log.e( "id","1" );
+                        String oldage=years+mon+day;
+                        //判断输入的日期是否正确
+                        Log.e( "ye","1"+ye );
+                        Log.e( "mo","1"+mo );
+                        Log.e( "da","1"+da );
+                        if (ye && mo && da) {
+                            //数据库添加或者更改
+                            //sharedPreferences = getSharedPreferences("login",MODE_PRIVATE);
+                            //String phoneNumber = sharedPreferences.getString("phoneNumber","");
+                            OkHttpClient okHttpClient = new OkHttpClient();
+                            /*id,parentId,birthday,imgPath,name*/
+                            Log.e( "position",po+"" );
+                            if (po != -1) {
+                                FormBody body = new FormBody.Builder(  )
+                                        .add( "id",id)
+                                        .add( "parentId",Data.parent)
+                                        .add( "birthday",oldage )
+                                        .add( "imgPath",imgPath)
+                                        .add( "name",child_name)
+                                        .build();
+                                //数据库修改
+                                Log.e( "进入修改：",child_name);
+                                Request request = new Request.Builder().url(Data.ip+"/mychild/EditChildServlet" ).post( body ).build();
+                                Call call = okHttpClient.newCall( request );
+                                Log.e( "name",child_name+"2");
+                                call.enqueue( new okhttp3.Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
+                                        Log.e( "shibai","修改连接服务器失败" );
                                     }
-                                    FormBody body3 = new FormBody.Builder()
-                                            .add( "parentId", parentId+"" )
-                                            .add( "birthday", oldage )
-                                            .add( "imgPath", imgPath )
-                                            .add( "name", child_name )
-                                            .build();
-                                    Request request3 = new Request.Builder().url( Data.ip + "AddChildServlet" ).post( body3 ).build();
-                                    Call call3 = okHttpClient.newCall( request3);
-                                    call3.enqueue( new Callback() {
-                                        @Override
-                                        public void onFailure(Call call, IOException e) {
-                                            Looper.prepare();
-                                            Toast.makeText( AddOrEditChild.this, "网络连接失败。。。", Toast.LENGTH_SHORT ).show();
-                                            Looper.loop();
-                                        }
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+                                        String str = response.body().string();
+                                        Log.e( "s",str );
+                                    }
+                                } );
+                           } else {
+                                FormBody body = new FormBody.Builder(  )
+                                        .add( "id",Data.parent+"0")
+                                        .add( "parentId",Data.parent)
+                                        .add( "birthday",oldage )
+                                        .add( "imgPath",imgPath)
+                                        .add( "name",child_name)
+                                        .build();
 
-                                        @Override
-                                        public void onResponse(Call call, Response response) throws IOException {
-                                            String str = response.body().string();
-                                            Log.e( "s", str );
-                                            setResult( 4 );
-                                            finish();
-                                        }
-                                    } );
+                                Request request = new Request.Builder().url(Data.ip+"/mychild/AddChildServlet").post( body ).build();
+                                Call call = okHttpClient.newCall( request );
+                                Log.e( "name",child_name+"1");
+                                call.enqueue( new Callback() {
+                                    @Override
+                                    public void onFailure(Call call, IOException e) {
+                                        Log.e( "name","次失败2");
+                                    }
+                                    @Override
+                                    public void onResponse(Call call, Response response) throws IOException {
+                                        String str = response.body().string();
+                                        Log.e( "s",str );
+                                    }
+                                } );
                                 }
-                            } else {
-                                Toast.makeText( AddOrEditChild.this,
-                                        "请输入正确的日期",
-                                        Toast.LENGTH_SHORT ).show();
                             }
-                        } else {
+                        }else {
                             Toast.makeText( AddOrEditChild.this,
                                     "不能为空值，输入正确的日期格式",
                                     Toast.LENGTH_SHORT ).show();
                         }
-                    } else {
-                        Toast.makeText( AddOrEditChild.this,
-                                "昵称长度是1~12，请重新输入",
-                                Toast.LENGTH_SHORT ).show();
+                    Intent intent=new Intent( AddOrEditChild.this,MyChild.class );
+                    startActivity( intent );
                     }
-
+                   // Drawable drawable=child_img.getDrawable();
             }
         }
-    }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == 100) {
-            Intent intent = new Intent();
-            intent.setAction( Intent.ACTION_PICK );
-            intent.setType( "image/*" );
-            startActivityForResult( intent, 200 );
+        if(requestCode==100){
+            Intent intent=new Intent();
+            intent.setAction(Intent.ACTION_PICK);
+            intent.setType("image/*");
+            startActivityForResult(intent,200);
         }
-        super.onRequestPermissionsResult( requestCode, permissions, grantResults );
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if (requestCode == 200 && resultCode == RESULT_OK) {
-            Uri uri = data.getData();
-            Cursor cursor = getContentResolver().query( uri, null, null, null, null );
-            if (cursor.moveToFirst()) {
-                imgPath = cursor.getString( cursor.getColumnIndex( "_data" ) );
-                RequestOptions options = new RequestOptions().circleCrop();
-                Glide.with( this ).load( imgPath ).apply( options ).into( child_img );
+        if(requestCode==200&&resultCode==RESULT_OK){
+            Uri uri=data.getData();
+            Cursor cursor=getContentResolver().query(uri,null,null,null,null);
+            if(cursor.moveToFirst()){
+                imgPath=cursor.getString(cursor.getColumnIndex("_data"));
+                RequestOptions options=new RequestOptions().circleCrop();
+                Glide.with(this).load(imgPath).apply(options).into(child_img);
                 //上传头像到服务器端
-                File file = new File( imgPath );
-                RequestBody body = RequestBody.create( MediaType.parse( "image/*" ), file );
-                //设置图片的名字
-                int sum = 0;
-                if (po == -1) {
-                    sum = sharedPreferences.getInt( "childsum", 0 );
-                } else {
-                    sum = po;
-                }
-                String p = "MineUpLoadServlet?" + "name=" + parentId + sum;
-                Request request = new Request.Builder().url( Data.ip + p ).post( body ).build();
-                Call call = okHttpClient.newCall( request );
-                call.enqueue( new Callback() {
+                File file=new File(imgPath);
+                RequestBody body=RequestBody.create( MediaType.parse("image/*"),file);
+                String p="/mychild/UploadServlet?"+"name="+"phoneNumber";
+                Request request=new Request.Builder().url(Data.ip+p).post(body).build();
+                Call call=okHttpClient.newCall(request);
+                call.enqueue(new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         e.printStackTrace();
                     }
-
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        imgPath = response.body().string();
-                        Log.e( "上传头像", imgPath );
+                        imgPath=response.body().string();
+                        Log.e("上传头像",imgPath);
                     }
-                } );
+                });
             }
         }
-        super.onActivityResult( requestCode, resultCode, data );
+        super.onActivityResult(requestCode, resultCode, data);
     }
-
-    public void showdialog(){
-
-        AlertDialog.Builder alertdialogbuilder=new AlertDialog.Builder(this);
-    alertdialogbuilder.setMessage("您确认删除吗");
-    alertdialogbuilder.setPositiveButton("确定", click1);
-    alertdialogbuilder.setNegativeButton("取消", click2);
-    AlertDialog alertdialog1=alertdialogbuilder.create();
-    alertdialog1.show();
-
-
     }
-    private DialogInterface.OnClickListener click1=new DialogInterface.OnClickListener()
-{
-@Override
-public void onClick(DialogInterface arg0,int arg1)
-{
-
-    Log.e( "s","删除进行时。。。" );
-
-    FormBody body = new FormBody.Builder()
-            .add( "id", id )
-            .build();
-    //数据库修改
-    Request request = new Request.Builder().url( Data.ip + "DeleteChildServlet" ).post( body ).build();
-    Call call = okHttpClient.newCall( request );
-    call.enqueue( new okhttp3.Callback() {
-        @Override
-        public void onFailure(Call call, IOException e) {
-            Looper.prepare();
-            Toast.makeText( AddOrEditChild.this, "网络连接失败。。。", Toast.LENGTH_SHORT ).show();
-            Looper.loop();
-        }
-
-        @Override
-        public void onResponse(Call call, Response response) throws IOException {
-            String str = response.body().string();
-            Log.e( "s", str );
-            setResult( 3);
-            finish();
-        }
-    } );
-
-}
-};
-private DialogInterface.OnClickListener click2=new DialogInterface.OnClickListener()
-{
-@Override
-public void onClick(DialogInterface arg0,int arg1)
-{
-arg0.cancel();
-}
-};
-
-
-
-}
 
 

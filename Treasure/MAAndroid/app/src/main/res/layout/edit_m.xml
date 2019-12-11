@@ -85,7 +85,7 @@
                 android:layout_height="match_parent"
                 android:id="@+id/edit_username"
 
-                android:hint="请编辑您的昵称"
+                android:hint="光子"
                 android:textSize="20dp"
                 android:layout_marginLeft="15dp"
 android:textColor="#101010"

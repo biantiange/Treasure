@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
+import Post.dao.PostDao;
 import Praise.dao.PraiseDao;
 
 /**
@@ -46,17 +47,16 @@ public class PraiseAddServlet extends HttpServlet {
 		InputStream inputStream = request.getInputStream();
 		OutputStream out = response.getOutputStream();
 		
-		
-		System.out.println("fuck");
-		
 		byte[] bs = new byte[255];
 		int len = inputStream.read(bs);
 		String param = new String(bs,0,len);
 		JSONObject object = new JSONObject(param);
 		int praiserId = object.getInt("praiserId");
 		int postId = object.getInt("postId");
+		int praiseCount = object.getInt("praiseCount");
+		int addCount = new PostDao().addPraise(postId, praiseCount);
 		int add = new PraiseDao().savePraise(praiserId, postId);
-		if (add>0) {
+		if (add>0 && addCount>0) {
 			System.out.println("succeed");
 		}
 		

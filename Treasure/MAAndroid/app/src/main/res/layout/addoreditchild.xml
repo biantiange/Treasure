@@ -21,6 +21,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_weight="6"
             android:gravity="center"
             android:padding="5dp"
@@ -28,10 +29,18 @@
             android:textColor="#fcfcfc"
             android:textSize="20dp" />
 
-        <ImageButton
-            android:layout_width="28dp"
-            android:layout_height="40dp"
-            android:background="#00bffe" />
+
+           <ImageView
+               android:descendantFocusability="blocksDescendants"
+               android:id="@+id/btn_delete"
+               android:layout_width="28dp"
+               android:layout_height="match_parent"
+               android:layout_marginRight="20dp"
+               android:background="#00bffe"
+               android:src="@drawable/delete" />
+
+
+
 
     </LinearLayout>
 
@@ -64,7 +73,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="2"
                 android:src="@drawable/aaa" />
-
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
@@ -102,9 +110,9 @@
                 android:id="@+id/child_nickname"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
-                android:singleLine="true"
+                android:gravity="center"
 
-                android:gravity="center" />
+                android:singleLine="true" />
 
             <TextView
                 android:layout_width="0dp"
@@ -159,9 +167,9 @@
                 android:id="@+id/child_month"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:singleLine="true"
+                android:gravity="center"
                 android:inputType="number"
-                android:gravity="center" />
+                android:singleLine="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -175,9 +183,9 @@
                 android:id="@+id/child_day"
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:singleLine="true"
+                android:gravity="center"
                 android:inputType="number"
-                android:gravity="center" />
+                android:singleLine="true" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -226,20 +234,20 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="2"
-            android:orientation="vertical"
             android:gravity="center"
+            android:orientation="vertical"
 
             >
 
 
             <Button
+                android:id="@+id/child_submit"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
+                android:background="#00bffe"
                 android:text="完成"
                 android:textColor="#ffffff"
-                android:id="@+id/child_submit"
                 android:textSize="20dp"
-                android:background="#00bffe"
 
 
                 />

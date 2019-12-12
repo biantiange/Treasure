@@ -30,6 +30,8 @@ import java.net.HttpURLConnection;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -62,15 +64,15 @@ public class CommunityFragment extends Fragment {
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            Log.e("post", "开始");
+            Log.e("post", "开始"+getString(R.string.ip));
             try {
-                URL url = new URL("http://10.7.88.125:8080/Java/PostListServlet");
+                URL url = new URL("http://"+getString(R.string.ip)+":8080/Java/PostListServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                 con.setRequestMethod("POST");
                 JSONObject User_id = new JSONObject();
 
-                User_id.put("praiserId",1);//发送登录者ID
+                User_id.put("praiserId", 1);//发送登录者ID
 
                 OutputStream os = con.getOutputStream();
                 os.write(User_id.toString().getBytes());
@@ -83,6 +85,7 @@ public class CommunityFragment extends Fragment {
                     sb.append(new String(bs, 0, len));
                 }
                 String get = new String(sb);
+                posts.clear();
                 JSONArray getArray = new JSONArray(get);
 
                 for (int i = 0; i < getArray.length(); i++) {
@@ -94,6 +97,7 @@ public class CommunityFragment extends Fragment {
                     post.setPraiseCount(object.getInt("praiseCount"));
                     //发帖人
                     Parent poster = new Parent();
+                    poster.setId(object.getInt("Poster_id"));
                     poster.setHeaderPath(object.getString("headerPath"));
                     poster.setNickName(object.getString("nickName"));
                     post.setParent(poster);
@@ -102,12 +106,22 @@ public class CommunityFragment extends Fragment {
 
                     List<PostImg> imges = new ArrayList<>();
                     for (int j = 0; j < imgs.length(); j++) {
-                            JSONObject img = imgs.getJSONObject(j);
-                            PostImg image = new PostImg();
-                            image.setPostId(img.optInt("postId"));
-                            image.setTime(Timestamp.valueOf(img.optString("Pimg_time")));
-                            image.setId(img.optInt("Pimg_id"));
-                            image.setPath(img.optString("path"));
+                        JSONObject img = imgs.getJSONObject(j);
+                        PostImg image = new PostImg();
+                        image.setPostId(img.optInt("postId" + j));
+                        String fillTime = img.getString("Pimg_time" + j);
+
+                        if (fillTime != null && !(fillTime.equals(""))) {
+                            SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                            java.util.Date date = format1.parse(fillTime);
+                            SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                            String sdate = format2.format(date);
+                            Timestamp fTimestamp = Timestamp.valueOf(sdate);
+                            image.setTime(fTimestamp);
+                        }
+                        image.setId(img.optInt("Pimg_id" + j));
+                        image.setPath(img.optString("path" + j));
+
                         imges.add(image);
                     }
                     post.setImgs(imges);
@@ -117,16 +131,15 @@ public class CommunityFragment extends Fragment {
                     for (int k = 0; k < comment_3.length(); k++) {
                         JSONObject comment = comment_3.getJSONObject(k);
                         Comment comment1 = new Comment();
-                        comment1.setContent(comment.optString("commentContent"));
+                        comment1.setContent(comment.optString("commentContent" + k));
                         Parent commentator = new Parent();
-                        commentator.setNickName(comment.optString("commentatorName"));
+                        commentator.setNickName(comment.optString("commentatorName" + k));
                         comment1.setCommentator(commentator);
                         comments.add(comment1);
                     }
                     post.setComments(comments);
                     //isPraise
                     post.setIsPraise(object.getInt("isPraise"));
-                    Log.e("isPraise",object.getInt("isPraise")+"");
                     posts.add(post);
                 }
 
@@ -138,10 +151,17 @@ public class CommunityFragment extends Fragment {
                 e.printStackTrace();
             } catch (JSONException e) {
                 e.printStackTrace();
+            } catch (ParseException e) {
+                e.printStackTrace();
             }
             return posts;
         }
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        PostTask task = new PostTask();
+        task.execute();
+    }
 }

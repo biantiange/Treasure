@@ -54,6 +54,7 @@ public class CommentAddServlet extends HttpServlet {
 		JSONObject object = new JSONObject(param);
 		int postId = object.getInt("postId");
 		int commentatorId = object.getInt("commentatorId");
+		int responderId = object.getInt("responderId");
 		String content = object.getString("content");
 		String time = object.getString("time");
 		
@@ -62,7 +63,7 @@ public class CommentAddServlet extends HttpServlet {
 		comment.setCommentatorId(commentatorId);
 		comment.setContent(content);
 		comment.setPostId(postId);
-		comment.setResponderId(0);
+		comment.setResponderId(responderId);
 		comment.setTime(Timestamp.valueOf(time));
 		
 		System.out.println(Timestamp.valueOf(time));//打印传过来的时间

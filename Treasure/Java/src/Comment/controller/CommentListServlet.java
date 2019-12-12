@@ -17,6 +17,7 @@ import org.json.JSONObject;
 
 import Comment.dao.CommentDao;
 import User.dao.UserDao;
+import entity.Comment;
 import entity.User;
 
 /**
@@ -56,7 +57,7 @@ public class CommentListServlet extends HttpServlet {
 		String param = new String(bs,0,len);
 		JSONObject object = new JSONObject(param);
 		int postId = object.getInt("postId");
-		
+		System.out.println("获得的帖子id："+postId);
 		JSONArray jsonArray = new JSONArray();
 		List<Map<String,Object>> list = new CommentDao().findAll(postId);
 		for(Map<String, Object> map:list) {
@@ -66,15 +67,17 @@ public class CommentListServlet extends HttpServlet {
 			jsonObject.put("time", map.get("time"));
 			jsonObject.put("content", map.get("content"));
 			//commentator
-			User commentator = new UserDao().findById((int)map.get("commentator"));
-			jsonObject.put("headerPath", commentator.getHeaderPath());
-			jsonObject.put("nickName", commentator.getNickName());
+			User commentator = new UserDao().findById((int)map.get("commentatorId"));
+			jsonObject.put("commentatorId", (int)map.get("commentatorId"));
+			jsonObject.put("headerPath_c", commentator.getHeaderPath());
+			jsonObject.put("nickName_c", commentator.getNickName());
 			//responderId
-			if ((int)map.get("responderId")!=0) {
+			if ((int)map.get("resComId")!=0) {
 				User responderId = new UserDao().findById((int)map.get("responderId"));
 				
 	//			jsonObject.put("headerPath_r", responderId.getHeaderPath());
 				jsonObject.put("nickName_r", responderId.getNickName());
+
 				//resComid
 				Comment resComment = new CommentDao().findById((int)map.get("resComId"));
 	//			User resCommentator = new UserDao().findById(resComment.getCommentatorId());
@@ -88,6 +91,10 @@ public class CommentListServlet extends HttpServlet {
 			jsonArray.put(jsonObject);
 			
 		}
+		inputStream.close();
+        out.write(jsonArray.toString().getBytes());
+        out.flush();
+        out.close();
 	}
 
 }

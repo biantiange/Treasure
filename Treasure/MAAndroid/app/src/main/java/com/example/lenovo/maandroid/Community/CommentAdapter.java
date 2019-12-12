@@ -52,10 +52,11 @@ public class CommentAdapter extends BaseAdapter {
         content.setText(comments.get(position).getContent());
 
         //回复
+        LinearLayout L = convertView.findViewById(R.id.comment_response_L);
         if (comments.get(position).getResponder().getNickName().equals("null")){
-            LinearLayout L = convertView.findViewById(R.id.comment_response_L);
             L.setVisibility(View.GONE);
         }else{
+            L.setVisibility(View.VISIBLE);
             TextView responderName = convertView.findViewById(R.id.responder_name);
             responderName.setText("回复 @"+comments.get(position).getResponder().getNickName()+"");
             TextView resContent = convertView.findViewById(R.id.responder_content);

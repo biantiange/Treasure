@@ -2,7 +2,6 @@ package com.example.lenovo.maandroid.Community;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -33,7 +32,6 @@ public class PostAdapter extends BaseAdapter {
     private List<Post> posts;
     private Context context;
     private int item_id;
-    private List<PostImg> imgs;
     private List<Comment> comments;
 
 
@@ -65,7 +63,7 @@ public class PostAdapter extends BaseAdapter {
             convertView = inflater.inflate(item_id,null);
         }
 //img
-        imgs = posts.get(position).getImgs();
+        posts.get(position).getImgs();
         ImageView img1 = convertView.findViewById(R.id.iv1);
         ImageView img2 = convertView.findViewById(R.id.iv2);
         ImageView img3 = convertView.findViewById(R.id.iv3);
@@ -73,57 +71,60 @@ public class PostAdapter extends BaseAdapter {
         ImageView img5 = convertView.findViewById(R.id.iv5);
         ImageView img6 = convertView.findViewById(R.id.iv6);
 
-        Log.e("images.size",""+imgs.size());
 
-        if (imgs.size() == 0){
+
+        if (posts.get(position).getImgs().size() == 0){
             img1.setVisibility(View.GONE);
             img2.setVisibility(View.GONE);
             img3.setVisibility(View.GONE);
             img4.setVisibility(View.GONE);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
-        }else if(imgs.size() == 1){
-            Glide.with(context).load(imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
+        }else if(posts.get(position).getImgs().size() == 1){
+            Glide.with(context).load(posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
             img2.setVisibility(View.GONE);
             img3.setVisibility(View.GONE);
             img4.setVisibility(View.GONE);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
-        }else  if (imgs.size() == 2){
-            Glide.with(context).load(imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
+        }else  if (posts.get(position).getImgs().size() == 2){
+            Glide.with(context).load(posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
+            Glide.with(context).load(posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
             img3.setVisibility(View.GONE);
             img4.setVisibility(View.GONE);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
-        }else if(imgs.size() == 3){
-            Glide.with(context).load(imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
-            Glide.with(context).load(imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
+        }else if(posts.get(position).getImgs().size() == 3){
+
+            Log.e("imgss",posts.get(position).getImgs().toString());
+
+            Glide.with(context).load(posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
+            Glide.with(context).load(posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
+            Glide.with(context).load(posts.get(position).getImgs().get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
             img4.setVisibility(View.GONE);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
-        }else if(imgs.size() == 4){
-            Glide.with(context).load(imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
-            Glide.with(context).load(imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
-            Glide.with(context).load(imgs.get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
+        }else if(posts.get(position).getImgs().size() == 4){
+            Glide.with(context).load(posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
+            Glide.with(context).load(posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
+            Glide.with(context).load(posts.get(position).getImgs().get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
+            Glide.with(context).load(posts.get(position).getImgs().get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
-        }else if(imgs.size() == 5){
-            Glide.with(context).load(imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
-            Glide.with(context).load(imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
-            Glide.with(context).load(imgs.get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
-            Glide.with(context).load(imgs.get(4).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img5);
+        }else if(posts.get(position).getImgs().size() == 5){
+            Glide.with(context).load(posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
+            Glide.with(context).load(posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
+            Glide.with(context).load(posts.get(position).getImgs().get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
+            Glide.with(context).load(posts.get(position).getImgs().get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
+            Glide.with(context).load(posts.get(position).getImgs().get(4).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img5);
             img6.setVisibility(View.GONE);
         }else {
-            Glide.with(context).load(imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
-            Glide.with(context).load(imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
-            Glide.with(context).load(imgs.get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
-            Glide.with(context).load(imgs.get(4).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img5);
-            Glide.with(context).load(imgs.get(5).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img6);
+            Glide.with(context).load(posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
+            Glide.with(context).load(posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
+            Glide.with(context).load(posts.get(position).getImgs().get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
+            Glide.with(context).load(posts.get(position).getImgs().get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
+            Glide.with(context).load(posts.get(position).getImgs().get(4).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img5);
+            Glide.with(context).load(posts.get(position).getImgs().get(5).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img6);
         }
 
 //评论
@@ -181,9 +182,10 @@ public class PostAdapter extends BaseAdapter {
                 Intent intent = new Intent(context, PostDetailActivity.class);
                 intent.putExtra("isPraise",posts.get(position).getIsPraise());
                 intent.putExtra("post",posts.get(position));
-                intent.putExtra("imgSize",imgs.size());
-                for (int i = 0;i<imgs.size();i++){
-                    intent.putExtra("img"+i,imgs.get(i));
+                intent.putExtra("imgSize",posts.get(position).getImgs().size());
+                Log.e("imgSize",posts.get(position).getImgs().size()+"_--_"+posts.get(position).getId());
+                for (int i = 0;i<posts.get(position).getImgs().size();i++){
+                    intent.putExtra("img"+i,posts.get(position).getImgs().get(i));
                 }
                 context.startActivity(intent);
             }
@@ -222,18 +224,21 @@ public class PostAdapter extends BaseAdapter {
         @Override
         protected Object doInBackground(Object[] objects) {
             try{
-                URL url = new URL("http://10.7.88.125:8080/Java/PraiseAddServlet");
+                Log.e("praise","开始praising");
+                URL url = new URL("http://"+ context.getString(R.string.ip) +":8080/Java/PraiseAddServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                InputStream is = con.getInputStream();
+
+
                 con.setRequestMethod("POST");
                 JSONObject User_id = new JSONObject();
 
                 User_id.put("praiserId",1);//发送登录者ID
                 User_id.put("postId",posts.get(position).getId());
+                User_id.put("praiseCount",posts.get(position).getPraiseCount());
 
                 OutputStream os = con.getOutputStream();
                 os.write(User_id.toString().getBytes());
-
+                InputStream is = con.getInputStream();
                 is.close();
                 os.close();
             }catch (Exception e){
@@ -256,19 +261,20 @@ public class PostAdapter extends BaseAdapter {
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
             Toast.makeText(context,"评论成功！",Toast.LENGTH_SHORT).show();
+            notifyDataSetChanged();
         }
 
         @Override
         protected Object doInBackground(Object[] objects) {
             try{
-                URL url = new URL("http://10.7.88.125:8080/Java/CommentAddServlet");
+                URL url = new URL("http://"+ context.getString(R.string.ip) +":8080/Java/CommentAddServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                 con.setRequestMethod("POST");
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("postId",posts.get(position).getId());
                 jsonObject.put("commentatorId",1);//登录者ID
-
+                jsonObject.put("responderId",posts.get(position).getParent().getId());
                 jsonObject.put("content",content);
                 jsonObject.put("time",new Timestamp(System.currentTimeMillis()));
 

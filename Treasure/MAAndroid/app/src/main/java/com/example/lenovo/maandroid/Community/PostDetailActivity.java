@@ -41,14 +41,12 @@ public class PostDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_detail);
         listView = findViewById(R.id.comment_listView);
         Intent intent = getIntent();
-        post = (Post)intent.getSerializableExtra("post");
-        isPraise = intent.getIntExtra("isPraise",0);
-        for (int i = 0;i<intent.getIntExtra("imgSize",0);i++){
-            PostImg img = (PostImg) intent.getSerializableExtra("img"+i);
+        post = (Post) intent.getSerializableExtra("post");
+        isPraise = intent.getIntExtra("isPraise", 0);
+        for (int i = 0; i < intent.getIntExtra("imgSize", 0); i++) {
+            PostImg img = (PostImg) intent.getSerializableExtra("img" + i);
             imgs.add(img);
         }
-
-
 
         //img
         ImageView img1 = findViewById(R.id.im1);
@@ -58,51 +56,50 @@ public class PostDetailActivity extends AppCompatActivity {
         ImageView img5 = findViewById(R.id.im5);
         ImageView img6 = findViewById(R.id.im6);
 
-        Log.e("images.size",""+imgs.size());
 
-        if (imgs.size() == 0){
+        if (imgs.size() == 0) {
             img1.setVisibility(View.GONE);
             img2.setVisibility(View.GONE);
             img3.setVisibility(View.GONE);
             img4.setVisibility(View.GONE);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
-        }else if(imgs.size() == 1){
+        } else if (imgs.size() == 1) {
             Glide.with(this).load(imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
             img2.setVisibility(View.GONE);
             img3.setVisibility(View.GONE);
             img4.setVisibility(View.GONE);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
-        }else  if (imgs.size() == 2){
+        } else if (imgs.size() == 2) {
             Glide.with(this).load(imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
             Glide.with(this).load(imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
             img3.setVisibility(View.GONE);
             img4.setVisibility(View.GONE);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
-        }else if(imgs.size() == 3){
+        } else if (imgs.size() == 3) {
             Glide.with(this).load(imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
             Glide.with(this).load(imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
             Glide.with(this).load(imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
             img4.setVisibility(View.GONE);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
-        }else if(imgs.size() == 4){
+        } else if (imgs.size() == 4) {
             Glide.with(this).load(imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
             Glide.with(this).load(imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
             Glide.with(this).load(imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
             Glide.with(this).load(imgs.get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
-        }else if(imgs.size() == 5){
+        } else if (imgs.size() == 5) {
             Glide.with(this).load(imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
             Glide.with(this).load(imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
             Glide.with(this).load(imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
             Glide.with(this).load(imgs.get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
             Glide.with(this).load(imgs.get(4).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img5);
             img6.setVisibility(View.GONE);
-        }else {
+        } else {
             Glide.with(this).load(imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
             Glide.with(this).load(imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
             Glide.with(this).load(imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
@@ -137,16 +134,16 @@ public class PostDetailActivity extends AppCompatActivity {
         TextView time = findViewById(R.id.community_detail_time);
         time.setText(post.getTime().toString());
         final TextView praiseNum = findViewById(R.id.community_detail_praiseNum);
-        praiseNum.setText(post.getPraiseCount()+"");
+        praiseNum.setText(post.getPraiseCount() + "");
         final ImageView praising = findViewById(R.id.community_detail_praising);//点赞
-        if (isPraise > 0){
+        if (isPraise > 0) {
             praising.setImageResource(R.drawable.dianzaned);
         }
         praising.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isPraise == 0) {
-                    praiseNum.setText(post.getPraiseCount()+1 + "");
+                    praiseNum.setText(post.getPraiseCount() + 1 + "");
                     praising.setImageResource(R.drawable.dianzaned);
                     isPraise++;
                     //数据库
@@ -160,18 +157,17 @@ public class PostDetailActivity extends AppCompatActivity {
         task.execute();
 
 
-
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-                InputTextMsgDialog inputTextMsgDialog1 = new InputTextMsgDialog(PostDetailActivity.this,R.style.dialog_center);
-                inputTextMsgDialog1.setHint("回复 "+comments.get(position).getCommentator().getNickName()+" :");
+                InputTextMsgDialog inputTextMsgDialog1 = new InputTextMsgDialog(PostDetailActivity.this, R.style.dialog_center);
+                inputTextMsgDialog1.setHint("回复 " + comments.get(position).getCommentator().getNickName() + " :");
                 inputTextMsgDialog1.show();
                 inputTextMsgDialog1.setmOnTextSendListener(new InputTextMsgDialog.OnTextSendListener() {
                     @Override
                     public void onTextSend(String msg) {
                         //回复评论
-                        ResCommentTask task1 = new ResCommentTask(position,msg);
+                        ResCommentTask task1 = new ResCommentTask(position, msg);
                         task1.execute();
 
                     }
@@ -179,24 +175,26 @@ public class PostDetailActivity extends AppCompatActivity {
             }
         });
     }
-    private class PraiseTask extends AsyncTask {
 
+    private class PraiseTask extends AsyncTask{
         @Override
         protected Object doInBackground(Object[] objects) {
             try{
-                Log.e("praise","开始");
-                URL url = new URL("http://10.7.88.125:8080/Java/PraiseAddServlet");
+                Log.e("praise","开始praising");
+                URL url = new URL("http://"+ getString(R.string.ip) +":8080/Java/PraiseAddServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
-                InputStream is = con.getInputStream();
+
+
                 con.setRequestMethod("POST");
                 JSONObject User_id = new JSONObject();
 
                 User_id.put("praiserId",1);//发送登录者ID
                 User_id.put("postId",post.getId());
+                User_id.put("praiseCount",post.getPraiseCount());
 
                 OutputStream os = con.getOutputStream();
                 os.write(User_id.toString().getBytes());
-
+                InputStream is = con.getInputStream();
                 is.close();
                 os.close();
             }catch (Exception e){
@@ -210,18 +208,19 @@ public class PostDetailActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            adapter = new CommentAdapter(comments,PostDetailActivity.this,R.layout.comment_item);
+            adapter = new CommentAdapter(comments, PostDetailActivity.this, R.layout.comment_item);
             listView.setAdapter(adapter);
         }
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            try{
-                URL url = new URL("http://10.7.88.125:8080/Java/CommentListServlet");
+            try {
+                comments.clear();
+                URL url = new URL("http://"+getString(R.string.ip)+":8080/Java/CommentListServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 con.setRequestMethod("POST");
                 JSONObject User_id = new JSONObject();
-                User_id.put("postId",post.getId());
+                User_id.put("postId", post.getId());
 
                 OutputStream os = con.getOutputStream();
                 os.write(User_id.toString().getBytes());
@@ -235,7 +234,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 }
                 String get = new String(sb);
                 JSONArray getArray = new JSONArray(get);
-                for (int i = 0;i < getArray.length();i++){
+                for (int i = 0; i < getArray.length(); i++) {
                     JSONObject object = getArray.getJSONObject(i);
                     Comment comment = new Comment();
                     comment.setId(object.getInt("id"));
@@ -245,7 +244,7 @@ public class PostDetailActivity extends AppCompatActivity {
                     Parent commentator = new Parent();
                     commentator.setId(object.getInt("commentatorId"));
                     commentator.setNickName(object.optString("nickName_c"));
-//                    commentator.setHeaderPath(object.getString("headerPath_c"));
+                    commentator.setHeaderPath(object.getString("headerPath_c"));
                     comment.setCommentator(commentator);
                     //responderId
                     Parent responder = new Parent();
@@ -257,12 +256,11 @@ public class PostDetailActivity extends AppCompatActivity {
                     resCom.setContent(object.optString("resComment_content"));
                     comment.setResCom(resCom);
                     comments.add(comment);
-
                 }
 
                 is.close();
                 os.close();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return comments;
@@ -281,25 +279,27 @@ public class PostDetailActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            Toast.makeText(PostDetailActivity.this,"回复成功！",Toast.LENGTH_SHORT).show();
+            Toast.makeText(PostDetailActivity.this, "回复成功！", Toast.LENGTH_SHORT).show();
+            CommentTask task = new CommentTask();
+            task.execute();
         }
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            try{
-                URL url = new URL("http://10.7.88.125:8080/Java/CommentResServlet");
+            try {
+                URL url = new URL("http://"+getString(R.string.ip)+":8080/Java/CommentResServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                 con.setRequestMethod("POST");
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("postId",post.getId());
-                jsonObject.put("commentatorId",1);//登录者ID
-                jsonObject.put("resComId",comments.get(position).getId());
+                jsonObject.put("postId", post.getId());
+                jsonObject.put("commentatorId", 1);//登录者ID
+                jsonObject.put("resComId", comments.get(position).getId());
 
-                jsonObject.put("responderId",comments.get(position).getCommentator().getId());
+                jsonObject.put("responderId", comments.get(position).getCommentator().getId());
 
-                jsonObject.put("content",content);
-                jsonObject.put("time",new Timestamp(System.currentTimeMillis()));
+                jsonObject.put("content", content);
+                jsonObject.put("time", new Timestamp(System.currentTimeMillis()));
 
                 OutputStream os = con.getOutputStream();
                 os.write(jsonObject.toString().getBytes());
@@ -308,7 +308,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
                 is.close();
                 os.close();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return comments;
@@ -318,29 +318,32 @@ public class PostDetailActivity extends AppCompatActivity {
     private class AddCommentTask extends AsyncTask {
         private String content;
 
-        public AddCommentTask( String content) {
+        public AddCommentTask(String content) {
             this.content = content;
         }
 
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            Toast.makeText(PostDetailActivity.this,"评论成功！",Toast.LENGTH_SHORT).show();
+            Toast.makeText(PostDetailActivity.this, "评论成功！", Toast.LENGTH_SHORT).show();
+            CommentTask task = new CommentTask();
+            task.execute();
         }
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            try{
-                URL url = new URL("http://10.7.88.125:8080/Java/CommentAddServlet");
+            try {
+                URL url = new URL("http://"+getString(R.string.ip)+":8080/Java/CommentAddServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                 con.setRequestMethod("POST");
                 JSONObject jsonObject = new JSONObject();
-                jsonObject.put("postId",post.getId());
-                jsonObject.put("commentatorId",1);//登录者ID
+                jsonObject.put("postId", post.getId());
+                jsonObject.put("commentatorId", 1);//登录者ID
+                jsonObject.put("responderId",post.getParent().getId());
+                jsonObject.put("content", content);
+                jsonObject.put("time", new Timestamp(System.currentTimeMillis()));
 
-                jsonObject.put("content",content);
-                jsonObject.put("time",new Timestamp(System.currentTimeMillis()));
 
                 OutputStream os = con.getOutputStream();
                 os.write(jsonObject.toString().getBytes());
@@ -349,7 +352,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
                 is.close();
                 os.close();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             return null;

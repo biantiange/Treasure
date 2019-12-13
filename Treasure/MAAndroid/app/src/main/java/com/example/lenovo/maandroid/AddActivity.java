@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Looper;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -60,7 +61,7 @@ public class AddActivity extends AppCompatActivity {
 
     private OkHttpClient okHttpClient;
     private Button addUpload;
-    private ImageView addPicture;
+    private ImageView ivReturn;
     private GridView gridView;
     private  GrideAdapter grideAdapter;
     private EditText etContent;
@@ -76,6 +77,13 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.add_record);
         //初始化控件
         initView();
+        //给返回按钮添加点击事件
+        ivReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         mFlowLayout =  findViewById(R.id.afl_cotent);
         for (int i = 0; i< 9; i ++ ){
@@ -145,6 +153,7 @@ public class AddActivity extends AppCompatActivity {
     }
     //初始化视图
     public void initView(){
+        ivReturn = findViewById(R.id.iv_return);
         etContent = findViewById(R.id.et_content);
         tags="";
     }
@@ -217,7 +226,9 @@ public class AddActivity extends AppCompatActivity {
                 String str = response.body().string();
                 //Log.e("插入的成长图片的id值", str);
                 if (str.equals("OK")) {
+                    Looper.prepare();
                     Toast.makeText(AddActivity.this,"上传成功",Toast.LENGTH_SHORT).show();
+                    Looper.loop();
                 }
             }
         });

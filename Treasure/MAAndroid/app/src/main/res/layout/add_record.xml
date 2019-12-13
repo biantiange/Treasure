@@ -4,30 +4,39 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android" >
     <LinearLayout
+        android:background="#7adfb8"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
         <ImageView
+            android:paddingLeft="-20dp"
+            android:id="@+id/iv_return"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            android:src="@drawable/fanhui32"
+            android:layout_weight="0.3"
             android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="match_parent"
-            android:src="@drawable/left"/>
+            android:layout_height="match_parent" />
         <TextView
-            android:layout_marginTop="5dp"
-            android:gravity="center_horizontal"
-            android:textColor="#1296db"
-            android:textSize="20dp"
+            android:paddingLeft="-15dp"
+            android:textSize="28dp"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:text="添加记录"
+            android:layout_weight="1"
             android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:text="成长记录"/>
+            android:layout_height="match_parent" />
         <Button
-            android:textColor="#1296db"
+            android:layout_marginTop="11dp"
+            android:layout_marginBottom="9dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/button_radius"
+            android:textColor="@color/white"
             android:id="@+id/add_upload"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="0.3"
             android:text="上传"/>
     </LinearLayout>
     <LinearLayout
@@ -36,6 +45,10 @@
         android:layout_height="0dp"
         android:layout_weight="8">
         <EditText
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="请输入您想留住的瞬间"
+            android:textColorHint="@color/LightGrey"
             android:id="@+id/et_content"
             android:gravity="top"
             android:inputType="textMultiLine"
@@ -50,28 +63,64 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="4"
-            android:orientation="horizontal">
-           <GridView
+            android:orientation="vertical">
+            <GridView
+                android:id="@+id/add_grid"
+                android:horizontalSpacing="10dp"
+                android:verticalSpacing="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:numColumns="3"></GridView>
+            <ImageView
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:onClick="onClick"
+                android:id="@+id/add_picture"
+                android:src="@mipmap/upload"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+           <!--<GridView
                android:id="@+id/add_grid"
                android:horizontalSpacing="30dp"
                android:verticalSpacing="20dp"
                android:layout_width="match_parent"
                android:layout_height="match_parent"
-               android:numColumns="3"></GridView>
+               android:numColumns="3"></GridView>-->
         </LinearLayout>
-        <ImageView
+        <!--<ImageView
             android:onClick="onClick"
             android:id="@+id/add_picture"
             android:src="@drawable/picture"
             android:layout_width="wrap_content"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1"/>-->
     </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <ImageView
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/tixing"
+            android:layout_width="55dp"
+            android:layout_height="match_parent" />
+        <TextView
+            android:textSize="15dp"
+            android:textColor="#000000"
+            android:paddingTop="15dp"
+            android:paddingLeft="5dp"
+            android:text="可以为你心动的瞬间添加标签哦~"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3">
+        android:layout_weight="2.5">
             <com.example.library.AutoFlowLayout
                 android:id="@+id/afl_cotent"
                 android:layout_width="match_parent"

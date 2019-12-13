@@ -213,7 +213,7 @@ public class DBUtil {
 	 * @param params
 	 * @return
 	 */
-	public static List find(Class cls, String sql, Object[] params) {
+	/*public static List find(Class cls, String sql, Object[] params) {
 		Connection con = null;
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
@@ -246,6 +246,6 @@ public class DBUtil {
 			close(rs, pstm, con);
 		}
 	}
-
+*/
 
 }

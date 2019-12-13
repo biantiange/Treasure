@@ -4,6 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import entity.Grimg;
 import util.DBUtil;
@@ -65,5 +69,62 @@ public class GrimgDao {
 		}
 		//return count;
 		return count;
+	}
+	
+	//轮播图
+	
+	public  List<Map<String,Object>> findPictureByTime(String time) {
+		Connection con = DBUtil.getCon();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		List<Map<String,Object>> list = new ArrayList<>();
+		try {
+			pstm = con.prepareStatement("select imgPath,growthRecordId from tbl_grimg where upTime like ?");
+			pstm.setString(1, "%"+time+"%");
+			rs = pstm.executeQuery();
+			while(rs.next()) {
+				Map<String,Object> map=new HashMap<>();
+				String imgPath=rs.getString(1);
+				int growthRecordId=rs.getInt(2);
+				map.put("imgPath",imgPath);
+				map.put("recordId",growthRecordId);
+				System.out.println(imgPath);
+				list.add(map);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally{
+			DBUtil.close(rs,pstm,con);
+		}
+
+	}
+	
+	public  List<Map<String,Object>> findContentByTime(String time) {
+		Connection con = DBUtil.getCon();
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		List<Map<String,Object>> list = new ArrayList<>();
+		try {
+			pstm = con.prepareStatement("select id, content from tbl_growthrecord where upTime like ?");
+			pstm.setString(1, "%"+time+"%");
+			rs = pstm.executeQuery();
+			while(rs.next()) {
+				Map<String,Object> map=new HashMap<>();
+				int id=rs.getInt(1);
+				String content=rs.getString(2);
+				map.put("id",id);
+				map.put("content",content);
+				list.add(map);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally{
+			DBUtil.close(rs,pstm,con);
+		}
+
 	}
 }

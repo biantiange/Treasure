@@ -3,6 +3,8 @@ package com.example.lenovo.maandroid.Record;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,41 +12,49 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.example.lenovo.maandroid.Entity.Dates;
 import com.example.lenovo.maandroid.R;
+import com.example.lenovo.maandroid.Utils.Constant;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
-import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class RecordFragment extends Fragment {
     List<Dates> datas = new ArrayList<Dates>();
+    String [] timeArray=null;
+    List<Map<String,Object>> contentArray=new ArrayList<>();
     private HorizontalListView mlv;
     private Banner banner;
-
+    private OkHttpClient okHttpClient;
     private List<String> mTitleList = new ArrayList<>();
-    private List<Integer> mImgList = new ArrayList<>();
+    private List<String > mImgList = new ArrayList<>();
+    private Handler mainHandler=null;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View newView=inflater.inflate(R.layout.record_main,container,false);
+        final View newView=inflater.inflate(R.layout.record_main,container,false);
         mlv = newView.findViewById(R.id.mlv);
-        initData();
-//        TimeComparator comparator = new TimeComparator();
-//        Collections.sort(datas, comparator);
-
-        TimeAdapter adapter = new TimeAdapter((ArrayList<Dates>) datas, getContext());
-        mlv.setAdapter(adapter);
-        banner =newView.findViewById(R.id.home_play_banner);
-        // 设置轮播图
-        BannerSet();
+        okHttpClient=new OkHttpClient();
+        //查找
         ImageView look=newView.findViewById(R.id.look);
         ImageView add=newView.findViewById(R.id.add);
         look.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +64,7 @@ public class RecordFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        //添加
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -61,49 +72,117 @@ public class RecordFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        mainHandler=new Handler(){
+            //当handler在消息队列中
+            @Override
+            public void handleMessage(Message msg) {
+                Log.e("1",Thread.currentThread().getName()+"发送数据"+msg);
+                switch (msg.what){
+                    case 1:
+                        TimeAdapter adapter = new TimeAdapter((ArrayList<Dates>) datas, getContext(),datas.size()-1);
+                        mlv.setAdapter(adapter);
+                        mlv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                TimeAdapter adapter = new TimeAdapter((ArrayList<Dates>) datas, getContext(),position);
+                                mlv.setAdapter(adapter);
+                                String time=datas.get(position).getTime();
+                                lookContent(time);
 
+                            }
+                        });
+                        break;
+                    case 2:
+                        banner =newView.findViewById(R.id.home_play_banner);
+                        // 设置轮播图
+                        BannerSet();
+                        break;
+                }
+
+            }
+        };
+        lookTime();
         return newView;
     }
 
-    /**
-     * 这里用虚拟数据实现，仅供参考
-     */
-    private void initData() {
-        Dates item1 = new Dates();
-        //  item1.setTitle("提交订单");
-        item1.setTime("2017-03-14");
-        item1.setStatu(1);              //设置状态标记1 ，0
-        Dates item2 = new Dates();
-        //  item2.setTitle("已支付");
-        item2.setTime("2016-03-19");
-        item2.setStatu(1);
-        Dates item3 = new Dates();
-        //  item3.setTitle("商品出库");
-        item3.setTime("2018-03-15 00:33");
-        item3.setStatu(0);
-        Dates item4 = new Dates();
-        //   item4.setTitle("已签收");
-        item4.setTime("2020-03-15 15:55");
-        item4.setStatu(0);
+    private void lookTime() {
+        Request request=new Request.Builder().url(Constant.BASE_IP +"LookTimeServlet").build();
+        Call call=okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
 
-        datas.add(item1);
-        datas.add(item2);
-        datas.add(item3);
-        datas.add(item4);
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String timeList= response.body().string();
+                Log.e("时间列表",timeList);
+                Gson gson=new Gson();
+                timeArray= gson.fromJson(timeList,String[].class);
+                initData();
+                lookContent(timeArray[timeArray.length-1]);
+                Message msg=new Message();
+                msg.what=1;
+                mainHandler.sendMessage(msg);
+
+
+            }
+        });
     }
 
-    private void BannerSet() {
-        mImgList.add(R.drawable.bw);
-        mImgList.add(R.drawable.ly);
-        mImgList.add(R.drawable.lz);
-        mImgList.add(R.drawable.money);
+  //时间轴初始化
+    private void initData() {
+        Log.e("initData","时间轴初始化");
+        for(int i=0;i<timeArray.length;i++){
+            Dates item = new Dates();
+            item.setTime(timeArray[i]);
+            datas.add(item);
+        }
+    }
 
-        mTitleList.clear();
-        for (int i = 0; i < mImgList.size(); i++) {
-            mTitleList.add("第" + i + "张图片");
+    private void lookContent(String time) {
+        Request request=new Request.Builder().url(Constant.BASE_IP +"LookContentServlet?time="+time).build();
+        Call call=okHttpClient.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String contentList= response.body().string();
+                Log.e("最后一天的图片列表",contentList);
+                Gson gson=new Gson();
+                Type listType=new TypeToken<List<Map<String,Object>>>(){}.getType();
+                 contentArray=gson.fromJson(contentList,listType);
+                Message msg=new Message();
+                msg.what=2;
+                mainHandler.sendMessage(msg);
+            }
+        });
+    }
+//轮播图
+    private void BannerSet() {
+        Log.e("轮播图","轮播图");
+        mImgList.clear();
+        for(int i=0;i<contentArray.size();i++){
+            Log.e("轮播图 图片",contentArray.get(i).get("path").toString());
+            Log.e("轮播图 内容",contentArray.get(i).get("cont").toString());
+            mImgList.add(Constant.BASE_IP +contentArray.get(i).get("path").toString());
         }
 
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE); // 显示圆形指示器和标题（水平显示
+//        mImgList.add(R.drawable.ly);
+//        mImgList.add(R.drawable.lz);
+        mTitleList.clear();
+        Log.e("tt2",contentArray.size()+":"+mImgList.size());
+        for (int k = 0; k < contentArray.size(); k++) {
+            String str=contentArray.get(k).get("cont").toString();
+            mTitleList.add(str);
+        }
+        // 显示圆形指示器和标题（水平显示
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         //设置图片加载器
         banner.setImageLoader(new MyLoader());
         //设置图片集合
@@ -120,17 +199,6 @@ public class RecordFragment extends Fragment {
         banner.setIndicatorGravity(BannerConfig.CENTER);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
-        // setOnBannerClickListener  1.4.9 以后就废弃了 。  setOnBannerListener 是1.4.9以后使用。
-        banner.setOnBannerListener(new OnBannerListener() {
-            @Override
-            public void OnBannerClick(int position) {
-                Log.e("tt","第" + position + "张轮播图点击了！");
-                //Toast.makeText(this,"",Toast.LENGTH_LONG).show();
-                //UIUtils.showToast("第" + position + "张轮播图点击了！");
-            }
-        });
-
-
     }
 
     // 图片加载器

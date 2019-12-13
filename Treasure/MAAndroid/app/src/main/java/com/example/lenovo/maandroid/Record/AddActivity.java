@@ -23,8 +23,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lenovo.maandroid.Entity.Grimg;
-import com.example.lenovo.maandroid.Utils.Constant;
+import com.example.lenovo.maandroid.Entity.GrowthRecord;
 import com.example.lenovo.maandroid.R;
+import com.example.lenovo.maandroid.Utils.Constant;
 import com.example.library.AutoFlowLayout;
 
 import java.io.File;
@@ -52,9 +53,9 @@ public class AddActivity extends AppCompatActivity {
 
     private OkHttpClient okHttpClient;
     private Button addUpload;
-    private ImageView ivReturn;
+    private ImageView addPicture;
     private GridView gridView;
-    private  GrideAdapter grideAdapter;
+    private GrideAdapter grideAdapter;
     private EditText etContent;
     private  List<String> list=new ArrayList<>();
 
@@ -68,13 +69,6 @@ public class AddActivity extends AppCompatActivity {
         setContentView(R.layout.add_record);
         //初始化控件
         initView();
-        //给返回按钮添加点击事件
-        ivReturn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         mFlowLayout =  findViewById(R.id.afl_cotent);
         for (int i = 0; i< 9; i ++ ){
@@ -144,7 +138,6 @@ public class AddActivity extends AppCompatActivity {
     }
     //初始化视图
     public void initView(){
-        ivReturn = findViewById(R.id.iv_return);
         etContent = findViewById(R.id.et_content);
         tags="";
     }
@@ -198,6 +191,7 @@ public class AddActivity extends AppCompatActivity {
 
     public void addRecordImgOther(int imgId){
         //修改数据库
+        Log.e("AddActivity",grimg.toString());
         FormBody body = new FormBody.Builder()
                 .add("id",imgId+"")
                 .add("growthRecordId", grimg.getGrowthRecordId() + "")
@@ -218,7 +212,7 @@ public class AddActivity extends AppCompatActivity {
                 //Log.e("插入的成长图片的id值", str);
                 if (str.equals("OK")) {
                     Looper.prepare();
-                    Toast.makeText(AddActivity.this,"上传成功",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddActivity.this,"上传成功", Toast.LENGTH_SHORT).show();
                     Looper.loop();
                 }
             }

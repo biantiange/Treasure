@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
-
+    <!--标题-->
     <TextView
         android:visibility="invisible"
         android:layout_alignRight="@id/image"
@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:textSize="12dp" />
-
+        <!--时间-->
     <TextView
         android:layout_alignRight="@id/image"
         android:id="@+id/show_time"
@@ -20,7 +20,7 @@
         android:layout_below="@id/image"
         android:padding="5dp"
         android:textSize="12dp" />
-
+    <!--横线-->
     <View
         android:id="@+id/line_normal"
         android:layout_width="100dp"

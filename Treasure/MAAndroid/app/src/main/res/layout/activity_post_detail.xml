@@ -149,7 +149,7 @@
         android:id="@+id/comment_listView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="10" />
+        android:layout_weight="12" />
 
     <Button
         android:id="@+id/community_commenting"
@@ -157,7 +157,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@drawable/shape"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="8dp"
         android:hint="评论" />
 
 </LinearLayout>

@@ -9,8 +9,8 @@ import Comment.dao.CommentDao;
 
 public class CommentServicelmpl {
 	//查出所有Comment
-	public List<Map<String,Object>> listComment(){
-		return new CommentDao().findAll();
+	public List<Map<String,Object>> listComment(int postId){
+		return new CommentDao().findAll(postId);
 	}
 	//查出前三条评论
 	public List<Map<String,Object>> listComment_3(int postId){

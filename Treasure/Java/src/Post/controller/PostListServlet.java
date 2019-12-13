@@ -71,13 +71,14 @@ public class PostListServlet extends HttpServlet {
         	//post
         	JSONObject jsonObject = new JSONObject();
         	jsonObject.put("id", map.get("id"));
+        	System.out.println(map.get("id")+"post");
         	jsonObject.put("content", map.get("content"));
         	jsonObject.put("time", map.get("time"));
         	jsonObject.put("praiseCount", map.get("praiseCount"));
         	
         	//Poster
         	User pUser = new UserDao().findById((int)map.get("posterId"));
-//        	jsonObject.put("Puser_id", pUser.getId());
+        	jsonObject.put("Poster_id", pUser.getId());
 //        	jsonObject.put("phoneNumber", pUser.getPhoneNumber());
         	jsonObject.put("headerPath", pUser.getHeaderPath());
         	jsonObject.put("nickName", pUser.getNickName());
@@ -87,34 +88,39 @@ public class PostListServlet extends HttpServlet {
         	List<Map<String,Object>> imgs = new PostImgServicelmpl().listPostImg((int)map.get("id"));
         	JSONArray Jimgs = new JSONArray();
         	JSONObject img = new JSONObject();
+        	int j = 0;
         	for(Map<String,Object> mimg:imgs) {
-        		img.put("Pimg_id", mimg.get("id"));
-        		System.out.println(mimg.get("id"));
-        		img.put("path", mimg.get("path"));
-        		img.put("Pimg_time", mimg.get("time").toString());
+        		img.put("Pimg_id"+j, mimg.get("id"));
         		
-        		img.put("postId", mimg.get("postId"));
+        		img.put("path"+j, mimg.get("path"));
+        		img.put("Pimg_time"+j, mimg.get("time").toString());
+        		
+        		img.put("postId"+j, mimg.get("postId"));
+        		j++;
         		Jimgs.put(img);
         	}
         	jsonObject.put("imgs", Jimgs);
+        	System.out.println(Jimgs);
         	
         	//3_comment
         	List<Map<String,Object>> comments = new CommentServicelmpl().listComment_3((int)map.get("id"));
         	JSONArray jcomments = new JSONArray();
         	JSONObject comment = new JSONObject();
+        	int i=0;
         	for(Map<String,Object> mcomment:comments) {
         		//根据commentatorId 查出评论人
         		User user = new UserDao().findById((int) mcomment.get("commentatorId"));
-        		comment.put("commentatorName", user.getNickName());
-        		comment.put("commentContent", mcomment.get("content"));
+        		comment.put("commentatorName"+i, user.getNickName());
+        		comment.put("commentContent"+i, mcomment.get("content"));
         		jcomments.put(comment);
+        		i++;
         	}
         	jsonObject.put("comments", jcomments);
         	
         	//isPraise
         	int isPraise = new PraiseDao().isPraise(praiserId, (int)map.get("id"));
         	jsonObject.put("isPraise",isPraise);
-        	
+
         	jsonArray.put(jsonObject);
         	
         }

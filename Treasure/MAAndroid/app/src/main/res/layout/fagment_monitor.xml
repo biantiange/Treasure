@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"
+        android:id="@+id/lv_monitor">
+    </ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:orientation="vertical"
+        android:id="@+id/ll_mp"
+        android:visibility="gone">
+        <!-- 百度地图-->
+       <com.baidu.mapapi.map.MapView
+            android:visibility="gone"
+            android:id="@+id/map_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.baidu.mapapi.map.MapView>
+
+   <!--     &lt;!&ndash;监控&ndash;&gt;
+        <com.example.lenovo.maandroid.Utils.PieChart
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:id="@+id/pc"
+            android:visibility="gone"/>-->
+    </LinearLayout>
+
+
+</LinearLayout>

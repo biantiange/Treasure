@@ -13,12 +13,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.map.MapView;
+import com.bumptech.glide.Glide;
 import com.example.lenovo.maandroid.Entity.AppInfo;
+import com.example.lenovo.maandroid.Entity.Child;
 import com.example.lenovo.maandroid.R;
 import com.example.lenovo.maandroid.Utils.Constant;
 import com.example.lenovo.maandroid.Utils.PieChart;
 
+import java.io.Console;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -32,7 +37,7 @@ import okhttp3.Response;
 public class CustomAdapterMonitor extends BaseAdapter {
     private Handler mainHandler;
     //原始数据
-    private List<Map<String, Object>> monitorList = null;
+    private List<Child>  monitorList = null;
     //上下文环境
     private Context context = null;
     //item对应的布局文件
@@ -43,7 +48,7 @@ public class CustomAdapterMonitor extends BaseAdapter {
     private MapView mapView;
 
     //第一：自定义Adapter类———对Adapter构造器进行初始化
-    public CustomAdapterMonitor(Context context, List<Map<String, Object>> dataSourse, int item_layout_id, List<AppInfo> appInfos, LinearLayout llmp, MapView mapView, PieChart pc) {
+    public CustomAdapterMonitor(Context context, List<Child>  dataSourse, int item_layout_id, List<AppInfo> appInfos, LinearLayout llmp, MapView mapView, PieChart pc) {
         this.context = context;
         this.monitorList = dataSourse;
         this.item_layout_id = item_layout_id;
@@ -77,15 +82,24 @@ public class CustomAdapterMonitor extends BaseAdapter {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(item_layout_id, null);
         }
-        ImageView cakeImg = convertView.findViewById(R.id.iv_img);
+        ImageView headPath = convertView.findViewById(R.id.iv_img);
         TextView tvName = convertView.findViewById(R.id.tv_name);
         TextView tvAge = convertView.findViewById(R.id.tv_age);
         final LinearLayout llmonitor=convertView.findViewById(R.id.ll_monitor);
         LinearLayout llposition=convertView.findViewById(R.id.ll_position);
         //根据位置从原始数据list获取要显示的数据
-        final Map<String, Object> map = monitorList.get(position);
-        tvName.setText(map.get("name").toString());
-        tvAge.setText(map.get("age").toString());
+        Child child=monitorList.get(position);
+        tvName.setText(child.getName().toString());
+        tvAge.setText(child.getAge()+"");
+        try {
+            Log.e("头像路径",Constant.BASE_IP+child.getHeaderPath());
+            URL url=new URL(Constant.BASE_IP+child.getHeaderPath());
+            Glide.with(context)
+                    .load(url)
+                    .into(headPath);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         //监控
         llmonitor.setOnClickListener(new View.OnClickListener() {
             @Override

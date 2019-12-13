@@ -25,6 +25,7 @@ import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.example.lenovo.maandroid.Entity.AppInfo;
+import com.example.lenovo.maandroid.Entity.Child;
 import com.example.lenovo.maandroid.Entity.PositionInfo;
 import com.example.lenovo.maandroid.R;
 import com.example.lenovo.maandroid.Utils.Constant;
@@ -48,12 +49,13 @@ import java.util.Map;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 public class MonitorFragment extends Fragment {
-    private List<Map<String, Object>> childList = null;
+    private List<Child> childList = null;
     private CustomAdapterMonitor customAdapterMonitor;
     private ListView monitorlistView = null;
     private Handler mainHandler;
@@ -169,9 +171,11 @@ public class MonitorFragment extends Fragment {
     //初始化孩子数据
     public void initChild() {
         Log.e("test", Constant.BASE_IP + "monitor/child");
+        FormBody formBody=new FormBody.Builder().add("parentId","1").build();
         //2、创建Request对象
         Request request = new Request.Builder() //创建Builder对象
                 .url(Constant.BASE_IP + "monitor/child")//设置网络请求的UrL地址
+                .post(formBody)
                 .build();
         //3、创建Call对象
         final Call call = okHttpClient.newCall(request);
@@ -193,20 +197,20 @@ public class MonitorFragment extends Fragment {
     }
 
     //解析json
-    public static List<Map<String, Object>> Analysis(String jsonStr) {
+    public static List<Child> Analysis(String jsonStr) {
         JSONArray jsonArray = null;
-        List<Map<String, Object>> list = new ArrayList<>();
+        List<Child> list = new ArrayList<>();
         try {
             jsonArray = new JSONArray(jsonStr);
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                // 初始化map数组对象
-                HashMap<String, Object> map = new HashMap<String, Object>();
-                map.put("id", jsonObject.getString("id"));
-                map.put("name", jsonObject.getString("name"));
-                map.put("age", jsonObject.getString("age"));
-                map.put("parentId", jsonObject.getString("parentId"));
-                list.add(map);
+                Child child=new Child();
+                child.setName(jsonObject.getString("name"));
+                child.setAge(Integer.parseInt(jsonObject.getString("age")));
+                child.setHeaderPath(jsonObject.getString("headerPath"));
+                child.setId(Integer.parseInt(jsonObject.getString("id")));
+                child.setParentId(Integer.parseInt(jsonObject.getString("parentId")));
+                list.add(child);
             }
         } catch (JSONException e) {
             e.printStackTrace();

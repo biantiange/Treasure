@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
+import Monitor.service.MonitorServiceImpl;
 import entity.Child;
-import mine.child.service.ChildService;
 
 /**
  * Servlet implementation class ListServlet
@@ -35,11 +35,11 @@ public class ChildrenListServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//根据家长的Id获取全部孩子信息
-		System.out.println("获取孩子信息");
 		request.setCharacterEncoding("UTF-8");
 		request.setCharacterEncoding("UTF-8");
-		System.out.println("获取孩子信息");
-		List<Child> list = new ChildService().listAllChilds();
+		String parentId = request.getParameter("parentId");
+		System.out.println("获取孩子信息——"+"parentId:+"+parentId);
+		List<Child> list = new MonitorServiceImpl().listChildByParentId(Integer.parseInt(parentId));
 		String msgStr=new Gson().toJson(list);
 		response.getWriter().append(msgStr);
 	}

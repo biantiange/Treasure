@@ -1,35 +1,28 @@
 package entity;
 
 public class Child {
-private String imgPath;
-	private String nickName;
-	private int birthday;
-	private int parentId;
 	private int id;
-	
-	public int getId() {
-		return id;
+	private String name;
+	private int age;
+	private String headerPath;
+	private int parentId;
+	public String getHeaderPath() {
+		return headerPath;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setHeaderPath(String headerPath) {
+		this.headerPath = headerPath;
 	}
-	public String getImgPath() {
-		return imgPath;
+	public String getName() {
+		return name;
 	}
-	public void setImgPath(String imgPath) {
-		this.imgPath = imgPath;
+	public void setName(String name) {
+		this.name = name;
 	}
-	public String getNickName() {
-		return nickName;
+	public int getAge() {
+		return age;
 	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-	public int getBirthday() {
-		return birthday;
-	}
-	public void setBirthday(int birthday) {
-		this.birthday = birthday;
+	public void setAge(int age) {
+		this.age = age;
 	}
 	public int getParentId() {
 		return parentId;
@@ -37,14 +30,15 @@ private String imgPath;
 	public void setParentId(int parentId) {
 		this.parentId = parentId;
 	}
-	public Child(String imgPath, String nickName, int birthday, int parentId, int id) {
-		super();
-		this.imgPath = imgPath;
-		this.nickName = nickName;
-		this.birthday = birthday;
-		this.parentId = parentId;
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
 		this.id = id;
 	}
+	
+	
+	
 	
 	
 	

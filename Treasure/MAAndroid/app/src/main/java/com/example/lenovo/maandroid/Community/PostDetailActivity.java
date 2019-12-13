@@ -47,6 +47,9 @@ public class PostDetailActivity extends AppCompatActivity {
             PostImg img = (PostImg) intent.getSerializableExtra("img" + i);
             imgs.add(img);
         }
+        //头像
+        ImageView header = findViewById(R.id.community_detail_parent_header);
+        Glide.with(PostDetailActivity.this).load(post.getParent().getHeaderPath()).into(header);
 
         //img
         ImageView img1 = findViewById(R.id.im1);
@@ -190,7 +193,7 @@ public class PostDetailActivity extends AppCompatActivity {
 
                 User_id.put("praiserId",1);//发送登录者ID
                 User_id.put("postId",post.getId());
-                User_id.put("praiseCount",post.getPraiseCount());
+                User_id.put("praiseCount",post.getPraiseCount()+1);
 
                 OutputStream os = con.getOutputStream();
                 os.write(User_id.toString().getBytes());

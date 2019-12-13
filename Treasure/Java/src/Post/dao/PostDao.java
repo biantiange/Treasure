@@ -8,7 +8,11 @@ import util.DBUtil;
 
 public class PostDao {
 	public List<Map<String,Object>> findAll(){
-		return DBUtil.findAll("select * from tbl_post order by time desc");
+		return DBUtil.findAll("select * from tbl_post order by time desc limit 0,5");
+	}
+	
+	public List<Map<String,Object>> findAll(int start){
+		return DBUtil.findAll("select * from tbl_post order by time desc limit "+start+",5");
 	}
 
 	public int savePost(Post post) {

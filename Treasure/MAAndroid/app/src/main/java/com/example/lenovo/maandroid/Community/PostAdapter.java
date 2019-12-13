@@ -56,12 +56,21 @@ public class PostAdapter extends BaseAdapter {
         return position;
     }
 
+    public void addPost(Post post){
+        posts.add(post);
+    }
+
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null){
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(item_id,null);
         }
+        //头像
+        ImageView header = convertView.findViewById(R.id.community_parent_header);
+        Glide.with(context).load(posts.get(position).getParent().getHeaderPath()).into(header);
+
+
 //img
         posts.get(position).getImgs();
         ImageView img1 = convertView.findViewById(R.id.iv1);
@@ -138,7 +147,7 @@ public class PostAdapter extends BaseAdapter {
                     @Override
                     public void onTextSend(String msg) {
                         //获得输入框中的文字（点击发送之后回调）
-                        Log.e("comment",msg);
+
                         AddCommentTask task = new AddCommentTask(position,msg);
                         task.execute();
                     }
@@ -157,6 +166,8 @@ public class PostAdapter extends BaseAdapter {
         final ImageView praising = convertView.findViewById(R.id.community_praising);//点赞
         if (posts.get(position).getIsPraise() > 0){
             praising.setImageResource(R.drawable.dianzaned);
+        }else {
+            praising.setImageResource(R.drawable.dianzan);
         }
         praising.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -193,26 +204,33 @@ public class PostAdapter extends BaseAdapter {
 
         //三条评论
         comments = posts.get(position).getComments();
+        TextView comment1 = convertView.findViewById(R.id.community_comment1);
+        TextView comment2 = convertView.findViewById(R.id.community_comment2);
+        TextView comment3 = convertView.findViewById(R.id.community_comment3);
+
+
         if (comments.size()==3){
-            TextView comment1 = convertView.findViewById(R.id.community_comment1);
             comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
-            TextView comment2 = convertView.findViewById(R.id.community_comment2);
             comment2.setText(comments.get(1).getCommentator().getNickName()+":"+comments.get(1).getContent());
-            TextView comment3 = convertView.findViewById(R.id.community_comment3);
             comment3.setText(comments.get(2).getCommentator().getNickName()+":"+comments.get(2).getContent());
         }else if(comments.size()==2){
-            TextView comment1 = convertView.findViewById(R.id.community_comment1);
             comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
-            TextView comment2 = convertView.findViewById(R.id.community_comment2);
             comment2.setText(comments.get(1).getCommentator().getNickName()+":"+comments.get(1).getContent());
+            comment3.setText("");
         }else if (comments.size()==1){
-            TextView comment1 = convertView.findViewById(R.id.community_comment1);
             comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
+            comment2.setText("");
+            comment3.setText("");
+        }else {
+            comment1.setText("");
+            comment2.setText("");
+            comment3.setText("");
         }
 
 
         return convertView;
     }
+
 
     private class PraiseTask extends AsyncTask{
         private int position;

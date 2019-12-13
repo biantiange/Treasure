@@ -10,6 +10,10 @@ public class PostServicelmpl {
 	public List<Map<String,Object>> listPost(){
 		return new PostDao().findAll();
 	}
+	
+	public List<Map<String,Object>> listPost(int start){
+		return new PostDao().findAll(start);
+	}
 
 	public boolean addPost(Post post) {
 		int count = new PostDao().savePost(post);

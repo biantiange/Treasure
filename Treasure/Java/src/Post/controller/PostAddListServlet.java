@@ -15,28 +15,24 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import Comment.service.CommentServicelmpl;
 import Post.service.PostServicelmpl;
 import PostImg.service.PostImgServicelmpl;
 import Praise.dao.PraiseDao;
 import User.dao.UserDao;
-import entity.Post;
 import entity.User;
 
 /**
- * Servlet implementation class PostListServlet
+ * Servlet implementation class PostAddListServlet
  */
-@WebServlet("/PostListServlet")
-public class PostListServlet extends HttpServlet {
+@WebServlet("/PostAddListServlet")
+public class PostAddListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PostListServlet() {
+    public PostAddListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -64,10 +60,13 @@ public class PostListServlet extends HttpServlet {
 		String param = new String(bs,0,len);
 		JSONObject object = new JSONObject(param);
 		int praiserId = object.getInt("praiserId");
+		int page = object.getInt("page");
 		
 		JSONArray jsonArray = new JSONArray();
-        List<Map<String, Object>> list = new PostServicelmpl().listPost();
-        for(Map<String,Object> map:list) {
+        List<Map<String, Object>> list = new PostServicelmpl().listPost(page*5);
+        
+        if (list != null) {
+			for(Map<String,Object> map:list) {
         	//post
         	JSONObject jsonObject = new JSONObject();
         	jsonObject.put("id", map.get("id"));
@@ -100,6 +99,7 @@ public class PostListServlet extends HttpServlet {
         		Jimgs.put(img);
         	}
         	jsonObject.put("imgs", Jimgs);
+        	System.out.println(Jimgs);
         	
         	//3_comment
         	List<Map<String,Object>> comments = new CommentServicelmpl().listComment_3((int)map.get("id"));
@@ -115,7 +115,7 @@ public class PostListServlet extends HttpServlet {
         		i++;
         	}
         	jsonObject.put("comments", jcomments);
-      	
+        	
         	//isPraise
         	int isPraise = new PraiseDao().isPraise(praiserId, (int)map.get("id"));
         	jsonObject.put("isPraise",isPraise);
@@ -128,6 +128,11 @@ public class PostListServlet extends HttpServlet {
         out.write(jsonArray.toString().getBytes());
         out.flush();
         out.close();
+		}else {
+			
+			System.out.println("没有更多了");
+		}
+        
 	}
 
 }

@@ -5,9 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.Map;
-
-import javax.jws.soap.SOAPBinding.Use;
 
 import entity.User;
 import util.DBUtil;
@@ -114,10 +111,5 @@ public class UserDao {
 		}
 		//return count;
 		return id;
-	}
-	//根据id查用户 
-	public User findById(int id) {
-		Object object =  DBUtil.findByIdForParent(User.class, id);
-		return object != null ? (User)object : null;
 	}
 }

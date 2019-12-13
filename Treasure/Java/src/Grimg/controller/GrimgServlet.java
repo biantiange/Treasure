@@ -36,17 +36,21 @@ public class GrimgServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("GrimgServlet");
+		String id = request.getParameter("id");
 		String growthRecordId = request.getParameter("growthRecordId");
 		String upTime = request.getParameter("upTime");
-		String imgPath = request.getParameter("imgPath");
+		//String imgPath = request.getParameter("imgPath");
 		String tag = request.getParameter("tag");
-		if(growthRecordId!=null && upTime!=null && imgPath!= null && tag!=null){
+		tag=new String(tag.getBytes("ISO-8859-1"),"UTF-8");
+		if(id!=null&&growthRecordId!=null && upTime!=null){
 			Grimg grimg = new Grimg();
+			grimg.setId(Integer.parseInt(id));
 			grimg.setGrowthRecordId(Integer.parseInt(growthRecordId));
-			grimg.setImgPath(imgPath);
+			//grimg.setImgPath(imgPath);
 			grimg.setUpTime(upTime);
 			grimg.setTag(tag);
-			int count = new GrimgService().addGrimg(grimg);
+			int count = new GrimgService().addGrimgOther(grimg);
 			if(count != 0){
 				System.out.println("添加记录图片成功");
 				response.getWriter().append("OK");

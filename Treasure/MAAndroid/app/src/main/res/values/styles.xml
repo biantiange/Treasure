@@ -7,7 +7,22 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <!-- set Can use Activity transitions -->
+        <item name="android:windowContentTransitions">true</item>
     </style>
+    
+    <style name="Translucent" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+
+    </style>
+    <style name="TextLabel" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Label color in TRUE state and bar color FALSE and TRUE State -->
+        <item name="colorControlActivated">#FFCC00</item>
+    </style>
+
 
 
     <style name="main_menu_animstyle">
@@ -21,7 +36,7 @@
 
     <!-- 中间弹出框 -->
 
-    <style name="dialog_center" parent="Theme.AppCompat.Dialog.Alert">
+    <style name="dialog_center" parent="Base.Theme.AppCompat.Dialog.Alert">
 
         <!-- 去黑边 -->
 

@@ -37,6 +37,16 @@ private String imgPath;
 	public void setParentId(int parentId) {
 		this.parentId = parentId;
 	}
+	public Child(String imgPath, String nickName, int birthday, int parentId, int id) {
+		super();
+		this.imgPath = imgPath;
+		this.nickName = nickName;
+		this.birthday = birthday;
+		this.parentId = parentId;
+		this.id = id;
+	}
+	
+	
 	
 
 }

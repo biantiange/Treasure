@@ -36,6 +36,7 @@ public class GrimgServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		System.out.println("GrimgServlet");
 		String id = request.getParameter("id");
 		String growthRecordId = request.getParameter("growthRecordId");
@@ -43,6 +44,7 @@ public class GrimgServlet extends HttpServlet {
 		//String imgPath = request.getParameter("imgPath");
 		String tag = request.getParameter("tag");
 		tag=new String(tag.getBytes("ISO-8859-1"),"UTF-8");
+		System.out.println(tag);
 		if(id!=null&&growthRecordId!=null && upTime!=null){
 			Grimg grimg = new Grimg();
 			grimg.setId(Integer.parseInt(id));

@@ -5,8 +5,13 @@ public class GrowthRecord {
     private String upTime;
     private int parentId;
     private String content;
+    
 
-    public GrowthRecord(String upTime, int parentId, String content) {
+    public GrowthRecord() {
+	
+	}
+
+	public GrowthRecord(String upTime, int parentId, String content) {
 		super();
 		this.upTime = upTime;
 		this.parentId = parentId;

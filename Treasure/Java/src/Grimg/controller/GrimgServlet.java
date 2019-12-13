@@ -42,6 +42,7 @@ public class GrimgServlet extends HttpServlet {
 		String upTime = request.getParameter("upTime");
 		//String imgPath = request.getParameter("imgPath");
 		String tag = request.getParameter("tag");
+		tag=new String(tag.getBytes("ISO-8859-1"),"UTF-8");
 		if(id!=null&&growthRecordId!=null && upTime!=null){
 			Grimg grimg = new Grimg();
 			grimg.setId(Integer.parseInt(id));

@@ -11,9 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.baidu.mapapi.SDKInitializer;
 import com.example.lenovo.maandroid.Community.CommunityFragment;
 import com.example.lenovo.maandroid.Mine.MineFragment;
-import com.example.lenovo.maandroid.Monitor.ObserFragment;
+import com.example.lenovo.maandroid.Monitor.MonitorFragment;
 import com.example.lenovo.maandroid.R;
 import com.example.lenovo.maandroid.Record.RecordFragment;
 
@@ -95,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
         initData();
         setListener();
@@ -103,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
         sharedPreferences = getSharedPreferences("parent",MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("phoneNumber","15231174460");
-
         editor.putInt("parentId",12);
         editor.commit();
         //---------虚假数据到此结束-------------
@@ -201,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setFragment() {
-        map.get(tabStrId[0]).setFragment(new ObserFragment());
+        map.get(tabStrId[0]).setFragment(new MonitorFragment());
         map.get(tabStrId[1]).setFragment(new RecordFragment());
         map.get(tabStrId[2]).setFragment(new CommunityFragment());
         map.get(tabStrId[3]).setFragment(new MineFragment());

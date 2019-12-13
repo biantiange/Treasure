@@ -1,8 +1,6 @@
 package com.example.lenovo.maandroid.Login;
 
 import android.Manifest;
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,17 +8,11 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.CardView;
 import android.text.TextUtils;
-import android.transition.Transition;
-import android.transition.TransitionInflater;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewAnimationUtils;
-import android.view.animation.AccelerateInterpolator;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -44,31 +36,21 @@ public class RegisterActivity extends AppCompatActivity {
     public static final String TAG = "LoginActivity";
     String APPKEY = "2d187ed5a57eb";
     String APPSECRET = "305f9725ab0bdb819a34927572fc8b9d";
-    private EditText etPhone, etYanzhengma, etPwd1, etPwd;
-    //private Button btnSubmit, btnGetMsg, btnReturn;  //btnSubmit是next按钮
-    private Button btnSubmit, btnGetMsg;
+    private EditText etPhone, etYanzhengma,etPwd1,etPwd;
+    private Button btnSubmit, btnGetMsg,btnReturn;
     private int i = 30;//计时器
-
-    //next按钮
-    private FloatingActionButton fab;
-    private CardView cvAdd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_register);
-        setContentView(R.layout.activity_register1);
-        //onCreate里注册
-        findViews();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ShowEnterAnimation();
-        }
+        setContentView( R.layout.activity_register);
         //如果 targetSdkVersion小于或等于22，可以忽略这一步，如果大于或等于23，需要做权限的动态申请：
         if (Build.VERSION.SDK_INT >= 23) {
             String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS};
             ActivityCompat.requestPermissions(this, mPermissionList, 123);
         }
-
+        //onCreate里注册
+        findViews();
         // 启动短信验证sdk
         MobSDK.init(this, APPKEY, APPSECRET);
         EventHandler eventHandler = new EventHandler() {
@@ -96,14 +78,9 @@ public class RegisterActivity extends AppCompatActivity {
         MyListener myListener = new MyListener();
         btnSubmit.setOnClickListener(myListener);
         btnGetMsg.setOnClickListener(myListener);
-        //btnReturn = findViewById(R.id.btn_return);
-        //btnReturn.setOnClickListener(myListener);
-
-        fab = findViewById(R.id.fab);   //叉号
-        fab.setOnClickListener(myListener);
-        cvAdd = findViewById(R.id.cv_add);
+        btnReturn = findViewById(R.id.btn_return);
+        btnReturn.setOnClickListener(myListener);
     }
-
     Handler handler = new Handler() {
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -123,14 +100,14 @@ public class RegisterActivity extends AppCompatActivity {
                         //Toast.makeText(RegisterActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
                         Intent intent = getIntent();
                         //注册
-                        if (intent.getIntExtra("flag", 0) == 1) {
-                            MyOkHttp(Constant.BASE_IP + "Java/AddUserServlet/" + etPhone.getText().toString() + "-" + etPwd.getText().toString());
-                           // finish();
+                        if (intent.getIntExtra("flag",0) ==1){
+                            MyOkHttp(Constant.BASE_IP+"Java/AddUserServlet/"+etPhone.getText().toString()+"-"+etPwd.getText().toString());
+                            finish();
                         }
                         //忘记密码
-                        else {
-                            MyOkHttp(Constant.BASE_IP + "Java/ForgetServlet/" + etPhone.getText().toString() + "-" + etPwd.getText().toString());
-                           // finish();
+                        else{
+                            MyOkHttp(Constant.BASE_IP+"Java/ForgetServlet/"+etPhone.getText().toString()+"-"+etPwd.getText().toString());
+                            finish();
                         }
 
                         //Toast.makeText(RegisterActivity.this,"操作成功", Toast.LENGTH_SHORT).show();
@@ -156,12 +133,9 @@ public class RegisterActivity extends AppCompatActivity {
         public void onClick(View v) {
             String phoneNum = etPhone.getText().toString();
             switch (v.getId()) {
-                case R.id.fab:
-                    animateRevealClose();
-                    break;
-                /*case R.id.btn_return:
+                case R.id.btn_return:
                     finish();
-                    break;*/
+                    break;
                 case R.id.btn_yanzhengma:
                     // 1. 判断手机号是不是11位并且看格式是否合理
                     if (!judgePhoneNums(phoneNum)) {
@@ -214,7 +188,6 @@ public class RegisterActivity extends AppCompatActivity {
             }
         }
     }
-
     /**
      * 判断手机号码是否合理
      *
@@ -266,11 +239,10 @@ public class RegisterActivity extends AppCompatActivity {
         SMSSDK.unregisterAllEventHandler();
         super.onDestroy();
     }
-
     //修改数据库，在数据库中加入新用户
-    public void MyOkHttp(String url) {
+    public void MyOkHttp(String url){
         Request request = new Request.Builder().url(url).build();
-        final Call call = okHttpClient.newCall(request);
+        final Call call  = okHttpClient.newCall(request);
 
         call.enqueue(new Callback() {
             @Override
@@ -281,106 +253,21 @@ public class RegisterActivity extends AppCompatActivity {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                // Toast.makeText(RegisterActivity.this,"操作成功", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(RegisterActivity.this,"操作成功", Toast.LENGTH_SHORT).show();
                 String jsonStr = response.body().string();
-                Log.e("RegisterActivity", "响应：" + jsonStr);
+                Log.e("RegisterActivity","响应："+jsonStr);
                 Looper.prepare();
-                if (jsonStr.equals("OK")) {
+                if(jsonStr.equals("OK")){
                     //Looper.prepare();
-                    Toast.makeText(RegisterActivity.this, "操作成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this,"操作成功", Toast.LENGTH_SHORT).show();
                     Looper.loop();
-                } else {
+                }else{
                     //Looper.prepare();
-                    Toast.makeText(RegisterActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this,"操作失败", Toast.LENGTH_SHORT).show();
                     Looper.loop();
                 }
             }
         });
-    }
-
-    private void ShowEnterAnimation() {
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Transition transition = TransitionInflater.from(this).inflateTransition(R.transition.fabtransition);
-            getWindow().setSharedElementEnterTransition(transition);
-            transition.addListener(new Transition.TransitionListener() {
-                @Override
-                public void onTransitionStart(Transition transition) {
-                    cvAdd.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onTransitionEnd(Transition transition) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        transition.removeListener(this);
-                        animateRevealShow();
-                    }
-                }
-
-                @Override
-                public void onTransitionCancel(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionPause(Transition transition) {
-
-                }
-
-                @Override
-                public void onTransitionResume(Transition transition) {
-
-                }
-            });
-       // }
-
-    }
-
-    private void animateRevealShow() {
-      //  if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Animator mAnimator = ViewAnimationUtils.createCircularReveal(cvAdd, cvAdd.getWidth() / 2, 0, fab.getWidth() / 2, cvAdd.getHeight());
-            mAnimator.setDuration(500);
-            mAnimator.setInterpolator(new AccelerateInterpolator());
-            mAnimator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    super.onAnimationEnd(animation);
-                }
-
-                @Override
-                public void onAnimationStart(Animator animation) {
-                    cvAdd.setVisibility(View.VISIBLE);
-                    super.onAnimationStart(animation);
-                }
-            });
-            mAnimator.start();
-       // }
-    }
-    public void animateRevealClose() {
-       // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Animator mAnimator = ViewAnimationUtils.createCircularReveal(cvAdd, cvAdd.getWidth() / 2, 0, cvAdd.getHeight(), fab.getWidth() / 2);
-            mAnimator.setDuration(500);
-            mAnimator.setInterpolator(new AccelerateInterpolator());
-            mAnimator.addListener(new AnimatorListenerAdapter() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    cvAdd.setVisibility(View.INVISIBLE);
-                    super.onAnimationEnd(animation);
-                    fab.setImageResource(R.drawable.plus);
-                    RegisterActivity.super.onBackPressed();
-                }
-
-                @Override
-                public void onAnimationStart(Animator animation) {
-                    super.onAnimationStart(animation);
-                }
-            });
-            mAnimator.start();
-       // }
-    }
-
-    @Override
-    public void onBackPressed() {
-        animateRevealClose();
     }
 }
 

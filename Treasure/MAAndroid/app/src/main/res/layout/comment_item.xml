@@ -25,7 +25,8 @@
                 android:layout_height="15dp"
                 android:paddingLeft="10dp"
                 android:text="爱新觉罗"
-                android:textSize="11dp" />
+                android:textSize="13dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/comment_time"
@@ -34,17 +35,14 @@
                 android:paddingLeft="10dp"
                 android:text="21:06:00"
                 android:textColor="#b2aaaa"
-                android:textSize="10dp" />
+                android:textSize="8dp" />
         </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="40dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp"
-        android:paddingBottom="10dp">
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/comment_content"
@@ -52,40 +50,6 @@
             android:layout_height="match_parent"
             android:text="扣话费卡快递费和空间的划分看asdfasdf阿斯蒂芬人微服务微软给我如果无人过问如果认为如果无人过问人更让按个爱人给我如果看电脑卡  "
             android:textSize="12dp" />
-
     </LinearLayout>
-
-    <GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:id="@+id/comment_response_L"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="40dp"
-            android:paddingTop="10dp"
-            android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            >
-
-            <TextView
-                android:id="@+id/responder_name"
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:text="回复 @尼古拉斯："
-                android:textColor="@color/colorPrimary"
-                android:textSize="11dp" />
-
-            <TextView
-                android:id="@+id/responder_content"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/response_yuanjiao"
-                android:text="sfkhskdhfkahdk十分看好的谁客户反馈回到家开发哈客户的放开极度恐慌发卡行的看法哈客户的开发好看爱哭的回复啦好可怜的回复"
-                android:textSize="11dp" />
-        </LinearLayout>
-    </GridLayout>
 
 </LinearLayout>

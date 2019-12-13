@@ -41,13 +41,4 @@ public class PostImg implements Serializable {
         this.time = time;
     }
 
-    @Override
-    public String toString() {
-        return "PostImg{" +
-                "id=" + id +
-                ", path='" + path + '\'' +
-                ", postId=" + postId +
-                ", time=" + time +
-                '}';
-    }
 }

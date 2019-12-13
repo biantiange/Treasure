@@ -1,4 +1,3 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <string name="app_name" translatable="false">MAAndroid</string>
-    <string name="ip" tools:ignore="MissingTranslation">192.168.2.230</string>
 </resources>

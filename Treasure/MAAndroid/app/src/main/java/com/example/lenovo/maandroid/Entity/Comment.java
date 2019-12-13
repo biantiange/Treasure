@@ -1,7 +1,5 @@
 package com.example.lenovo.maandroid.Entity;
 
-import com.example.lenovo.maandroid.Entity.Parent;
-
 import java.io.Serializable;
 import java.sql.Timestamp;
 
@@ -10,7 +8,7 @@ public class Comment implements Serializable {
     private int postId;
     private Parent commentator; //评论人
     private Parent responder;   //回复人
-    private int resComId;      //回复评论ID
+    private Comment resCom;      //回复评论ID
     private Timestamp time;    //时间
     private String content;    //内容
 
@@ -30,6 +28,14 @@ public class Comment implements Serializable {
         this.postId = postId;
     }
 
+    public Comment getResCom() {
+        return resCom;
+    }
+
+    public void setResCom(Comment resCom) {
+        this.resCom = resCom;
+    }
+
     public Parent getCommentator() {
         return commentator;
     }
@@ -46,13 +52,6 @@ public class Comment implements Serializable {
         this.responder = responder;
     }
 
-    public int getResComId() {
-        return resComId;
-    }
-
-    public void setResComId(int resComId) {
-        this.resComId = resComId;
-    }
 
     public Timestamp getTime() {
         return time;
@@ -77,7 +76,7 @@ public class Comment implements Serializable {
                 ", postId=" + postId +
                 ", commentator=" + commentator +
                 ", responder=" + responder +
-                ", resComId=" + resComId +
+                ", resCom=" + resCom +
                 ", time=" + time +
                 ", content='" + content + '\'' +
                 '}';

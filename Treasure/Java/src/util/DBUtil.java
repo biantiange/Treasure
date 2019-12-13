@@ -206,5 +206,46 @@ public class DBUtil {
 		}
 	}
 
+/**
+	 * 根据条件查询，返回List集合，集合中存储表对应的对象
+	 * @param cls
+	 * @param sql
+	 * @param params
+	 * @return
+	 */
+	public static List find(Class cls, String sql, Object[] params) {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		try {
+			con = getCon();
+			pstm = con.prepareStatement(sql);
+			if (params != null && params.length > 0) {
+				for (int i = 0; i < params.length; i++)
+				{
+					pstm.setObject(i + 1, params[i]);
+				}
+			}
+			rs = pstm.executeQuery();
+			List list = new ArrayList();
+			ResultSetMetaData metaData = rs.getMetaData();
+			while (rs.next()) {
+				Object obj = cls.newInstance();
+				for (int i = 0; i < metaData.getColumnCount(); i++) {
+					Field field = cls.getDeclaredField(metaData.getColumnLabel(i + 1));
+					field.setAccessible(true);
+					field.set(obj, rs.getObject(i + 1));
+				}
+				list.add(obj);
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			close(rs, pstm, con);
+		}
+	}
+
 
 }

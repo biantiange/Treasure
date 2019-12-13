@@ -38,12 +38,5 @@ public class Child {
 	}
 	
 	
-<<<<<<< HEAD
-	
-	
-	
-	
-=======
->>>>>>> baf09f148273fb763ea437023eb3a51992a4faab
 
 }

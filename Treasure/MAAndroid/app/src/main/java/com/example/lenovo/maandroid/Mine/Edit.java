@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.lenovo.maandroid.R;
+import com.example.lenovo.maandroid.Utils.Data;
 
 import java.io.File;
 import java.io.IOException;

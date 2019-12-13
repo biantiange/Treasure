@@ -15,7 +15,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.lenovo.maandroid.Entity.Comment;
+import com.example.lenovo.maandroid.Entity.Post;
 import com.example.lenovo.maandroid.R;
+import com.example.lenovo.maandroid.Utils.InputTextMsgDialog;
 
 import org.json.JSONObject;
 

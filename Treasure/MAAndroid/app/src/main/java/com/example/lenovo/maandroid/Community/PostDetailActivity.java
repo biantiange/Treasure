@@ -14,7 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.lenovo.maandroid.Entity.Comment;
+import com.example.lenovo.maandroid.Entity.Parent;
+import com.example.lenovo.maandroid.Entity.Post;
+import com.example.lenovo.maandroid.Entity.PostImg;
 import com.example.lenovo.maandroid.R;
+import com.example.lenovo.maandroid.Utils.InputTextMsgDialog;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

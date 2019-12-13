@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.lenovo.maandroid.R;
+import com.example.lenovo.maandroid.Utils.Data;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

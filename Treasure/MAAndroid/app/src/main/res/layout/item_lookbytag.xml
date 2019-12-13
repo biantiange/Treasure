@@ -26,7 +26,7 @@
         android:layout_weight="4"
         android:orientation="horizontal">
 
-        <com.example.lenovo.maandroid.NoScrollGridView
+        <com.example.lenovo.maandroid.Record.NoScrollGridView
             android:id="@+id/add_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -35,6 +35,6 @@
             android:horizontalSpacing="5dip"
             android:numColumns="3">
 
-        </com.example.lenovo.maandroid.NoScrollGridView>
+        </com.example.lenovo.maandroid.Record.NoScrollGridView>
     </LinearLayout>
 </LinearLayout>

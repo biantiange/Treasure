@@ -44,10 +44,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3">
-        <com.example.lenovo.maandroid.HorizontalListView
+        <com.example.lenovo.maandroid.Record.HorizontalListView
             android:id="@+id/mlv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.example.lenovo.maandroid.HorizontalListView>
+            android:layout_height="match_parent"></com.example.lenovo.maandroid.Record.HorizontalListView>
 
     </LinearLayout>
 

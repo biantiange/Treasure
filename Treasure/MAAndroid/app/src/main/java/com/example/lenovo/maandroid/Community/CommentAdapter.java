@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.lenovo.maandroid.Entity.Comment;
 import com.example.lenovo.maandroid.R;
 
 import java.util.List;

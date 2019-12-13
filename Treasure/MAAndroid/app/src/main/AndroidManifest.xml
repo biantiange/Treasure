@@ -34,8 +34,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Community.PostDetailActivity"/>
-        <activity android:name=".LookActivity"/>
-        <activity android:name=".AddActivity"/>
+        <activity android:name=".Record.LookActivity"/>
+        <activity android:name=".Record.AddActivity"/>
         <activity
             android:configChanges="orientation|screenSize"
             android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
@@ -44,7 +44,7 @@
         <activity android:name=".Mine.MyMessage" />
         <activity android:name=".Login.RegisterActivity"
             android:theme="@style/Translucent"/>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".Host.MainActivity" />
         <activity android:name=".Mine.Edit" />
 
         <provider

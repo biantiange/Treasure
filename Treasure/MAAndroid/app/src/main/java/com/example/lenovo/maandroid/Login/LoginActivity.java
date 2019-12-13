@@ -1,6 +1,5 @@
 package com.example.lenovo.maandroid.Login;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -11,14 +10,13 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lenovo.maandroid.R;
+import com.example.lenovo.maandroid.Utils.Constant;
 
 import java.io.IOException;
 

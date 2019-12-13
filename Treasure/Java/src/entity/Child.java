@@ -47,6 +47,5 @@ private String imgPath;
 	}
 	
 	
-	
 
 }

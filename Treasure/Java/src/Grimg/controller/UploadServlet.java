@@ -44,13 +44,16 @@ public class UploadServlet extends HttpServlet {
 		System.out.println("UploadServlet");
 		response.setCharacterEncoding("UTF-8");
 		InputStream is = request.getInputStream();
-		String path = request.getServletContext().getRealPath("/")+"grimg/";
+
+		String path = request.getServletContext().getRealPath("/")+"grimg/";    //要上传到那个文件夹
+
 		
 		File file = new File(path);   //绝对路径
 		if(!file.exists()){
 			file.mkdirs();
-		}
-		String str = System.currentTimeMillis()+".jpg";
+
+		String str = System.currentTimeMillis()+".jpg";   //以当前时间命名
+
 		String str1 = "grimg/"+str;
 		String imgPath = path+str;
 		System.out.println("要上传的文件路径"+imgPath);
@@ -66,11 +69,13 @@ public class UploadServlet extends HttpServlet {
 		//先插入imgPath，让其返回id，然后根据id在插入其他值
 		int id = -1;
 		id=new GrimgService().addGrimgPath(str1);
+
+		//在表中先插入imgPath，让其返回id，然后根据id在插入其他值
+
 		System.out.println("插入记录图片成功");
 		response.getWriter().append(id+"");
 		
 	}
-
+	}
 	
-
 }

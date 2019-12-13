@@ -1,25 +1,22 @@
-package com.example.lenovo.maandroid.Community;
+package com.example.lenovo.maandroid.Mine;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-
 import android.widget.ListView;
+
+
+import com.example.lenovo.maandroid.Community.PostAdapter;
 
 import com.example.lenovo.maandroid.Entity.Comment;
 import com.example.lenovo.maandroid.Entity.Parent;
-import com.example.lenovo.maandroid.R;
 import com.example.lenovo.maandroid.Entity.Post;
 import com.example.lenovo.maandroid.Entity.PostImg;
+import com.example.lenovo.maandroid.R;
+import com.example.lenovo.maandroid.Utils.Data;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,90 +32,39 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CommunityFragment extends Fragment {
+public class MineCommunity extends AppCompatActivity {
     private List<Post> posts = new ArrayList<>();
     private ListView listView;
     private PostAdapter postAdapter;
-    private int isPraise = 0;
-    private List<Comment> comments = new ArrayList<>();
-    private List<PostImg> imges = new ArrayList<>();
-    private SharedPreferences sharedPreferences;
-    private int parentId;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View newView = inflater.inflate(R.layout.community_main, container, false);
-        listView = newView.findViewById(R.id.listView_community);
-        sharedPreferences=getContext().getSharedPreferences( "parent", Context.MODE_PRIVATE );
-        parentId=sharedPreferences.getInt( "parentId",0 );
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate( savedInstanceState );
+        setContentView( R.layout.mine_community );
+        listView =findViewById(R.id.listView_community);
 
-
-//        //假数据
-//        Parent parent = new Parent(1, "13513028117", "尼古拉斯", "12138", "afas/rgerg/143/");
-//        Post post = new Post(1, "我于杀戮中绽放，亦如黎明中的花朵", new Timestamp(System.currentTimeMillis()), 250, parent);
-//
-//
-//        Parent parentC = new Parent(1, "13513028117", "大不列颠", "12138", "afas/rgerg/143/");
-//        Parent parentR = new Parent(1, "13513028117", "美利坚", "12138", "afas/rgerg/143/");
-//        Comment comment = new Comment();
-//        comment.setCommentator(parentC);
-//        comment.setContent("家里水电费看电视机房的减肥啦里看到什么弗兰克江东父老绝地反击hiu儿女菲拉好多年覅回调符换了卡芙兰朵露");
-//        comment.setId(3);
-//        comment.setPostId(1);
-//        comment.setResComId(0);
-//        comment.setResponder(parentR);
-//        comment.setTime(new Timestamp(System.currentTimeMillis()));
-//        comments.add(comment);
-//        comments.add(comment);
-//        comments.add(comment);
-//        //img
-//        PostImg img1 = new PostImg();
-//        img1.setId(1);
-//        img1.setPath("");//图片URL
-//        img1.setPostId(0);
-//        img1.setTime(new Timestamp(System.currentTimeMillis()));
-//        imges.add(img1);
-//        imges.add(img1);
-//        imges.add(img1);
-//        imges.add(img1);
-//        post.setIsPraise(1);
-//        post.setComments(comments);
-//        post.setImgs(imges);
-//        posts.add(post);
-//        posts.add(post);
-//
-//        postAdapter = new PostAdapter( posts, getActivity(), R.layout.community_item);
-//
-//        listView.setAdapter(postAdapter);
         PostTask task = new PostTask();
         task.execute();
-        return newView;
 
     }
-
     private class PostTask extends AsyncTask {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
-            postAdapter = new PostAdapter(posts, getActivity(), R.layout.community_item);
+            postAdapter = new PostAdapter(posts,MineCommunity.this, R.layout.community_item);
             listView.setAdapter(postAdapter);
         }
-
         @Override
         protected Object doInBackground(Object[] objects) {
             Log.e("post", "开始");
             try {
-                URL url = new URL("http://192.168.43.212:8080/Java/PostListServlet");
+                URL url = new URL( Data.ip+"PostListServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
-
                 con.setRequestMethod("POST");
                 JSONObject User_id = new JSONObject();
-                User_id.put("praiserId",parentId);//发送登录者ID
-
+                User_id.put("praiserId",1);//发送登录者ID
                 OutputStream os = con.getOutputStream();
                 os.write(User_id.toString().getBytes());
-
                 InputStream is = con.getInputStream();
                 byte[] bs = new byte[255];
                 int len;
@@ -128,6 +74,7 @@ public class CommunityFragment extends Fragment {
                 }
                 String get = new String(sb);
                 JSONArray getArray = new JSONArray(get);
+
                 for (int i = 0; i < getArray.length(); i++) {
                     JSONObject object = getArray.getJSONObject(i);
                     Post post = new Post();
@@ -142,34 +89,35 @@ public class CommunityFragment extends Fragment {
                     post.setParent(poster);
                     //imgs
                     JSONArray imgs = object.getJSONArray("imgs");
+                    List<PostImg> imges = new ArrayList<>();
                     for (int j = 0; j < imgs.length(); j++) {
-                            JSONObject img = getArray.getJSONObject(j);
+                            JSONObject img = imgs.getJSONObject(j);
                             PostImg image = new PostImg();
-
-                            image.setPostId(img.getInt("postId"));
-                            image.setTime(Timestamp.valueOf(img.getString("Pimg_time")));
-                            image.setId(img.getInt("Pimg_id"));
-                            image.setPath(img.getString("path"));
+                            image.setPostId(img.optInt("postId"));
+                            image.setTime(Timestamp.valueOf(img.optString("Pimg_time")));
+                            image.setId(img.optInt("Pimg_id"));
+                            image.setPath(img.optString("path"));
                         imges.add(image);
                     }
                     post.setImgs(imges);
                     //3_comment
                     JSONArray comment_3 = object.getJSONArray("comments");
+                    List<Comment> comments = new ArrayList<>();
                     for (int k = 0; k < comment_3.length(); k++) {
-                        JSONObject comment = getArray.getJSONObject(k);
+                        JSONObject comment = comment_3.getJSONObject(k);
                         Comment comment1 = new Comment();
-                        comment1.setContent(comment.getString("commentContent"));
+                        comment1.setContent(comment.optString("commentContent"));
                         Parent commentator = new Parent();
-                        commentator.setNickName(comment.getString("commentatorName"));
+                        commentator.setNickName(comment.optString("commentatorName"));
                         comment1.setCommentator(commentator);
                         comments.add(comment1);
                     }
+                    post.setComments(comments);
                     //isPraise
                     post.setIsPraise(object.getInt("isPraise"));
+                    Log.e("isPraise",object.getInt("isPraise")+"");
                     posts.add(post);
-
                 }
-
                 is.close();
                 os.close();
             } catch (ProtocolException e) {

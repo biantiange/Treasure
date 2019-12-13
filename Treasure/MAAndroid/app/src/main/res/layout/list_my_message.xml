@@ -1,77 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="5dp"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    <LinearLayout android:layout_width="match_parent"
-     android:layout_height="wrap_content"
-     android:orientation="horizontal">
-      <ImageView android:layout_width="60dp"
-         android:layout_height="60dp"
-         android:id="@+id/comments_user_img"
-         android:src="@drawable/aaa" />
-     <LinearLayout
-         android:layout_width="match_parent"
-         android:layout_height="wrap_content"
-         android:paddingLeft="15dp"
-         android:orientation="vertical">
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="horizontal">
-             <TextView
-                 android:id="@+id/comment_user_name"
-                 android:layout_width="0dp"
-                 android:layout_height="wrap_content"
-                 android:layout_weight="6"
-                 android:paddingTop="13dp"
-                 android:text="小河mm"
-                 android:textSize="14dp"
-                 android:textColor="#297972" />
-             <TextView
-                 android:id="@+id/comment_time"
-                 android:layout_width="0dp"
-                 android:layout_height="match_parent"
-                 android:layout_marginTop="9dp"
-                 android:layout_weight="2"
-                 android:text="今天12:24"
-                 android:textSize="13dp" />
-         </LinearLayout>
-         <LinearLayout
-             android:layout_width="match_parent"
-             android:layout_height="wrap_content"
-             android:orientation="vertical"
-             android:layout_marginTop="8dp">
+    android:paddingTop="5dp">
 
-             <TextView
-                 android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:text="回复我：????what"
-                 android:textColor="#101010"
-                 android:textSize="14dp"
-                 android:id="@+id/comment_to_me"
-                 />
-             <TextView android:layout_width="match_parent"
-                 android:layout_height="wrap_content"
-                 android:text="我的评论："
-                 android:layout_marginTop="5dp"
-                 android:textColor="#101010"
-                 android:paddingTop="3dp"
-                 android:paddingLeft="5dp"
-                 android:paddingBottom="3dp"
-                 android:paddingRight="5dp"
-                 android:textSize="13dp"
-                 android:id="@+id/my_comments"
-                 android:background="@drawable/yuanjiao" />
-         </LinearLayout>
-     </LinearLayout>
- </LinearLayout>
-    <!--<TextView-->
-        <!--android:layout_marginTop="2dp"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="1dp"-->
-        <!--android:background="#b9b9b9" />-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
 
+        <ImageView
+            android:id="@+id/comments_user_img"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/aaa" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/comment_user_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="6"
+                  android:layout_gravity="center"
+                    android:text="小河mm"
+                    android:textColor="#297972"
+                    android:textSize="15dp" />
+
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/comment_time_day"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp"
+                        android:textSize="12dp"
+                        android:layout_weight="1"
+                        android:text="2019-12-11" />
+
+                    <TextView
+                        android:textSize="12dp"
+                        android:id="@+id/comment_time_hour"
+                        android:layout_width="match_parent"
+                        android:layout_height="14dp"
+                        android:layout_weight="1"
+                        android:paddingLeft="32dp"
+                        android:text="18:30" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/comment_to_me"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="还有时间玩耍？"
+                    android:textColor="#101010"
+                    android:textSize="15dp" />
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/my_comments"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="5dp"
+                        android:background="@drawable/yuanjiao"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="3dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="3dp"
+                        android:text="我的评论：今天你们去哪玩了"
+                        android:textColor="#00FFFF"
+                        android:textSize="15dp" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="2dp"
+                        />
+
+                    <LinearLayout
+                        android:id="@+id/post"
+                        android:background="@drawable/yuanjiao"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:id="@+id/post_name"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="10dp"
+                                    android:layout_weight="5"
+                                    android:text="赵宁："
+                                    android:textColor="#426F42"
+                                    android:textSize="15dp" />
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="30dp"
+                                    android:layout_weight="2"
+                                    android:layout_marginTop="6dp"
+                                    android:layout_marginLeft="7dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/post_time_day"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="14dp"
+                                        android:textSize="12dp"
+                                        android:layout_weight="1"
+                                        android:text="2019-12-11" />
+
+                                    <TextView
+                                        android:textSize="12dp"
+                                        android:id="@+id/post_time_hour"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="14dp"
+                                        android:layout_weight="1"
+                                        android:paddingLeft="30dp"
+                                        android:text="18:30" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:id="@+id/post_img"
+                                android:layout_width="70dp"
+                                android:layout_height="70dp"
+                                android:layout_marginLeft="10dp"
+                                android:src="@drawable/aaa" />
+
+                            <TextView
+                                android:id="@+id/post_content"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="5dp"
+                                android:layout_gravity="center"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="10dp"
+                                android:text="啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊啊"
+                                android:textSize="16dp" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="3dp"
+                            android:layout_marginRight="11dp"
+                            android:background="#b9b9b9" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>
+

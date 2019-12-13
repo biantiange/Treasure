@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.map.MapView;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.lenovo.maandroid.Entity.AppInfo;
 import com.example.lenovo.maandroid.Entity.Child;
 import com.example.lenovo.maandroid.R;
@@ -46,6 +47,8 @@ public class CustomAdapterMonitor extends BaseAdapter {
     private LinearLayout llmp;
     private PieChart pc;
     private MapView mapView;
+    private RequestOptions options;
+
 
     //第一：自定义Adapter类———对Adapter构造器进行初始化
     public CustomAdapterMonitor(Context context, List<Child>  dataSourse, int item_layout_id, List<AppInfo> appInfos, LinearLayout llmp, MapView mapView, PieChart pc) {
@@ -91,11 +94,14 @@ public class CustomAdapterMonitor extends BaseAdapter {
         Child child=monitorList.get(position);
         tvName.setText(child.getName().toString());
         tvAge.setText(child.getAge()+"");
+        options = new RequestOptions().circleCrop().placeholder( R.drawable.aaa ).error( R.drawable.aaa ).fallback( R.drawable.aaa );
         try {
-            Log.e("头像路径",Constant.BASE_IP+child.getHeaderPath());
-            URL url=new URL(Constant.BASE_IP+child.getHeaderPath());
+            Log.e("头像路径",Constant.BASE_IP+"childImg/"+child.getHeaderPath());
+            URL url=new URL(Constant.BASE_IP+"childImg/"+child.getHeaderPath());
+
             Glide.with(context)
                     .load(url)
+                    .apply( options )
                     .into(headPath);
         } catch (MalformedURLException e) {
             e.printStackTrace();

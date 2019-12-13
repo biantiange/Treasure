@@ -147,8 +147,7 @@ public class AddActivity extends AppCompatActivity {
         grimg = new Grimg();
         //获得控件值
         String content = etContent.getText().toString();
-        //int parentId = getSharedPreferences("parent",MODE_PRIVATE).getInt("parentId",-1);
-        int parentId = 1;
+        int parentId = getSharedPreferences("parent",MODE_PRIVATE).getInt("parentId",-1);
         //String tag = "";
         //String imgPath = "";
         //初始化GrowthRecord

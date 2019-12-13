@@ -46,10 +46,9 @@ dependencies {
     //  implementation 'com.github.LRH1993:AutoFlowLayout:1.0.5'
 
 
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-12'
     //EventBus
     implementation 'org.greenrobot:eventbus:3.1.1'
-
-
     implementation 'com.github.LRH1993:AutoFlowLayout:1.0.5'
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     implementation 'com.youth.banner:banner:1.4.9'

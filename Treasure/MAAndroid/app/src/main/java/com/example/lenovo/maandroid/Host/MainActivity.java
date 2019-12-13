@@ -2,6 +2,7 @@ package com.example.lenovo.maandroid.Host;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -98,6 +99,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(0xff00bffe );
+        }
         initData();
         setListener();
         changeTab(tabStrId[0]);

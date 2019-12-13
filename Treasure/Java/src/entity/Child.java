@@ -36,14 +36,5 @@ public class Child {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
-<<<<<<< HEAD
-	
-	
-	
-	
-=======
->>>>>>> baf09f148273fb763ea437023eb3a51992a4faab
 
 }

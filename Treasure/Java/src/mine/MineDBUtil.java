@@ -14,6 +14,8 @@ package mine;
 	import java.util.List;
 	import java.util.Map;
 	import java.util.Properties;
+
+import com.sun.org.apache.regexp.internal.recompile;
 	public class MineDBUtil {
 
 		private static Properties dbProps = new Properties();
@@ -148,7 +150,11 @@ package mine;
 				while (rs.next()) {
 					Map<String, Object> map = new LinkedHashMap<String, Object>(metaData.getColumnCount());
 					for (int i = 0; i < metaData.getColumnCount(); i++) {
+						//if(rs.getObject(i + 1)!=null){
 						map.put(metaData.getColumnLabel(i + 1), rs.getObject(i + 1));
+						//}else{
+						//	map.put(metaData.getColumnLabel(i + 1), null);
+						//}
 					}
 					list.add(map);
 				}

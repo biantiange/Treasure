@@ -36,7 +36,7 @@ public class ChildrenListServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//根据家长的Id获取全部孩子信息
 		request.setCharacterEncoding("UTF-8");
-		request.setCharacterEncoding("UTF-8");
+		response.setCharacterEncoding("UTF-8");
 		String parentId = request.getParameter("parentId");
 		System.out.println("获取孩子信息——"+"parentId:+"+parentId);
 		List<Child> list = new MonitorServiceImpl().listChildByParentId(Integer.parseInt(parentId));

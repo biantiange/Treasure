@@ -40,7 +40,10 @@ android {
         }
     }
 }
-
+repositories {
+    maven { url "https://jitpack.io" }
+    maven { url "https://dl.bintray.com/albertlii/android-maven/" }
+}
 dependencies {
     // implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     //  implementation 'com.github.LRH1993:AutoFlowLayout:1.0.5'
@@ -57,11 +60,24 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
 
     implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //noinspection GradleCompatible
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support.constraint:constraint-layout:1.1.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+//    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.0', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
     implementation project(':multi-image-selector')
     implementation files('libs/BaiduLBS_Android.jar')
+
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.facebook.fresco:fresco:0.13.0'
+    implementation 'top.zibin:Luban:1.1.1'
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
+    implementation 'com.kuyue:utils:1.0.8'
+    implementation 'com.yuyh.imgsel:library:2.0.6'
+    implementation 'indi.liyi.view:image-viewer:3.0.1'
+    implementation "com.github.bumptech.glide:okhttp3-integration:4.8.0"
 }

@@ -17,9 +17,22 @@ import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
 public class MyApplication extends Application {
+    private static MyApplication app;
+    private Context mContext;
+
+    public static MyApplication getInstance() {
+        return app;
+    }
+
+    public Context getContext() {
+        return mContext;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+        app = this;
+        mContext = getApplicationContext();
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
         //设置别名

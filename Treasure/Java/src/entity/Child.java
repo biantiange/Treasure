@@ -18,6 +18,7 @@ public class Child {
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public String getAge() {
 		return age;
 	}

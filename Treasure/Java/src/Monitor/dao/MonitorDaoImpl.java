@@ -9,6 +9,6 @@ import util.DBUtil;
 public class MonitorDaoImpl {
 	// 根据父母Id查找孩子
 	public List<Child> findChildByParentId(int parentId) {
-		return DBUtil.find(Child.class, "select * from tbl_children where parentId=?", new Object[] {parentId});
+		return DBUtil.find(Child.class, "select * from tbl_children where id=?", new Object[] {parentId});
 	}
 }

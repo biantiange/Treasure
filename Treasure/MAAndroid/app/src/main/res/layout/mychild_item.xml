@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_margin="10dp"
     android:id="@+id/child_item_i"
+    android:descendantFocusability="blocksDescendants"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="80dp"
@@ -50,8 +51,8 @@
 
         <ImageButton
             android:id="@+id/child_xiugai"
-            android:layout_width="40dp"
-            android:layout_height="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:background="@drawable/xiangxi" />
     </LinearLayout>

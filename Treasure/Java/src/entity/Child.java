@@ -36,7 +36,6 @@ public class Child {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
+
 
 }

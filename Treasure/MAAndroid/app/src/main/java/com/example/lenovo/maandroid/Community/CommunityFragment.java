@@ -1,6 +1,8 @@
 package com.example.lenovo.maandroid.Community;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -44,6 +46,11 @@ public class CommunityFragment extends Fragment {
     private List<Post> posts = new ArrayList<>();
     private ListView listView;
     private PostAdapter postAdapter;
+    private int isPraise = 0;
+    private List<Comment> comments = new ArrayList<>();
+    private List<PostImg> imges = new ArrayList<>();
+    private SharedPreferences sharedPreferences;
+    private int parentId;
     private SmartRefreshLayout refreshLayout;
     private static final int REFRESH_FINISH = 1;
     private int pageNum = 1;
@@ -69,15 +76,15 @@ public class CommunityFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View newView = inflater.inflate(R.layout.community_main, container, false);
         listView = newView.findViewById(R.id.listView_community);
-        refreshLayout = newView.findViewById(R.id.smart_layout);
 
+        sharedPreferences=getContext().getSharedPreferences( "parent", Context.MODE_PRIVATE );
+        parentId=sharedPreferences.getInt( "parentId",0 );
+        refreshLayout = newView.findViewById(R.id.smart_layout);
         PostTask task = new PostTask();
         task.execute();
         setListeners();
         return newView;
-
     }
-
     private void setListeners(){
         //监听下拉刷新
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -131,8 +138,8 @@ public class CommunityFragment extends Fragment {
 
                 con.setRequestMethod("POST");
                 JSONObject User_id = new JSONObject();
+                User_id.put("praiserId",parentId);//发送登录者ID
 
-                User_id.put("praiserId", 1);//发送登录者ID
 
                 OutputStream os = con.getOutputStream();
                 os.write(User_id.toString().getBytes());

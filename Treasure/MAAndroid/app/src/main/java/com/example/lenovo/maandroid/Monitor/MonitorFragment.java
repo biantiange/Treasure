@@ -1,6 +1,8 @@
 package com.example.lenovo.maandroid.Monitor;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,7 +43,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -66,12 +70,16 @@ public class MonitorFragment extends Fragment {
     private PieChart pc;
     private MapView mapView = null;
     private BaiduMap baiduMap;
+    private SharedPreferences sharedPreferences;
+    private int parentId;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fagment_monitor, container, false);
         pc=new PieChart(view.getContext());
+        sharedPreferences=getContext().getSharedPreferences( "parent", Context.MODE_PRIVATE );
+        parentId=sharedPreferences.getInt( "parentId",0 );
         EventBus.getDefault().register(this);
         monitorlistView = view.findViewById(R.id.lv_monitor);
         //百度地图定位
@@ -103,6 +111,7 @@ public class MonitorFragment extends Fragment {
         };
         return view;
     }
+
 
     //当接受到通知时调用
     //sticky=true:该方法可以接受粘性事件
@@ -170,8 +179,9 @@ public class MonitorFragment extends Fragment {
 
     //初始化孩子数据
     public void initChild() {
+
         Log.e("test", Constant.BASE_IP + "monitor/child");
-        FormBody formBody=new FormBody.Builder().add("parentId","1").build();
+        FormBody formBody=new FormBody.Builder().add("parentId",parentId+"").build();
         //2、创建Request对象
         Request request = new Request.Builder() //创建Builder对象
                 .url(Constant.BASE_IP + "monitor/child")//设置网络请求的UrL地址
@@ -206,7 +216,13 @@ public class MonitorFragment extends Fragment {
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                 Child child=new Child();
                 child.setName(jsonObject.getString("name"));
-                child.setAge(Integer.parseInt(jsonObject.getString("age")));
+                //因为数据库中的数据是孩子的出生日期，不是年龄，只是年龄无法更新
+                // 获取当前年月日期，设置孩子的年龄，后期不仅需要从年上判断，也需要将月份也算进去
+                int child_age=Integer.parseInt(jsonObject.getString("age").substring( 0,4 ));
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy" );// HH
+                Date date = new Date( System.currentTimeMillis() );
+                int t = Integer.parseInt( simpleDateFormat.format( date ) );
+                child.setAge(t-child_age);//年龄：简单的判断
                 child.setHeaderPath(jsonObject.getString("headerPath"));
                 child.setId(Integer.parseInt(jsonObject.getString("id")));
                 child.setParentId(Integer.parseInt(jsonObject.getString("parentId")));

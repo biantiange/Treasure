@@ -1,6 +1,8 @@
 package com.example.lenovo.maandroid.Community;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +40,8 @@ public class PostDetailActivity extends AppCompatActivity {
     private List<Comment> comments = new ArrayList<>();
     private List<PostImg> imgs = new ArrayList<>();
     private Post post;
+    private SharedPreferences sharedPreferences;
+    private int parentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +55,10 @@ public class PostDetailActivity extends AppCompatActivity {
             PostImg img = (PostImg) intent.getSerializableExtra("img" + i);
             imgs.add(img);
         }
+        //parentId
+        sharedPreferences = PostDetailActivity.this.getSharedPreferences("parent", Context.MODE_PRIVATE);
+        parentId = sharedPreferences.getInt("parentId", 0);
+
         //头像
         ImageView header = findViewById(R.id.community_detail_parent_header);
         Glide.with(PostDetailActivity.this).load(post.getParent().getHeaderPath()).into(header);
@@ -195,7 +203,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 con.setRequestMethod("POST");
                 JSONObject User_id = new JSONObject();
 
-                User_id.put("praiserId",1);//发送登录者ID
+                User_id.put("praiserId",parentId);//发送登录者ID
                 User_id.put("postId",post.getId());
                 User_id.put("praiseCount",post.getPraiseCount()+1);
 
@@ -300,7 +308,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 con.setRequestMethod("POST");
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("postId", post.getId());
-                jsonObject.put("commentatorId", 1);//登录者ID
+                jsonObject.put("commentatorId", parentId);//登录者ID
                 jsonObject.put("resComId", comments.get(position).getId());
 
                 jsonObject.put("responderId", comments.get(position).getCommentator().getId());
@@ -346,7 +354,7 @@ public class PostDetailActivity extends AppCompatActivity {
                 con.setRequestMethod("POST");
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("postId", post.getId());
-                jsonObject.put("commentatorId", 1);//登录者ID
+                jsonObject.put("commentatorId", parentId);//登录者ID
                 jsonObject.put("responderId",post.getParent().getId());
                 jsonObject.put("content", content);
                 jsonObject.put("time", new Timestamp(System.currentTimeMillis()));

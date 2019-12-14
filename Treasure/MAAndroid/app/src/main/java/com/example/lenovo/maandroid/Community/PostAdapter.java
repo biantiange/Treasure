@@ -2,6 +2,7 @@ package com.example.lenovo.maandroid.Community;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -34,6 +35,8 @@ public class PostAdapter extends BaseAdapter {
     private Context context;
     private int item_id;
     private List<Comment> comments;
+    private SharedPreferences sharedPreferences;
+    private int parentId;
 
 
     public PostAdapter(List<Post> posts, Context context, int item_id) {
@@ -155,6 +158,9 @@ public class PostAdapter extends BaseAdapter {
                 });
             }
         });
+        //parentId
+        sharedPreferences = context.getSharedPreferences("parent", Context.MODE_PRIVATE);
+        parentId = sharedPreferences.getInt("parentId", 0);
 
         TextView nickName = convertView.findViewById(R.id.community_parent_name);
         nickName.setText(posts.get(position).getParent().getNickName());
@@ -165,6 +171,7 @@ public class PostAdapter extends BaseAdapter {
         final TextView praiseCount = convertView.findViewById(R.id.community_praiseNum);
         praiseCount.setText(posts.get(position).getPraiseCount()+"");
         final ImageView praising = convertView.findViewById(R.id.community_praising);//点赞
+
         if (posts.get(position).getIsPraise() > 0){
             praising.setImageResource(R.drawable.dianzaned);
         }
@@ -249,7 +256,7 @@ public class PostAdapter extends BaseAdapter {
                 con.setRequestMethod("POST");
                 JSONObject User_id = new JSONObject();
 
-                User_id.put("praiserId",1);//发送登录者ID
+                User_id.put("praiserId",parentId);//发送登录者ID
                 User_id.put("postId",posts.get(position).getId());
                 User_id.put("praiseCount",posts.get(position).getPraiseCount());
 
@@ -290,7 +297,7 @@ public class PostAdapter extends BaseAdapter {
                 con.setRequestMethod("POST");
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("postId",posts.get(position).getId());
-                jsonObject.put("commentatorId",1);//登录者ID
+                jsonObject.put("commentatorId",parentId);//登录者ID
                 jsonObject.put("responderId",posts.get(position).getParent().getId());
                 jsonObject.put("content",content);
                 jsonObject.put("time",new Timestamp(System.currentTimeMillis()));

@@ -222,7 +222,7 @@ public class MonitorFragment extends Fragment {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy" );// HH
                 Date date = new Date( System.currentTimeMillis() );
                 int t = Integer.parseInt( simpleDateFormat.format( date ) );
-                child.setAge(t-child_age);//年龄：简单的判断
+                child.setAge(t-child_age+"");//年龄：简单的判断
                 child.setHeaderPath(jsonObject.getString("headerPath"));
                 child.setId(Integer.parseInt(jsonObject.getString("id")));
                 child.setParentId(Integer.parseInt(jsonObject.getString("parentId")));

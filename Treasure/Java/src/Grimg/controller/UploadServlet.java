@@ -51,7 +51,7 @@ public class UploadServlet extends HttpServlet {
 		File file = new File(path);   //绝对路径
 		if(!file.exists()){
 			file.mkdirs();
-
+		}
 		String str = System.currentTimeMillis()+".jpg";   //以当前时间命名
 
 		String str1 = "grimg/"+str;
@@ -75,7 +75,6 @@ public class UploadServlet extends HttpServlet {
 		System.out.println("插入记录图片成功");
 		response.getWriter().append(id+"");
 		
-	}
 	}
 	
 }

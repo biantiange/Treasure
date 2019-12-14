@@ -155,7 +155,6 @@
                 android:layout_height="match_parent"
                 android:text="帖子管理"/>
             <ImageButton
-
                 android:layout_height="30dp"
                 android:layout_width="40dp"
                 android:background="@drawable/xiangxi"

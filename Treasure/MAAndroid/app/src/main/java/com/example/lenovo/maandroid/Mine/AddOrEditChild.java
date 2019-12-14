@@ -79,7 +79,7 @@ public class AddOrEditChild extends AppCompatActivity {
     }
 
     private void findView() {
-        btn_delete=findViewById( R.id.btn_delete );
+        btn_delete=findViewById(R.id.btn_de);
         child_submit = findViewById( R.id.child_submit );
         child_img = findViewById( R.id.child_img );
         child_nickname = findViewById( R.id.child_nickname );
@@ -146,7 +146,7 @@ public class AddOrEditChild extends AppCompatActivity {
                     finish();
                     break;
 
-                case R.id.btn_delete:
+                case R.id.btn_de:
                          showdialog();
                         break;
                 case R.id.child_submit:

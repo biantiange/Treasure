@@ -1,5 +1,6 @@
 package com.example.lenovo.maandroid.Community;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -15,9 +16,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.lenovo.maandroid.Entity.Comment;
 import com.example.lenovo.maandroid.Entity.Post;
 import com.example.lenovo.maandroid.R;
+import com.example.lenovo.maandroid.Utils.Data;
 
 import org.json.JSONObject;
 
@@ -34,6 +37,7 @@ public class PostAdapter extends BaseAdapter {
     private Context context;
     private int item_id;
     private List<Comment> comments;
+    private RequestOptions options;
 
 
     public PostAdapter(List<Post> posts, Context context, int item_id) {
@@ -69,7 +73,12 @@ public class PostAdapter extends BaseAdapter {
         }
         //头像
         ImageView header = convertView.findViewById(R.id.community_parent_header);
-        Glide.with(context).load(posts.get(position).getParent().getHeaderPath()).into(header);
+        options = new RequestOptions()
+                .circleCrop()
+                .placeholder( R.drawable.aaa)
+                .error( R.drawable.aaa)
+                .fallback( R.drawable.aaa);
+        Glide.with(context).load( Data.url+posts.get(position).getParent().getHeaderPath()).apply( options).into(header);
 
 
 //img

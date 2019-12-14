@@ -13,13 +13,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import com.example.lenovo.maandroid.Community.Comment;
-import com.example.lenovo.maandroid.Community.Parent;
-import com.example.lenovo.maandroid.Community.Post;
 import com.example.lenovo.maandroid.Community.PostAdapter;
-import com.example.lenovo.maandroid.Community.PostImg;
+
+import com.example.lenovo.maandroid.Entity.Comment;
+import com.example.lenovo.maandroid.Entity.Parent;
+import com.example.lenovo.maandroid.Entity.Post;
+import com.example.lenovo.maandroid.Entity.PostImg;
 import com.example.lenovo.maandroid.R;
+import com.example.lenovo.maandroid.Utils.Data;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -48,14 +49,13 @@ import okhttp3.Response;
 public class MineCommunity extends AppCompatActivity {
     private List<Post> posts = new ArrayList<>();
     private ListView listView;
-    private PostAdapter postAdapter;
+    private MinePostAdapter postAdapter;
     private SharedPreferences sharedPreferences;
     private int parentId;
     private SmartRefreshLayout refreshLayout;
     private static final int REFRESH_FINISH = 1;
     private OkHttpClient okHttpClient;
     private String jsonStr;
-
     private Handler mainHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -111,7 +111,7 @@ public class MineCommunity extends AppCompatActivity {
 
     private void setAdapter() {
         Log.e( "数据",posts.toString());
-        postAdapter = new PostAdapter(posts,MineCommunity.this, R.layout.community_item);
+        postAdapter = new MinePostAdapter(posts,MineCommunity.this, R.layout.community_item);
         listView.setAdapter(postAdapter);
 
     }

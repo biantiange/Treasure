@@ -144,8 +144,10 @@ public class MineFragment extends Fragment {
                     startActivity( intent2 );
                     break;
                 case R.id.my_tiezi:
-                    Intent intent3 = new Intent( getActivity(), MyTieZi.class );
-                    startActivity( intent3 );
+                    Log.e( "啥问题？","能运行吗？" );
+                    Intent intent3 = new Intent( getActivity(), MineCommunity.class );
+                    Log.e( "啥问题？","这句运行了" );
+                   startActivity(intent3);
                     break;
 
 

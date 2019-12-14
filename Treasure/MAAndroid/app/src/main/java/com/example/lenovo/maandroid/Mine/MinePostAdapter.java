@@ -16,12 +16,16 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
-import com.example.lenovo.maandroid.Community.Comment;
+
 import com.example.lenovo.maandroid.Community.InputTextMsgDialog;
-import com.example.lenovo.maandroid.Community.Post;
+
 import com.example.lenovo.maandroid.Community.PostDetailActivity;
-import com.example.lenovo.maandroid.Community.PostImg;
+
+import com.example.lenovo.maandroid.Entity.Comment;
+import com.example.lenovo.maandroid.Entity.Post;
+import com.example.lenovo.maandroid.Entity.PostImg;
 import com.example.lenovo.maandroid.R;
+import com.example.lenovo.maandroid.Utils.Data;
 
 import org.json.JSONObject;
 
@@ -122,7 +126,7 @@ public class MinePostAdapter extends BaseAdapter {
             Glide.with(context).load(Data.url+imgs.get(4).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img5);
             img6.setVisibility(View.GONE);
         }else {
-            Glide.with(context).load(Data.url+imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
+            Glide.with(context).load( Data.url+imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
             Glide.with(context).load(Data.url+imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
             Glide.with(context).load(Data.url+imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
             Glide.with(context).load(Data.url+imgs.get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
@@ -195,21 +199,27 @@ public class MinePostAdapter extends BaseAdapter {
 
         //三条评论
         comments = posts.get(position).getComments();
+        TextView comment1 = convertView.findViewById(R.id.community_comment1);
+        TextView comment2 = convertView.findViewById(R.id.community_comment2);
+        TextView comment3 = convertView.findViewById(R.id.community_comment3);
+
+
         if (comments.size()==3){
-            TextView comment1 = convertView.findViewById(R.id.community_comment1);
             comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
-            TextView comment2 = convertView.findViewById(R.id.community_comment2);
             comment2.setText(comments.get(1).getCommentator().getNickName()+":"+comments.get(1).getContent());
-            TextView comment3 = convertView.findViewById(R.id.community_comment3);
             comment3.setText(comments.get(2).getCommentator().getNickName()+":"+comments.get(2).getContent());
         }else if(comments.size()==2){
-            TextView comment1 = convertView.findViewById(R.id.community_comment1);
             comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
-            TextView comment2 = convertView.findViewById(R.id.community_comment2);
             comment2.setText(comments.get(1).getCommentator().getNickName()+":"+comments.get(1).getContent());
+            comment3.setText("");
         }else if (comments.size()==1){
-            TextView comment1 = convertView.findViewById(R.id.community_comment1);
             comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
+            comment2.setText("");
+            comment3.setText("");
+        }else {
+            comment1.setText("");
+            comment2.setText("");
+            comment3.setText("");
         }
 
 
@@ -226,7 +236,7 @@ public class MinePostAdapter extends BaseAdapter {
         @Override
         protected Object doInBackground(Object[] objects) {
             try{
-                URL url = new URL("http://10.7.88.125:8080/Java/PraiseAddServlet");
+                URL url = new URL("http://192.168.2.115:8080/Java/PraiseAddServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
                 InputStream is = con.getInputStream();
                 con.setRequestMethod("POST");
@@ -264,7 +274,7 @@ public class MinePostAdapter extends BaseAdapter {
         @Override
         protected Object doInBackground(Object[] objects) {
             try{
-                URL url = new URL("http://10.7.88.125:8080/Java/CommentAddServlet");
+                URL url = new URL("http://192.168.2.115:8080/Java/CommentAddServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                 con.setRequestMethod("POST");

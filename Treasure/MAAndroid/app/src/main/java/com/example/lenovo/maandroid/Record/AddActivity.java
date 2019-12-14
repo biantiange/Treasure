@@ -221,6 +221,7 @@ public class AddActivity extends AppCompatActivity {
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.add_picture:
+
                 ActivityCompat.requestPermissions(AddActivity.this,new String[]{Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA},1);
                 break;
         }

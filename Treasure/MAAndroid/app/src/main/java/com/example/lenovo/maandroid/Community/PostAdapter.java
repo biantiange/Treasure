@@ -167,8 +167,6 @@ public class PostAdapter extends BaseAdapter {
         final ImageView praising = convertView.findViewById(R.id.community_praising);//点赞
         if (posts.get(position).getIsPraise() > 0){
             praising.setImageResource(R.drawable.dianzaned);
-        }else {
-            praising.setImageResource(R.drawable.dianzan);
         }
         praising.setOnClickListener(new View.OnClickListener() {
             @Override

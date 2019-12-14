@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_push"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0"
+    tools:context="com.kuyue.wechatpublishimagesdrag.PostImagesActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_push_speak_header"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#f0f0f0"
+        android:elevation="2dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/iv_push_speak_exit"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:src="@drawable/left_exit" />
+
+        <Button
+            android:id="@+id/btn_push_speak_push"
+            android:layout_width="60dp"
+            android:layout_height="30dp"
+            android:enabled="false"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/mybuttonborder_no"
+            android:gravity="center"
+            android:text="发表"
+            android:textColor="#fff"
+            android:textSize="16dp" />
+    </RelativeLayout>
+
+    <indi.liyi.viewer.ImageViewer
+        android:id="@+id/iver_push_speak"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/article_post_delete"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/holo_red_light"
+        android:gravity="center"
+        android:text="@string/post_delete_tv_d"
+        android:textColor="@color/white"
+        android:visibility="gone" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rcv_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:clipToPadding="false"
+        android:paddingLeft="@dimen/paddingLR"
+        android:paddingTop="@dimen/article_post_rec_h"
+        android:paddingRight="@dimen/paddingLR" />
+
+    <EditText
+        android:id="@+id/et_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/article_post_et_h"
+        android:layout_marginLeft="@dimen/paddingLR"
+        android:layout_marginTop="40dp"
+        android:layout_marginRight="@dimen/paddingLR"
+        android:background="@null"
+        android:gravity="top"
+        android:maxEms="1000"
+        android:hint="分享有趣的事..."
+        android:inputType="textMultiLine"
+        android:paddingTop="5dp"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/paddingLR"
+        android:layout_marginTop="@dimen/article_post_et_h"
+        android:layout_marginRight="@dimen/paddingLR"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="#8a8a8a" />
+
+        <RelativeLayout
+            android:id="@+id/rl_push_speak_local"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_ps3"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/address" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/iv_ps3"
+                android:gravity="center_vertical"
+                android:text="所在位置"
+                android:textColor="#000"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/iv_ps4"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/enter_gery" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:layout_marginLeft="40dp"
+            android:background="#8a8a8a" />
+
+        <RelativeLayout
+            android:id="@+id/rl_push_speak_open_type"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/iv_ps1"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:src="@drawable/open_type" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/iv_ps1"
+                android:gravity="center_vertical"
+                android:text="谁可以看"
+                android:textColor="#000"
+                android:textSize="15dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/iv_ps2"
+                android:gravity="center_vertical"
+                android:text="公开"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/iv_ps2"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/enter_gery" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:layout_marginLeft="40dp"
+            android:background="#8a8a8a" />
+
+
+        <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/paddingLR"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:text="提醒谁看" />-->
+    </LinearLayout>
+
+</RelativeLayout>

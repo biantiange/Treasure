@@ -2,6 +2,7 @@ package com.example.lenovo.maandroid.Community;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,8 +15,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ListView;
 
+import com.example.lenovo.maandroid.Community.PushPost.PostImagesActivity;
 import com.example.lenovo.maandroid.Entity.Comment;
 import com.example.lenovo.maandroid.Entity.Parent;
 import com.example.lenovo.maandroid.Entity.Post;
@@ -54,11 +57,11 @@ public class CommunityFragment extends Fragment {
     private SmartRefreshLayout refreshLayout;
     private static final int REFRESH_FINISH = 1;
     private int pageNum = 1;
-
-    private Handler mainHandler = new Handler(){
+    private ImageView ivAddPost;
+    private Handler mainHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what){
+            switch (msg.what) {
                 case REFRESH_FINISH:
 
                     //修改数据源
@@ -76,22 +79,30 @@ public class CommunityFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View newView = inflater.inflate(R.layout.community_main, container, false);
         listView = newView.findViewById(R.id.listView_community);
-
-        sharedPreferences=getContext().getSharedPreferences( "parent", Context.MODE_PRIVATE );
-        parentId=sharedPreferences.getInt( "parentId",0 );
+        ivAddPost = newView.findViewById(R.id.community_add_post);
+        sharedPreferences = getContext().getSharedPreferences("parent", Context.MODE_PRIVATE);
+        parentId = sharedPreferences.getInt("parentId", 0);
         refreshLayout = newView.findViewById(R.id.smart_layout);
         PostTask task = new PostTask();
         task.execute();
         setListeners();
         return newView;
     }
-    private void setListeners(){
+
+    private void setListeners() {
+        ivAddPost.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), PostImagesActivity.class);
+                startActivity(intent);
+            }
+        });
         //监听下拉刷新
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(@NonNull RefreshLayout refreshLayout) {
                 //不能执行网络操作，需要使用多线程
-                new Thread(){
+                new Thread() {
                     @Override
                     public void run() {
                         try {
@@ -120,25 +131,28 @@ public class CommunityFragment extends Fragment {
         });
     }
 
+
     private class PostTask extends AsyncTask {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
+            setListeners();
             postAdapter = new PostAdapter(posts, getActivity(), R.layout.community_item);
             listView.setAdapter(postAdapter);
             refreshLayout.finishRefresh();
+
         }
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            Log.e("post", "开始"+getString(R.string.ip));
+            Log.e("post", "开始" + getString(R.string.ip));
             try {
-                URL url = new URL("http://"+getString(R.string.ip)+":8080/Java/PostListServlet");
+                URL url = new URL("http://" + getString(R.string.ip) + ":8080/Java/PostListServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                 con.setRequestMethod("POST");
                 JSONObject User_id = new JSONObject();
-                User_id.put("praiserId",parentId);//发送登录者ID
+                User_id.put("praiserId", parentId);//发送登录者ID
 
 
                 OutputStream os = con.getOutputStream();
@@ -241,16 +255,16 @@ public class CommunityFragment extends Fragment {
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            Log.e("post", "开始"+getString(R.string.ip));
+            Log.e("post", "开始" + getString(R.string.ip));
             try {
-                URL url = new URL("http://"+getString(R.string.ip)+":8080/Java/PostAddListServlet");
+                URL url = new URL("http://" + getString(R.string.ip) + ":8080/Java/PostAddListServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                 con.setRequestMethod("POST");
                 JSONObject User_id = new JSONObject();
 
                 User_id.put("praiserId", 1);//发送登录者ID
-                User_id.put("page",page);
+                User_id.put("page", page);
 
                 OutputStream os = con.getOutputStream();
                 os.write(User_id.toString().getBytes());

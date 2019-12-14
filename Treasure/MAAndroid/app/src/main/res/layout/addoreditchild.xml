@@ -32,7 +32,7 @@
 
            <ImageView
                android:descendantFocusability="blocksDescendants"
-               android:id="@+id/btn_delete"
+               android:id="@+id/btn_de"
                android:layout_width="28dp"
                android:layout_height="match_parent"
                android:layout_marginRight="20dp"

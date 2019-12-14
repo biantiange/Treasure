@@ -22,7 +22,6 @@ import entity.Comment;
 @WebServlet("/CommentResServlet")
 public class CommentResServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */

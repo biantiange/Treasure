@@ -68,17 +68,17 @@ public class MyMessageListViewAdapter extends BaseAdapter {
         //关联VIewHolder
         holder = new ViewHolder();
         holder.userImg = convertView.findViewById( R.id.comments_user_img );
-        holder.comment_user_name = convertView.findViewById( R.id.comment_user_name );
-        holder.comment_time_day = convertView.findViewById( R.id.comment_time_day );
+        holder.comment_user_name = convertView.findViewById( R.id.comment_user_n);
+        holder.comment_time_day = convertView.findViewById( R.id.comment_time_d );
         holder.my_comments = convertView.findViewById( R.id.my_comments );
-        holder.comment_to_me = convertView.findViewById( R.id.comment_to_me );
-        holder.comment_time_hour=convertView.findViewById( R.id.comment_time_hour);
-        holder.post_name=convertView.findViewById( R.id.post_name );
-        holder.post_day=convertView.findViewById( R.id.post_time_day );
-        holder.post_hour=convertView.findViewById( R.id.post_time_hour );
-        holder.post_img=convertView.findViewById( R.id.post_img );
-        holder.post_content=convertView.findViewById( R.id.post_content);
-        holder.post=convertView.findViewById( R.id.post );
+        holder.comment_to_me = convertView.findViewById( R.id.comment_to_m );
+        holder.comment_time_hour=convertView.findViewById( R.id.comment_time_h);
+        holder.post_name=convertView.findViewById( R.id.post_n );
+        holder.post_day=convertView.findViewById( R.id.post_time_d );
+        holder.post_hour=convertView.findViewById( R.id.post_time_h );
+        holder.post_img=convertView.findViewById( R.id.post_i );
+        holder.post_content=convertView.findViewById( R.id.post_c);
+        holder.post=convertView.findViewById( R.id.pos);
         convertView.setTag( holder);
        }else{
             holder=(ViewHolder)convertView.getTag();

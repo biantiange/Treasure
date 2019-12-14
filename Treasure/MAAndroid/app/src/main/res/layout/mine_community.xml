@@ -31,10 +31,21 @@
             android:layout_height="28dp"/>
     </LinearLayout>
 
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/smart_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <!--添加刷新头布局-->
+        <com.scwang.smartrefresh.layout.header.ClassicsHeader
+            android:layout_width="match_parent"
+
+            android:layout_height="40dp"/>
     <ListView
         android:id="@+id/listView_community"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:divider="#F0FFFF"
         android:dividerHeight="15dp" />
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

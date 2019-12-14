@@ -10,6 +10,9 @@ public class PostServicelmpl {
 	public List<Map<String,Object>> listPost(){
 		return new PostDao().findAll();
 	}
+	public List<Map<String,Object>> MylistPost(int id){
+		return new PostDao().findMyAll(id);
+	}
 	
 	public List<Map<String,Object>> listPost(int start){
 		return new PostDao().findAll(start);

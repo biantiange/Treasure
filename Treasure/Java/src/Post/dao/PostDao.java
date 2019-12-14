@@ -4,11 +4,15 @@ import java.util.List;
 import java.util.Map;
 
 import entity.Post;
+import mine.MineDBUtil;
 import util.DBUtil;
 
 public class PostDao {
 	public List<Map<String,Object>> findAll(){
 		return DBUtil.findAll("select * from tbl_post order by time desc limit 0,5");
+	}
+	public List<Map<String,Object>> findMyAll(int id){
+		return MineDBUtil.findAll("select * from tbl_post where posterId=? order by time desc",new Object[]{id});
 	}
 	
 	public List<Map<String,Object>> findAll(int start){

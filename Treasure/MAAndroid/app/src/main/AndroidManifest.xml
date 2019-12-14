@@ -4,10 +4,10 @@
     package="com.example.lenovo.maandroid">
 
     <!--  所需权限-->
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -18,12 +18,12 @@
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
-    <!-- 这个权限用于进行网络定位-->
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
+    <!-- 这个权限用于进行网络定位-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
 
     <!-- Required -->
@@ -36,18 +36,16 @@
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
 
 
-
-
     <application
         android:name=".Jpush.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:networkSecurityConfig="@xml/network_security_config"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
 
         <activity android:name=".Host.MainActivity">
             <intent-filter>
@@ -56,13 +54,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Community.PushPost.PostImagesActivity"/>
-        <activity android:name=".Community.PostDetailActivity"/>
-        <activity android:name=".Record.LookActivity"/>
-        <activity android:name=".Record.AddActivity"/>
+        <activity android:name=".Community.PushPost.PostImagesActivity" />
+        <activity android:name=".Community.PostDetailActivity" />
+        <activity android:name=".Record.LookActivity" />
+        <activity android:name=".Record.AddActivity" />
         <activity
-            android:configChanges="orientation|screenSize"
-            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity" />
+            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
+            android:configChanges="orientation|screenSize" />
         <activity android:name=".Mine.AddOrEditChild" />
         <activity android:name=".Mine.MyChild" />
         <activity android:name=".Mine.MyMessage" />
@@ -70,15 +68,17 @@
         <activity android:name=".Login.LoginActivity" />
         <activity android:name=".Mine.Edit" />
 
-<!--        <provider-->
-<!--            android:name="android.support.v4.content.FileProvider"-->
-<!--            android:authorities="${applicationId}.fileprovider"-->
-<!--            android:exported="false"-->
-<!--            android:grantUriPermissions="true">-->
-<!--            <meta-data-->
-<!--                android:name="android.support.FILE_PROVIDER_PATHS"-->
-<!--                android:resource="@xml/provider_path" />-->
-<!--        </provider>-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_path"
+                tools:replace="android:resource" />
+        </provider>
 
 
         <!-- 百度地图-->
@@ -86,11 +86,12 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="SC1vxNiEMD72iMP3E8DzRF2KVpq2GDNT" />
         <!--百度地图定位服务-->
-        <service android:name="com.baidu.location.f"
+        <service
+            android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote">
             <intent-filter>
-                <action android:name="com.baidu.location.service_v5.0.0"/>
+                <action android:name="com.baidu.location.service_v5.0.0" />
             </intent-filter>
         </service>
 
@@ -189,7 +190,8 @@
         <!-- since 3.3.0 Required SDK 核心功能 -->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->
         <!-- User defined.  For test only 继承自cn.jpush.android.service.JCommonService -->
-        <service android:name=".Jpush.MyService"
+        <service
+            android:name=".Jpush.MyService"
             android:process=":pushcore">
             <intent-filter>
                 <action android:name="cn.jiguang.user.service.action" />
@@ -203,8 +205,6 @@
         <meta-data
             android:name="JPUSH_APPKEY"
             android:value="aeae2f341e867be8f986dc74" /> <!-- </>值来自开发者平台取得的AppKey -->
-
-
 
 
     </application>

@@ -1,9 +1,13 @@
 package com.example.lenovo.maandroid.Login;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -33,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUserPwd;
     private Button btnLook;
     private Button btnLogin;
-    private Button btnRegist;
+    private FloatingActionButton btnRegist;
     private Button btnForget;
     //private ImageView ivLogo;
     private TextView textView;
@@ -46,18 +50,11 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView( R.layout.activity_login1);
+        //setContentView( R.layout.activity_login1);
+        setContentView( R.layout.activity_login);
         findViews();
         //okHttpClient
         okHttpClient = new OkHttpClient();
-        //实现文字左右摇晃效果
-        //摇摆
-        TranslateAnimation alphaAnimation2 = new TranslateAnimation(20f, 100f, 50, 50);
-        alphaAnimation2.setDuration(1000);
-        alphaAnimation2.setRepeatCount(Animation.INFINITE);
-        alphaAnimation2.setRepeatMode(Animation.REVERSE);
-        textView.setAnimation(alphaAnimation2);
-        alphaAnimation2.start();
     }
 
 
@@ -66,12 +63,13 @@ public class LoginActivity extends AppCompatActivity {
         etUserPhone = findViewById(R.id.et_userPhone);
         etUserPwd = findViewById(R.id.et_userPassword);
         btnLogin = findViewById(R.id.btn_login);
-        btnRegist = findViewById(R.id.btn_regist);
+        //btnRegist = findViewById(R.id.btn_regist);
+        btnRegist = findViewById(R.id.fab);  //注册
         btnForget = findViewById(R.id.btn_forgetPwd);
         //ivLogo = findViewById(R.id.logo);
         //RequestOptions options = new RequestOptions().circleCrop();
         //Glide.with(this).load(getResources().getDrawable(R.drawable.logo)).apply(options).into(ivLogo);
-        textView = findViewById(R.id.textView);
+        //textView = findViewById(R.id.textView);
 
         //给按钮设置监听器
         MyListener myListener =  new MyListener();
@@ -92,7 +90,8 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e("LoginActivity","手机号："+userPhone+"密码："+userPwd);
                     MyOkHttp(Constant.BASE_IP+"Java/LoginServlet/"+userPhone);
                     break;
-                case R.id.btn_regist:
+                //case R.id.btn_regist:
+                case R.id.fab:
                     //跳转到注册界面
                     Intent intent =new Intent(LoginActivity.this,RegisterActivity.class);
                     intent.putExtra("flag",1);

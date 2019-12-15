@@ -1,6 +1,8 @@
 package Monitor.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Monitor.service.JPushToChildAppInfoDemo;
+
 
 /**
  * Servlet implementation class tuisong
@@ -32,10 +35,11 @@ public class ToChildAppInfoServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String childId = request.getParameter("childId");
-		System.out.println("服务器向StudentDemo推送开始了");
-		//学生端虚拟机   358240051111110     真机860649040120944
-		JPushToChildAppInfoDemo.testSendPush(appKey, masterSecret,"358240051111110","appInfo");
-		System.out.println("服务器向StudentDemo推送结束了");
+		if(childId!=null && !childId.equals("")){
+			System.out.println("服务器向(childId="+childId+")ChildDemo推送获取APP信息开始了");
+			JPushToChildAppInfoDemo.testSendPush(appKey, masterSecret,childId,"appInfo","childId",childId);
+			System.out.println("服务器向(childId="+childId+")childDemo推送APP信息结束了");
+		}
 	}
 
 	/**

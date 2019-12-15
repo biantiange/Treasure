@@ -184,6 +184,8 @@ public class PostAdapter extends BaseAdapter {
 
         if (posts.get(position).getIsPraise() > 0){
             praising.setImageResource(R.drawable.dianzaned);
+        }else {
+            praising.setImageResource(R.drawable.dianzan);
         }
         praising.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -226,18 +228,30 @@ public class PostAdapter extends BaseAdapter {
 
 
         if (comments.size()==3){
+            comment1.setVisibility(View.VISIBLE);
+            comment2.setVisibility(View.VISIBLE);
+            comment3.setVisibility(View.VISIBLE);
             comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
             comment2.setText(comments.get(1).getCommentator().getNickName()+":"+comments.get(1).getContent());
             comment3.setText(comments.get(2).getCommentator().getNickName()+":"+comments.get(2).getContent());
         }else if(comments.size()==2){
+            comment1.setVisibility(View.VISIBLE);
+            comment2.setVisibility(View.VISIBLE);
+            comment3.setVisibility(View.GONE);
             comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
             comment2.setText(comments.get(1).getCommentator().getNickName()+":"+comments.get(1).getContent());
             comment3.setText("");
         }else if (comments.size()==1){
+            comment1.setVisibility(View.VISIBLE);
+            comment2.setVisibility(View.GONE);
+            comment3.setVisibility(View.GONE);
             comment1.setText(comments.get(0).getCommentator().getNickName()+":"+comments.get(0).getContent());
             comment2.setText("");
             comment3.setText("");
         }else {
+            comment1.setVisibility(View.GONE);
+            comment2.setVisibility(View.GONE);
+            comment3.setVisibility(View.GONE);
             comment1.setText("");
             comment2.setText("");
             comment3.setText("");

@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp"
+        android:layout_height="40dp"
+        android:background="#00bffe"
+        android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
 
         <ImageView
             android:id="@+id/community_Camera"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:background="@drawable/paizhao" />
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/jiaoyu" />
 
         <TextView
             android:layout_width="0dp"
@@ -24,8 +26,8 @@
             android:layout_weight="10"
             android:gravity="center"
             android:text="社区"
-            android:textColor="#836FFF"
-            android:textSize="18dp" />
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
 
         <ImageView
             android:id="@+id/community_add_post"
@@ -41,19 +43,19 @@
 
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content" />
 
         <ListView
             android:id="@+id/listView_community"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="#BFEFFF"
-            android:dividerHeight="15dp" />
+            android:divider="#E0FFFF"
+            android:dividerHeight="10dp" />
 
         <com.scwang.smartrefresh.layout.footer.ClassicsFooter
-            app:srlClassicsSpinnerStyle="Translate"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:srlClassicsSpinnerStyle="Translate" />
 
     </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 </LinearLayout>

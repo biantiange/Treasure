@@ -3,7 +3,7 @@ package com.example.lenovo.maandroid.Entity;
 public class Child {
 	private int id;
 	private String name;
-	private String age;
+	private int age;
 	private String headerPath;
 	private int parentId;
 	public String getHeaderPath() {
@@ -18,10 +18,10 @@ public class Child {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 	public int getParentId() {

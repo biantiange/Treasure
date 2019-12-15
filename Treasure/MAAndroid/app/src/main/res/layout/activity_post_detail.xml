@@ -27,18 +27,15 @@
                 <TextView
                     android:id="@+id/community_detail_parent_name"
                     android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:gravity="left"
-                    android:padding="3dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:padding="6dp"
                     android:text="尼古拉斯"
-                    android:textStyle="bold" />
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:typeface="serif"/>
 
-                <TextView
-                    android:id="@+id/community_detail_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="24dp"
-                    android:padding="3dp"
-                    android:text="今天 19:12" />
+
             </LinearLayout>
         </LinearLayout>
 
@@ -108,24 +105,40 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="right"
-            android:orientation="horizontal"
-            android:padding="6dp">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/community_detail_praiseNum"
-                android:layout_width="50dp"
-                android:layout_height="30dp"
+                android:id="@+id/community_detail_time"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:gravity="center"
-                android:text="2432" />
+                android:padding="3dp"
+                android:text="今天 19:12" />
 
-            <ImageView
-                android:id="@+id/community_detail_praising"
-                android:layout_width="40dp"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:src="@drawable/dianzan" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="horizontal"
+                android:padding="6dp">
+
+                <TextView
+                    android:id="@+id/community_detail_praiseNum"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="2432" />
+
+                <ImageView
+                    android:id="@+id/community_detail_praising"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/dianzan" />
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -144,20 +157,20 @@
     </LinearLayout>
 
     <ListView
-        android:divider="#F0FFFF"
-        android:dividerHeight="2dp"
         android:id="@+id/comment_listView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="12" />
+        android:layout_weight="12"
+        android:divider="#000000"
+        android:dividerHeight="0.618dp" />
 
     <Button
         android:id="@+id/community_commenting"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
         android:layout_weight="1"
         android:background="@drawable/shape"
-        android:layout_marginBottom="8dp"
         android:hint="评论" />
 
 </LinearLayout>

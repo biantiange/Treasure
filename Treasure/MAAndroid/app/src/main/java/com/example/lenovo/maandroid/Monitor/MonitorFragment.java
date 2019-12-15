@@ -11,6 +11,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,7 +52,10 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.api.TagAliasCallback;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -73,15 +77,19 @@ public class MonitorFragment extends Fragment {
     private BaiduMap baiduMap;
     private SharedPreferences sharedPreferences;
     private int parentId;
+    private int tag=0;
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable final Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fagment_monitor, container, false);
         pc=new PieChart(view.getContext());
         sharedPreferences=getContext().getSharedPreferences( "parent", Context.MODE_PRIVATE );
         //parentId=sharedPreferences.getInt( "parentId",0 );
         parentId=1;
+        //设置别名
+        setAlias(parentId+"");
+
         EventBus.getDefault().register(this);
         monitorlistView = view.findViewById(R.id.lv_monitor);
         //百度地图定位
@@ -92,8 +100,8 @@ public class MonitorFragment extends Fragment {
         if ((child != null) && (child instanceof ImageView)) {
             child.setVisibility(View.GONE);
         }
-
         llmp = view.findViewById(R.id.ll_mp);
+
         //pc = view.findViewById(R.id.pc);
         //1、构造方法创建OkHttpClient对象————属性都为默认值
         okHttpClient = new OkHttpClient();
@@ -104,11 +112,21 @@ public class MonitorFragment extends Fragment {
             @Override
             public void handleMessage(Message msg) {
                 super.handleMessage(msg);
-                String info = (String) msg.obj;
-                Log.e("childInfo", info);
-                childList = Analysis(info);
-                customAdapterMonitor = new CustomAdapterMonitor(getContext(), childList, R.layout.listview_monitor_item, appInfos, llmp, mapView, pc);
-                monitorlistView.setAdapter(customAdapterMonitor);
+                switch (msg.what){
+                    case 1:
+                        String info = (String) msg.obj;
+                        if(info.equals("no")){
+
+                        }else {
+                            Log.e("childInfo", info);
+                            childList = Analysis(info);
+                            //if(tag==1){
+                            customAdapterMonitor = new CustomAdapterMonitor(getContext(), childList, R.layout.listview_monitor_item, appInfos, llmp, mapView, pc);
+                            monitorlistView.setAdapter(customAdapterMonitor);
+                            break;
+                            // }
+                        }
+                }
             }
         };
         return view;
@@ -181,7 +199,6 @@ public class MonitorFragment extends Fragment {
 
     //初始化孩子数据
     public void initChild() {
-
         Log.e("test", Constant.BASE_IP + "monitor/child");
         FormBody formBody=new FormBody.Builder().add("parentId",parentId+"").build();
         //2、创建Request对象
@@ -203,7 +220,7 @@ public class MonitorFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String json = response.body().string();
-                wrapperMessage(json);
+                wrapperMessage(json,1);
             }
         });
     }
@@ -220,7 +237,6 @@ public class MonitorFragment extends Fragment {
                 child.setName(jsonObject.getString("name"));
                 //因为数据库中的数据是孩子的出生日期，不是年龄，只是年龄无法更新
                 // 获取当前年月日期，设置孩子的年龄，后期不仅需要从年上判断，也需要将月份也算进去
-
                 String strAge=jsonObject.getString("age");
                 //int child_age=Integer.parseInt(jsonObject.getString("age").substring( 0,4));
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-mm-dd" );
@@ -228,7 +244,6 @@ public class MonitorFragment extends Fragment {
                 //int t = Integer.parseInt( simpleDateFormat.format(strAge));
                 Date childdate =new Date(simpleDateFormat.parse(strAge).toString());
                 child.setAge(curdate.getYear()-childdate.getYear());//年龄：简单的判断
-
                 child.setHeaderPath(jsonObject.getString("headerPath"));
                 child.setId(Integer.parseInt(jsonObject.getString("id")));
                 child.setParentId(Integer.parseInt(jsonObject.getString("parentId")));
@@ -243,11 +258,83 @@ public class MonitorFragment extends Fragment {
     }
 
     //向主线程传输数据
-    private void wrapperMessage(String info) {
+    private void wrapperMessage(String info,int what) {
         Message msg = Message.obtain();
         msg.obj = info;
+        msg.what=what;
         mainHandler.sendMessage(msg);
     }
+
+    // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以。
+    private void setAlias(String DEVICE_ID) {
+        if (TextUtils.isEmpty(DEVICE_ID)) {
+            return;
+        }
+        // 调用 Handler 来异步设置别名
+        mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, DEVICE_ID));
+    }
+
+    /**
+     * /**
+     * TagAliasCallback类是JPush开发包jar中的类，用于
+     * 设置别名和标签的回调接口，成功与否都会回调该方法
+     * 同时给定回调的代码。如果code=0,说明别名设置成功。
+     * /**
+     * 6001   无效的设置，tag/alias 不应参数都为 null
+     * 6002   设置超时    建议重试
+     * 6003   alias 字符串不合法    有效的别名、标签组成：字母（区分大小写）、数字、下划线、汉字。
+     * 6004   alias超长。最多 40个字节    中文 UTF-8 是 3 个字节
+     * 6005   某一个 tag 字符串不合法  有效的别名、标签组成：字母（区分大小写）、数字、下划线、汉字。
+     * 6006   某一个 tag 超长。一个 tag 最多 40个字节  中文 UTF-8 是 3 个字节
+     * 6007   tags 数量超出限制。最多 100个 这是一台设备的限制。一个应用全局的标签数量无限制。
+     * 6008   tag/alias 超出总长度限制。总长度最多 1K 字节
+     * 6011   10s内设置tag或alias大于3次 短时间内操作过于频繁
+     **/
+    private final TagAliasCallback mAliasCallback = new TagAliasCallback() {
+        @Override
+        public void gotResult(int code, String alias, Set<String> tags) {
+            String logs ;
+            Log.e("code",code+"");
+            switch (code) {
+                case 0:
+                    logs = "Set tag and alias success";
+                    Log.e("logs", logs);
+                    tag=1;
+                    // 建议这里往 SharePreference 里写一个成功设置的状态。成功设置一次后，以后不必再次设置了。
+                    break;
+                case 6002:
+                    logs = "Failed to set alias and tags due to timeout. Try again after 60s.";
+                    Log.e("logs", logs);
+                    // 延迟 60 秒来调用 Handler 设置别名
+                    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_SET_ALIAS, alias), 1000 * 60);
+                    break;
+                default:
+                    logs = "Failed with errorCode = " + code;
+                    Log.e("logs", logs);
+            }
+        }
+    };
+    private static final int MSG_SET_ALIAS = 1001;
+    private final Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(android.os.Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case MSG_SET_ALIAS:
+                    Log.e("logs", "Set alias in handler.");
+                    // 调用 JPush 接口来设置别名。
+                    JPushInterface.setAliasAndTags(getActivity().getApplicationContext(), (String) msg.obj, null, mAliasCallback);
+                    break;
+                default:
+                    Log.e("logs", "Unhandled msg - " + msg.what);
+            }
+        }
+    };
+
+
+
+
+
 }
 
 

@@ -18,14 +18,14 @@ import entity.Child;
 /**
  * Servlet implementation class ListServlet
  */
-@WebServlet("/monitor/child")
-public class ChildrenListServlet extends HttpServlet {
+@WebServlet("/find/child")
+public class FindChildByParentPhoneNumeberAndChildNameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChildrenListServlet() {
+    public FindChildByParentPhoneNumeberAndChildNameServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,14 +37,18 @@ public class ChildrenListServlet extends HttpServlet {
 		//根据家长的Id获取全部孩子信息
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		String parentId = request.getParameter("parentId");
-		System.out.println("获取孩子信息——"+"parentId:+"+parentId);
-		List<Child> list = new MonitorServiceImpl().listChildByParentId(Integer.parseInt(parentId));
-		if(list.size()>0){
-			String msgStr=new Gson().toJson(list);
-			response.getWriter().append(msgStr);	
-		}else{
-			response.getWriter().append("no");	
+		String parentPhoneNumber= request.getParameter("phoneNumber");
+		String childName = request.getParameter("childName");
+		if(parentPhoneNumber!=null && !parentPhoneNumber.equals(" ") && childName!=null && !childName.equals("")){
+			System.out.println("查询孩子信息——"+"phoneNumber:"+parentPhoneNumber+" childName:"+childName);
+			List<Child> list = new MonitorServiceImpl().getChildByParentPhoneNumberAndChildName(parentPhoneNumber, childName);
+			if(list.size()>0){
+				String childId=list.get(0).getId()+"";
+				System.out.println(childId);
+				response.getWriter().append(childId);
+			}else{
+				response.getWriter().append("no");
+			}
 		}
 	}
 

@@ -21,7 +21,7 @@ public class ChildDao {
 	public List<Child> findAllChilds(){
 		return MineDBUtil.find(Child.class, "select * from tbl_children", null);
 	} 
-	public int saveChild(int parentId,int birthday,String imgpath,String nickname) {
+	public int saveChild(int parentId,String birthday,String imgpath,String nickname) {
 		System.out.print("dao");
 		return MineDBUtil.executeUpdate(
 				"insert into tbl_children(name,age,headerPath,parentId) values(?,?,?,?)"
@@ -34,7 +34,7 @@ public class ChildDao {
 		return object != null ? (Child)object : null;
 	}
 	
-	public int  updataChild(int id,String nickname,int birthday,String imgpath,int parentId) {
+	public int  updataChild(int id,String nickname,String birthday,String imgpath,int parentId) {
 		return MineDBUtil.executeUpdate(
 				"update tbl_children set name=?,age=?,headerPath=? where id=? and parentId=?",new Object[]{nickname,birthday,imgpath,id,parentId});
 		

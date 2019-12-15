@@ -99,9 +99,10 @@ public class MyChild extends AppCompatActivity {
                 int t = Integer.parseInt( simpleDateFormat.format( date ) );
                 Object ol = map.get( "birthday" );
                 String old = ol.toString();
+
                 String olda = old.substring( 0, 4 );
-                String mon = old.substring( 4, 6 );
-                String day = old.substring( 6, 8 );
+                String mon = old.substring( 5, 7 );
+                String day = old.substring( 8, 10 );
                 Log.e( "jinxingtiaozhuan", "进行跳转" );
                 Intent intent = new Intent( MyChild.this, AddOrEditChild.class );
                 intent.putExtra( "position", position );
@@ -150,7 +151,6 @@ public class MyChild extends AppCompatActivity {
                 finish();
                 Looper.loop();
             }
-
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String jsonStr = response.body().string();
@@ -175,7 +175,6 @@ public class MyChild extends AppCompatActivity {
             listViewAdpter();
         }
         if (requestCode == 2 && resultCode == 4) {
-
             Log.e( "方法：", "onActivityResult" );
             init();
             Log.e( "childs", childs.toString() );

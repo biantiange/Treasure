@@ -107,11 +107,13 @@
                 android:textSize="18dp" />
 
             <EditText
+                android:layout_marginLeft="20dp"
                 android:id="@+id/child_nickname"
                 android:layout_width="150dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
-
+                android:hint="长度：1~9"
+                android:textSize="16dp"
                 android:singleLine="true" />
 
             <TextView
@@ -150,7 +152,7 @@
                 android:id="@+id/child_years"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-
+                android:hint="20xx"
                 android:gravity="center"
                 android:inputType="number"
                 android:singleLine="true" />
@@ -168,6 +170,7 @@
                 android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:hint="xx"
                 android:inputType="number"
                 android:singleLine="true" />
 
@@ -185,6 +188,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:inputType="number"
+                android:hint="xx"
                 android:singleLine="true" />
 
             <TextView
@@ -220,6 +224,11 @@
                 android:text="关联移动设备"
                 android:textColor="#101010"
                 android:textSize="20dp" />
+            <TextView android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:text="使用需要关联的手机扫描此二维码，下载服务"
+                />
 
 
         </LinearLayout>

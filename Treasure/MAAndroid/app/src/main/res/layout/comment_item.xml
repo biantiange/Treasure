@@ -6,35 +6,41 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
+        android:layout_height="38dp"
         android:orientation="horizontal">
 
         <ImageView
             android:id="@+id/comment_parentHeader"
-            android:layout_width="30dp"
-            android:layout_height="30dp" />
+            android:layout_width="38dp"
+            android:layout_height="38dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/comment_parentName"
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="爱新觉罗"
-                android:textSize="11dp" />
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:typeface="serif" />
 
             <TextView
                 android:id="@+id/comment_time"
-                android:layout_width="match_parent"
-                android:layout_height="12dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:paddingLeft="10dp"
                 android:text="21:06:00"
                 android:textColor="#b2aaaa"
-                android:textSize="10dp" />
+                android:textSize="15dp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -51,7 +57,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="扣话费卡快递费和空间的划分看asdfasdf阿斯蒂芬人微服务微软给我如果无人过问如果认为如果无人过问人更让按个爱人给我如果看电脑卡  "
-            android:textSize="12dp" />
+            android:textSize="14dp" />
 
     </LinearLayout>
 
@@ -67,24 +73,24 @@
             android:paddingLeft="40dp"
             android:paddingTop="10dp"
             android:paddingRight="10dp"
-            android:paddingBottom="10dp"
-            >
+            android:paddingBottom="10dp">
 
             <TextView
                 android:id="@+id/responder_name"
                 android:layout_width="match_parent"
-                android:layout_height="15dp"
+                android:layout_height="17dp"
                 android:text="回复 @尼古拉斯："
                 android:textColor="@color/colorPrimary"
-                android:textSize="11dp" />
+                android:textSize="15dp" />
 
             <TextView
                 android:id="@+id/responder_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/response_yuanjiao"
+                android:paddingLeft="11dp"
                 android:text="sfkhskdhfkahdk十分看好的谁客户反馈回到家开发哈客户的放开极度恐慌发卡行的看法哈客户的开发好看爱哭的回复啦好可怜的回复"
-                android:textSize="11dp" />
+                android:textSize="14dp" />
         </LinearLayout>
     </GridLayout>
 

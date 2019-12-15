@@ -91,14 +91,13 @@ public class CustomAdapterMonitor extends BaseAdapter {
         final LinearLayout llmonitor=convertView.findViewById(R.id.ll_monitor);
         LinearLayout llposition=convertView.findViewById(R.id.ll_position);
         //根据位置从原始数据list获取要显示的数据
-        Child child=monitorList.get(position);
+        final Child child=monitorList.get(position);
         tvName.setText(child.getName().toString());
         tvAge.setText(child.getAge()+"");
         options = new RequestOptions().circleCrop().placeholder( R.drawable.aaa ).error( R.drawable.aaa ).fallback( R.drawable.aaa );
         try {
             Log.e("头像路径",Constant.BASE_IP+"childImg/"+child.getHeaderPath());
             URL url=new URL(Constant.BASE_IP+"childImg/"+child.getHeaderPath());
-
             Glide.with(context)
                     .load(url)
                     .apply( options )
@@ -110,7 +109,7 @@ public class CustomAdapterMonitor extends BaseAdapter {
         llmonitor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getAppInfo();
+                getAppInfo(child.getId()+"");
                 llmp.setVisibility(View.VISIBLE);
                 llmp.addView(pc);
                 mapView.setVisibility(View.GONE);
@@ -132,7 +131,7 @@ public class CustomAdapterMonitor extends BaseAdapter {
         llposition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getPositionInfo();
+                getPositionInfo(child.getId()+"");
                 llmp.setVisibility(View.VISIBLE);
                 llmp.removeView(pc);
                 mapView.setVisibility(View.VISIBLE);
@@ -152,11 +151,12 @@ public class CustomAdapterMonitor extends BaseAdapter {
         });
         return convertView;
     }
-    public void getPositionInfo() {
+
+    public void getPositionInfo(String id) {
         OkHttpClient okHttpClient = new OkHttpClient();
         Log.e("调用1：", Constant.BASE_IP + "toChild/position");
 
-        FormBody formBody=new FormBody.Builder().add("childId","1").build();
+        FormBody formBody=new FormBody.Builder().add("childId",id).build();
         //2、创建Request对象
         Request request = new Request.Builder() //创建Builder对象
                 .url(Constant.BASE_IP + "toChild/position")//设置网络请求的UrL地址
@@ -181,11 +181,11 @@ public class CustomAdapterMonitor extends BaseAdapter {
         });
     }
 
-    public void getAppInfo() {
+    public void getAppInfo(String id) {
         OkHttpClient okHttpClient = new OkHttpClient();
         Log.e("调用1：", Constant.BASE_IP + "toChild/appInfo");
 
-        FormBody formBody=new FormBody.Builder().add("childId","1").build();
+        FormBody formBody=new FormBody.Builder().add("childId",id).build();
         //2、创建Request对象
         Request request = new Request.Builder() //创建Builder对象
                 .url(Constant.BASE_IP + "toChild/appInfo")//设置网络请求的UrL地址

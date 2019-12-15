@@ -12,8 +12,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignTop="@+id/cv"
+        android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="乖  宝"
+        android:text="Treasure"
+        android:textColor="#7adfb8"
         android:textSize="40dp" />
 
     <android.support.v7.widget.CardView
@@ -62,7 +64,7 @@
                     android:id="@+id/input_layout"
                     layout="@layout/input_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="130dip" />
+                    android:layout_height="wrap_content" />
             </LinearLayout>
 
             <Button
@@ -88,7 +90,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="0.8"
-                android:text="forget password?"
+                android:text="Forget your password?"
                 android:textAllCaps="false"
                 android:textColor="#7adfb8"
                 android:textSize="15dp" />
@@ -100,7 +102,7 @@
         android:id="@+id/fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="320dp"
+        android:layout_marginLeft="340dp"
         android:layout_alignTop="@id/cv"
         android:src="@drawable/plus"
         android:layout_marginTop="25dp"

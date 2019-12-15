@@ -11,7 +11,7 @@ import entity.User;
 public class UserService {
 
 	//增(返回其ID值)
-	public int addUser(User user) {
+	public String addUser(User user) {
 		return new UserDao().addUser(user);
 	}
 	//查
@@ -27,7 +27,7 @@ public class UserService {
 		return new UserDao().forget(phoneNumber, password);
 	}
 	//登录
-	public int login(String phoneNumber,String password){
+	public User login(String phoneNumber,String password){
 		return new UserDao().login(phoneNumber, password);
 	}
 }

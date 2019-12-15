@@ -1,4 +1,4 @@
-﻿package com.example.lenovo.maandroid.Monitor;
+package com.example.lenovo.maandroid.Monitor;
 
 import android.Manifest;
 import android.content.Context;
@@ -80,8 +80,8 @@ public class MonitorFragment extends Fragment {
         View view = inflater.inflate(R.layout.fagment_monitor, container, false);
         pc=new PieChart(view.getContext());
         sharedPreferences=getContext().getSharedPreferences( "parent", Context.MODE_PRIVATE );
-        //parentId=sharedPreferences.getInt( "parentId",0 );
-        parentId=1;
+        parentId=sharedPreferences.getInt( "parentId",0 );
+        //parentId=1;
         EventBus.getDefault().register(this);
         monitorlistView = view.findViewById(R.id.lv_monitor);
         //百度地图定位
@@ -227,7 +227,7 @@ public class MonitorFragment extends Fragment {
                 Date curdate = new Date( System.currentTimeMillis() );
                 //int t = Integer.parseInt( simpleDateFormat.format(strAge));
                 Date childdate =new Date(simpleDateFormat.parse(strAge).toString());
-                child.setAge(curdate.getYear()-childdate.getYear());//年龄：简单的判断
+                child.setAge(curdate.getYear()-childdate.getYear()+"");//年龄：简单的判断
 
                 child.setHeaderPath(jsonObject.getString("headerPath"));
                 child.setId(Integer.parseInt(jsonObject.getString("id")));

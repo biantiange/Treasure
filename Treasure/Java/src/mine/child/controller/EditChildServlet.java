@@ -57,8 +57,8 @@ public class EditChildServlet extends HttpServlet {
 	if(id!=null&&parentId!=null&&birthday!=null&&name!=null&&imgPath!=null){
 			int i=Integer.parseInt(id);
 			int pi=Integer.parseInt(parentId);
-			int bd=Integer.parseInt(birthday);
-			boolean edit = new ChildService().editChild(i,name,bd,imgPath,pi);
+			
+			boolean edit = new ChildService().editChild(i,name,birthday,imgPath,pi);
 		if(edit==true){
 			response.getWriter().append("修改成功");
 		}

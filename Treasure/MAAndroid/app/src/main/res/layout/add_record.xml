@@ -66,8 +66,6 @@
             android:orientation="vertical">
             <GridView
                 android:id="@+id/add_grid"
-                android:horizontalSpacing="10dp"
-                android:verticalSpacing="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:numColumns="3"></GridView>
@@ -119,8 +117,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="2.5">
+        android:layout_height="wrap_content">
         <com.example.library.AutoFlowLayout
             android:id="@+id/afl_cotent"
             android:layout_width="match_parent"

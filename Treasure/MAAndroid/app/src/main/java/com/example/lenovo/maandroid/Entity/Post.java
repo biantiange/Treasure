@@ -17,13 +17,6 @@ public class Post implements Serializable {
     public Post() {
     }
 
-    public Post(int id, String content, Timestamp time, int praiseCount, Parent parent) {
-        this.id = id;
-        this.content = content;
-        this.time = time;
-        this.praiseCount = praiseCount;
-        this.parent = parent;
-    }
 
     public int getId() {
         return id;

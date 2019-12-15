@@ -1,4 +1,4 @@
-package com.example.lenovo.maandroid.Monitor;
+﻿package com.example.lenovo.maandroid.Monitor;
 
 import android.Manifest;
 import android.content.Context;
@@ -43,6 +43,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -79,7 +80,8 @@ public class MonitorFragment extends Fragment {
         View view = inflater.inflate(R.layout.fagment_monitor, container, false);
         pc=new PieChart(view.getContext());
         sharedPreferences=getContext().getSharedPreferences( "parent", Context.MODE_PRIVATE );
-        parentId=sharedPreferences.getInt( "parentId",0 );
+        //parentId=sharedPreferences.getInt( "parentId",0 );
+        parentId=1;
         EventBus.getDefault().register(this);
         monitorlistView = view.findViewById(R.id.lv_monitor);
         //百度地图定位
@@ -218,17 +220,23 @@ public class MonitorFragment extends Fragment {
                 child.setName(jsonObject.getString("name"));
                 //因为数据库中的数据是孩子的出生日期，不是年龄，只是年龄无法更新
                 // 获取当前年月日期，设置孩子的年龄，后期不仅需要从年上判断，也需要将月份也算进去
-                int child_age=Integer.parseInt(jsonObject.getString("age").substring( 0,4 ));
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy" );// HH
-                Date date = new Date( System.currentTimeMillis() );
-                int t = Integer.parseInt( simpleDateFormat.format( date ) );
-                child.setAge(t-child_age);//年龄：简单的判断
+
+                String strAge=jsonObject.getString("age");
+                //int child_age=Integer.parseInt(jsonObject.getString("age").substring( 0,4));
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-mm-dd" );
+                Date curdate = new Date( System.currentTimeMillis() );
+                //int t = Integer.parseInt( simpleDateFormat.format(strAge));
+                Date childdate =new Date(simpleDateFormat.parse(strAge).toString());
+                child.setAge(curdate.getYear()-childdate.getYear());//年龄：简单的判断
+
                 child.setHeaderPath(jsonObject.getString("headerPath"));
                 child.setId(Integer.parseInt(jsonObject.getString("id")));
                 child.setParentId(Integer.parseInt(jsonObject.getString("parentId")));
                 list.add(child);
             }
         } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
             e.printStackTrace();
         }
         return list;

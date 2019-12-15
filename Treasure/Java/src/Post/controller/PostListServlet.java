@@ -119,7 +119,7 @@ public class PostListServlet extends HttpServlet {
         	//isPraise
         	int isPraise = new PraiseDao().isPraise(praiserId, (int)map.get("id"));
         	jsonObject.put("isPraise",isPraise);
-
+        	System.out.println(isPraise);
         	jsonArray.put(jsonObject);
         	
         }

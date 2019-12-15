@@ -3,7 +3,7 @@ package entity;
 public class Child {
 	private int id;
 	private String name;
-	private int age;
+	private String age;
 	private String headerPath;
 	private int parentId;
 	public String getHeaderPath() {
@@ -18,10 +18,11 @@ public class Child {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getAge() {
+
+	public String getAge() {
 		return age;
 	}
-	public void setAge(int age) {
+	public void setAge(String age) {
 		this.age = age;
 	}
 	public int getParentId() {

@@ -121,7 +121,10 @@ public class RecordFragment extends Fragment {
                 Gson gson=new Gson();
                 timeArray= gson.fromJson(timeList,String[].class);
                 initData();
-                lookContent(timeArray[timeArray.length-1]);
+                if (timeArray.length>0){
+                    lookContent(timeArray[timeArray.length-1]);
+                }
+
                 Message msg=new Message();
                 msg.what=1;
                 mainHandler.sendMessage(msg);

@@ -63,12 +63,20 @@ public class AddActivity extends AppCompatActivity {
     private Grimg grimg;
     private ArrayList<String> mSelectPath;  //从相册选择的图片路径
     private String tags;     //标签数组
+    //返回按钮
+    private ImageView ivReturn;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.add_record);
         //初始化控件
         initView();
+        ivReturn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
 
         mFlowLayout =  findViewById(R.id.afl_cotent);
         for (int i = 0; i< 9; i ++ ){
@@ -140,6 +148,7 @@ public class AddActivity extends AppCompatActivity {
     public void initView(){
         etContent = findViewById(R.id.et_content);
         tags="";
+        ivReturn = findViewById(R.id.iv_return);
     }
     //初始化数据
     public void initData() {

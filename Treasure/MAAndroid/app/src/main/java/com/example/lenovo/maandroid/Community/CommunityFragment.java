@@ -49,7 +49,6 @@ public class CommunityFragment extends Fragment {
     private List<Post> posts = new ArrayList<>();
     private ListView listView;
     private PostAdapter postAdapter;
-    private int isPraise = 0;
     private List<Comment> comments = new ArrayList<>();
     private List<PostImg> imges = new ArrayList<>();
     private SharedPreferences sharedPreferences;
@@ -221,6 +220,8 @@ public class CommunityFragment extends Fragment {
                     post.setComments(comments);
                     //isPraise
                     post.setIsPraise(object.getInt("isPraise"));
+
+                    Log.e("praise",object.getInt("isPraise")+"_--_"+object.getInt("id"));
                     posts.add(post);
                 }
 

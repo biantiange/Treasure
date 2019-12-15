@@ -99,7 +99,6 @@ public class PostAddListServlet extends HttpServlet {
         		Jimgs.put(img);
         	}
         	jsonObject.put("imgs", Jimgs);
-        	System.out.println(Jimgs);
         	
         	//3_comment
         	List<Map<String,Object>> comments = new CommentServicelmpl().listComment_3((int)map.get("id"));
@@ -129,7 +128,6 @@ public class PostAddListServlet extends HttpServlet {
         out.flush();
         out.close();
 		}else {
-			
 			System.out.println("没有更多了");
 		}
         

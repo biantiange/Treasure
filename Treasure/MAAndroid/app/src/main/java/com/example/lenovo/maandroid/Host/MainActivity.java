@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction transaction =
                 getSupportFragmentManager().beginTransaction();
         if(curFragment!=null)
-            transaction.hide(curFragment);
+            transaction.remove(curFragment);
 
         if(!fragment.isAdded()) {
             transaction.add(R.id.tab_content, fragment);

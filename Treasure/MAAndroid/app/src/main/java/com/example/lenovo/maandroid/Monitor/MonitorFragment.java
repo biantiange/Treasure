@@ -240,7 +240,7 @@ public class MonitorFragment extends Fragment {
                 // 获取当前年月日期，设置孩子的年龄，后期不仅需要从年上判断，也需要将月份也算进去
                 String strAge=jsonObject.getString("age");
                 //int child_age=Integer.parseInt(jsonObject.getString("age").substring( 0,4));
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-mm-dd" );
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy年mm月dd日" );
                 Date curdate = new Date( System.currentTimeMillis() );
                 //int t = Integer.parseInt( simpleDateFormat.format(strAge));
                 Date childdate =new Date(simpleDateFormat.parse(strAge).toString());

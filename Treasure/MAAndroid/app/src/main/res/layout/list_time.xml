@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:textSize="12dp" />
-        <!--时间-->
+    <!--时间-->
     <TextView
         android:layout_alignRight="@id/image"
         android:id="@+id/show_time"
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/image"
         android:padding="5dp"
-        android:textSize="12dp" />
+        android:textSize="15dp" />
     <!--横线-->
     <View
         android:id="@+id/line_normal"

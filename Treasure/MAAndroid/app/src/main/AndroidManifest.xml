@@ -20,17 +20,12 @@
     <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-
-
     <!-- 这个权限用于进行网络定位-->
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-
     <!-- Required -->
     <permission
         android:name="${applicationId}.permission.JPUSH_MESSAGE"
         android:protectionLevel="signature" />
-
     <!-- Required  一些系统要求的权限，如访问网络等 -->
     <uses-permission android:name="${applicationId}.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
@@ -58,27 +53,12 @@
         <activity android:name=".Community.PostDetailActivity" />
         <activity android:name=".Record.LookActivity" />
         <activity android:name=".Record.AddActivity" />
-        <activity
-            android:name="me.nereo.multi_image_selector.MultiImageSelectorActivity"
-            android:configChanges="orientation|screenSize" />
         <activity android:name=".Mine.AddOrEditChild" />
         <activity android:name=".Mine.MyChild" />
         <activity android:name=".Mine.MyMessage" />
         <activity android:name=".Login.RegisterActivity" />
         <activity android:name=".Host.MainActivity" />
         <activity android:name=".Mine.Edit" />
-
-        <provider
-            android:name="android.support.v4.content.FileProvider"
-            android:authorities="${applicationId}.fileprovider"
-            android:exported="false"
-            android:grantUriPermissions="true"
-            tools:replace="android:authorities">
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_path"
-                tools:replace="android:resource" />
-        </provider>
 
 
         <!-- 百度地图-->

@@ -35,7 +35,6 @@ public class PostArticleImgAdapter extends RecyclerView.Adapter<PostArticleImgAd
         int width = (widthPixels - 30)/3 -20;
         int height = width;
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(width,height);
-        layoutParams.setMargins(5,5,5,5);
         view.setLayoutParams(layoutParams);
         return new MyViewHolder(view);
     }

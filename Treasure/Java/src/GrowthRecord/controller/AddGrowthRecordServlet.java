@@ -44,6 +44,7 @@ public class AddGrowthRecordServlet extends HttpServlet {
 		String parentId = request.getParameter("parentId");
 		String upTime = request.getParameter("upTime");
 		String content = request.getParameter("content");
+		content=new String(content.getBytes("ISO-8859-1"),"UTF-8");
 		if(parentId!=null && upTime!=null){
 			GrowthRecord growthRecord = new GrowthRecord(upTime, Integer.parseInt(parentId), content);
 			int id = new GrowthRecordService().addGrowthRecord(growthRecord);  //返回的是id

@@ -32,7 +32,7 @@ public class JPushToChildPositionDemo {
       
     public  static JPushClient jpushClient=null;  
       
-    public static void testSendPush(String appKey ,String masterSecret,String alias1,String content) {  
+    public static void testSendPush(String appKey ,String masterSecret,String alias1,String content,String key,String value) {  
           
 		 jpushClient = new JPushClient(masterSecret, appKey, null, ClientConfig.getInstance());
 		 PushPayload payload=PushPayload.newBuilder()
@@ -42,6 +42,7 @@ public class JPushToChildPositionDemo {
 						 .build()) 
 				  .setNotification(Notification.newBuilder()
 			                 .setAlert(content)
+			                 .addPlatformNotification(AndroidNotification.newBuilder().addExtra(key,value).build())
 			                 .build())
 				 .build();  
 

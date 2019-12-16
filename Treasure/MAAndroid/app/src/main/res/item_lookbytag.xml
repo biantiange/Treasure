@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
-    android:layout_height="200dp"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+<LinearLayout  android:layout_width="match_parent"
+
 
 
     <TextView
@@ -13,26 +11,28 @@
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:text="2019/11/2"
-        android:textSize="20dp" />
+        android:textSize="18dp" />
     <!--时间-->
-  <!--  <TextView
-        android:layout_marginTop="6dp"
+    <TextView
         android:background="@color/Gainsboro"
         android:layout_width="match_parent"
-        android:layout_height="2dp" />-->
+        android:layout_height="2dp" />
+
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="4"
         android:orientation="horizontal">
-        <com.example.lenovo.maandroid.Record.NoScrollGridView
+
+        <com.example.lenovo.maandroid.NoScrollGridView
             android:id="@+id/add_grid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:stretchMode="columnWidth"
             android:verticalSpacing="5dip"
             android:horizontalSpacing="5dip"
-            android:numColumns="3"></com.example.lenovo.maandroid.Record.NoScrollGridView>
+            android:numColumns="3">
+
+        </com.example.lenovo.maandroid.NoScrollGridView>
     </LinearLayout>
 </LinearLayout>

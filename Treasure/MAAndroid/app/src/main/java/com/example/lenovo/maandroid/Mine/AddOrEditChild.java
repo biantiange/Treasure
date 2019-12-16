@@ -162,7 +162,7 @@ public class AddOrEditChild extends AppCompatActivity {
                     String t = data0.substring( 0, 4 );
                     String t2 = data0.substring( 4, 6 );
                     String t3 = data0.substring( 6, 8 );
-                    if (child_name.length() > 0 && child_name.length() < 13) {
+                    if (child_name.length() > 0 && child_name.length() < 10) {
                         if (years != null && (years.length() == 4) && mon != null && day != null) {
                             int t1 = Integer.parseInt( t );
                             int t7 = Integer.parseInt( t2 );
@@ -188,7 +188,7 @@ public class AddOrEditChild extends AppCompatActivity {
                             if (day.length() != 2) {
                                 day = "0" + day;
                             }
-                            String oldage = years + mon + day;
+                            String oldage = years +"-"+ mon+"-"+ day;
                             //判断输入的日期是否正确
                             if (ye && mo && da) {
                                 //数据库添加或者更改
@@ -267,7 +267,7 @@ public class AddOrEditChild extends AppCompatActivity {
                         }
                     } else {
                         Toast.makeText( AddOrEditChild.this,
-                                "昵称长度是1~12，请重新输入",
+                                "昵称长度是1~9，请重新输入",
                                 Toast.LENGTH_SHORT ).show();
                     }
 

@@ -4,32 +4,33 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
-        android:layout_width="match_parent"
+    <LinearLayout android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/community_Camera"
-            android:layout_width="33dp"
-            android:layout_height="33dp"
-            android:background="@drawable/paizhao" />
-        <TextView
-            android:text="发帖"
-            android:gravity="center"
-            android:layout_weight="10"
+        android:orientation="horizontal"
+        android:background="#00bffe"
+        >
+        <ImageButton android:layout_width="28dp"
+            android:background="#00bffe"
+            android:src="@drawable/fanhui32"
+            android:id="@+id/return2"
+            android:layout_height="40dp"/>
+        <TextView android:layout_height="wrap_content"
             android:layout_width="0dp"
-            android:textSize="18dp"
-            android:textColor="#836FFF"
-            android:layout_height="match_parent"/>
+            android:layout_weight="6"
+            android:textSize="20dp"
+            android:textColor="#fcfcfc"
+            android:gravity="center"
+            android:text="爱语说说"
+            android:padding="5dp"
+            />
         <ImageView
-            android:background="@drawable/add1"
             android:id="@+id/community_add_post"
-            android:layout_width="28dp"
-            android:layout_height="28dp"/>
+            android:layout_width="35dp"
+            android:layout_gravity="center"
+            android:layout_height="35dp"
+            android:background="@drawable/baiseadd" />
     </LinearLayout>
+
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -39,7 +40,6 @@
         <!--添加刷新头布局-->
         <com.scwang.smartrefresh.layout.header.ClassicsHeader
             android:layout_width="match_parent"
-
             android:layout_height="40dp"/>
     <ListView
         android:id="@+id/listView_community"

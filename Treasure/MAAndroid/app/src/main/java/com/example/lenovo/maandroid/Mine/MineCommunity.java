@@ -11,6 +11,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 import com.example.lenovo.maandroid.Community.PostAdapter;
@@ -56,6 +58,7 @@ public class MineCommunity extends AppCompatActivity {
     private static final int REFRESH_FINISH = 1;
     private OkHttpClient okHttpClient;
     private String jsonStr;
+    private ImageButton return2;
     private Handler mainHandler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
@@ -81,6 +84,14 @@ public class MineCommunity extends AppCompatActivity {
         sharedPreferences=getSharedPreferences( "parent",MODE_PRIVATE );
         parentId=sharedPreferences.getInt( "parentId",0 );
         listView =findViewById(R.id.listView_community);
+        return2=findViewById( R.id.return2 );
+        //返回按钮
+        return2.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        } );
         refreshLayout=findViewById( R.id.smart_layout );
         //监听下拉刷新
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
@@ -113,6 +124,7 @@ public class MineCommunity extends AppCompatActivity {
         Log.e( "数据",posts.toString());
         postAdapter = new MinePostAdapter(posts,MineCommunity.this, R.layout.community_item);
         listView.setAdapter(postAdapter);
+
 
     }
     private void jiexi(){

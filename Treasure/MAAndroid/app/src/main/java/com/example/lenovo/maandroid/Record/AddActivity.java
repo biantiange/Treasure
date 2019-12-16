@@ -1,4 +1,4 @@
-package com.example.lenovo.maandroid.Record;
+﻿package com.example.lenovo.maandroid.Record;
 
 import android.Manifest;
 import android.content.Context;
@@ -200,8 +200,11 @@ public class AddActivity extends AppCompatActivity {
         growthRecord = new GrowthRecord();
         grimg = new Grimg();
         //获得控件值
-        String content = etContent.getText().toString();
-        int parentId = getSharedPreferences("parent", MODE_PRIVATE).getInt("parentId", -1);
+
+        String content = "";
+        content = etContent.getText().toString();
+        int parentId = getSharedPreferences("parent",MODE_PRIVATE).getInt("parentId",-1);
+
         //String tag = "";
         //String imgPath = "";
         //初始化GrowthRecord
@@ -217,6 +220,7 @@ public class AddActivity extends AppCompatActivity {
     }
 
     public void addRecordImgPath() {
+        Log.e("AddActivity","添加记录图片");
         for (int i = 0; i < mSelectPath.size(); i++) {
             Log.e("路径", mSelectPath.get(i).toString());
             //上传至服务器
@@ -245,7 +249,10 @@ public class AddActivity extends AppCompatActivity {
 
     public void addRecordImgOther(int imgId) {
         //修改数据库
-        Log.e("AddActivity", grimg.toString());
+
+        Log.e("AddActivity","添加记录其他");
+        Log.e("AddActivity",grimg.toString());
+
         FormBody body = new FormBody.Builder()
                 .add("id", imgId + "")
                 .add("growthRecordId", grimg.getGrowthRecordId() + "")
@@ -363,6 +370,7 @@ public class AddActivity extends AppCompatActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE && resultCode == RESULT_OK) {//从相册选择完图片s
             //压缩图片

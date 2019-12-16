@@ -22,7 +22,7 @@
 
             <ImageView
                 android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
                 android:src="@drawable/phone" />
 
             <EditText
@@ -52,7 +52,7 @@
 
             <ImageView
                 android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_height="50dp"
                 android:src="@drawable/mima" />
 
             <EditText

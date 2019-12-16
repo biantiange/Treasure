@@ -50,7 +50,7 @@
         <ImageView
             android:layout_width="30dp"
             android:layout_height="50dp"
-            android:src="@drawable/mima" />
+            android:src="@drawable/yanzhengma" />
 
         <EditText
             android:id="@+id/et_yanzhengma"

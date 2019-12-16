@@ -52,8 +52,7 @@ public class AddChildServlet extends HttpServlet {
 		if(parentId!=null&&birthday!=null&&name!=null&&imgPath!=null){
 			
 			int pi=Integer.parseInt(parentId);
-			int bd=Integer.parseInt(birthday);
-			boolean add = new ChildService().addChild(pi,bd,imgPath,name);
+			boolean add = new ChildService().addChild(pi,birthday,imgPath,name);
 			if (add) {
 				response.getWriter().append("succeed");
 				System.out.println("succeed");

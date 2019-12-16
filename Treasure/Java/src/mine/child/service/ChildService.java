@@ -8,7 +8,7 @@ public class ChildService {
 	public List<Child> listAllChilds(){	
 		return new ChildDao().findAllChilds();
 	}
-	public boolean addChild (int parentId,int birthday,String imgpath,String nickname) {
+	public boolean addChild (int parentId,String birthday,String imgpath,String nickname) {
 		System.out.print("service");
 		int count1 = new ChildDao().saveChild(parentId, birthday, imgpath, nickname);
 		return count1 >0;
@@ -19,7 +19,7 @@ public class ChildService {
 		return count>0;
 		
 	}
-	public boolean editChild (int id,String nickname,int birthday,String imgpath,int parentId) {
+	public boolean editChild (int id,String nickname,String birthday,String imgpath,int parentId) {
 		int count = new ChildDao().updataChild(id,nickname,birthday,imgpath,parentId);
 		return count >0;
 	}

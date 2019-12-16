@@ -10,12 +10,13 @@ import java.util.Map;
 import javax.jws.soap.SOAPBinding.Use;
 
 import entity.User;
+import javafx.scene.Parent;
 import util.DBUtil;
 
 public class UserDao {
 
 	//增(返回其ID值)
-	public int addUser(User user) {
+	public String addUser(User user) {
 		int id = findByPhone(user.getPhoneNumber());  //添加用户时，看看数据库表是否已经有这个用户，=-1说明没有
 		int idd=-1; //默认-1
 		if(id==-1){
@@ -24,9 +25,11 @@ public class UserDao {
 			ResultSet rs = null;
 			int count = 0;
 			try {
-				preparedStatement = con.prepareStatement("insert into tbl_parent(phoneNumber,password) values (?,?)");
+				preparedStatement = con.prepareStatement("insert into tbl_parent(phoneNumber,password,nickName,headerPath) values (?,?,?,?)");
 				preparedStatement.setObject(1,user.getPhoneNumber());
 				preparedStatement.setObject(2, user.getPassword());
+				preparedStatement.setObject(3, user.getNickName());
+				preparedStatement.setObject(4, user.getHeaderPath());
 				count =  preparedStatement.executeUpdate();
 				if(count !=0){
 					//获取新插入的ID值
@@ -42,8 +45,11 @@ public class UserDao {
 				e.printStackTrace();
 			}
 			//return count;
+		}else{
+			//说明数据库有这个用户
+			return "该手机号已被注册";
 		}
-		return idd;
+		return idd+"";
 		
 	}
 	//忘记密码
@@ -93,12 +99,13 @@ public class UserDao {
 		//return count;
 		return id;
 	}
-	public int login(String phoneNumber,String password){
+	public User login(String phoneNumber,String password){
 		Connection con = DBUtil.getCon();
 		PreparedStatement preparedStatement=null;
 		ResultSet rs = null;
 		int count = 0;
 		int id=-1;  //默认-1
+		User user = null;
 		try {
 			preparedStatement = con.prepareStatement("select id from tbl_parent where phoneNumber=? and password=?");
 			preparedStatement.setObject(1,phoneNumber);
@@ -107,13 +114,16 @@ public class UserDao {
 			if(rs.next()){
 				id = rs.getInt(1);
 			}
+			if(id!=-1){
+				user = findById(id);
+			}
 			//return count;
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		//return count;
-		return id;
+		return user;
 	}
 	//根据id查用户 
 	public User findById(int id) {

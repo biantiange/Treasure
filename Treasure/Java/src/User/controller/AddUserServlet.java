@@ -1,11 +1,16 @@
 package User.controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.gson.Gson;
 
 import User.service.UserService;
 import entity.User;
@@ -28,8 +33,10 @@ public class AddUserServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    //http://localhost:8080/big/AddUserServlet?phoneNumber=15032742199&&password=123
+    //http://localhost:8080/Java/AddUserServlet?phoneNumber=15032742188&&password=321
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("UTF-8");
 		String phoneNumber = request.getParameter("phoneNumber");
 		String password = request.getParameter("password");
 		System.out.println("要添加的用户："+phoneNumber+"-"+password);
@@ -37,14 +44,29 @@ public class AddUserServlet extends HttpServlet {
 			User user = new User();
 			user.setPassword(password);
 			user.setPhoneNumber(phoneNumber);
-			int id = new UserService().addUser(user);  //返回的是id值
-			if(id!=-1){
-				response.getWriter().append("OK");
+			//给注册的用户添加默认的信息
+			user.setHeaderPath("parent/my_01.png"); //头像
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyyMMHHmmss" );// HH:mm:ss
+	        Date date = new Date(System.currentTimeMillis());
+	        user.setNickName(simpleDateFormat.format(date));//昵称
+			String str = new UserService().addUser(user);  //返回的是id值
+			System.out.println(str);
+			if(str.equals("该手机号已被注册")){
+				response.getWriter().append("");
+				return;
 			}else{
-				response.getWriter().append("FAIL");
+				int id = Integer.parseInt(str);
+				if(id==-1){
+					response.getWriter().append("FAIL");
+					return;
+				}else{
+					response.getWriter().append("OK");
+					return;
+				}
 			}
 		}else{
-			response.getWriter().append("FAIL");
+			response.getWriter().append(new Gson().toJson("OK"));
+			return;
 		}
 	}
 

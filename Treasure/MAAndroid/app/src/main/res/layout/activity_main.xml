@@ -15,7 +15,7 @@
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="2"
+        android:layout_weight="1.2"
         android:orientation="horizontal">
         <LinearLayout
             android:id="@+id/tab_spec_1"
@@ -23,7 +23,7 @@
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/img_1"
                 android:src="@drawable/jiankong0"
@@ -43,7 +43,7 @@
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/img_2"
                 android:src="@drawable/chengchangjilu0"
@@ -63,7 +63,7 @@
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/img_3"
                 android:src="@drawable/shequ0"
@@ -83,7 +83,7 @@
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
             <ImageView
                 android:id="@+id/img_4"
                 android:src="@drawable/wode"

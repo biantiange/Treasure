@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 import com.bumptech.glide.Glide;
 import com.example.lenovo.maandroid.R;
 
@@ -43,18 +46,27 @@ public class GrideAdapter extends BaseAdapter {
         ViewHolder holder=null;
         if(convertView==null){
             convertView= LayoutInflater.from(context).inflate(itemResId,null);
+            // 获取屏幕宽度
+            int widthPixels = context.getResources().getDisplayMetrics().widthPixels;
+            int width = (widthPixels - 20)/3;
+            int height = width;
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(width,height);
+            layoutParams.setMargins(15,15,15,15);
+            convertView.setLayoutParams(layoutParams);
             holder=new ViewHolder();
             holder.image=convertView.findViewById(R.id.image);
+            holder.frameLayout = convertView.findViewById(R.id.fm_image);
             convertView.setTag(holder);
         }else{
             holder=(ViewHolder) convertView.getTag();
         }
-        Log.e("position",list.get(position));
-        Glide.with(context).load(list.get(position).toString()).into(holder.image);
+
+        Glide.with(context).load(list.get(position)).into(holder.image);
         return convertView;
     }
 
     private  class ViewHolder{
         public  ImageView image;
+        public FrameLayout frameLayout;
     }
 }

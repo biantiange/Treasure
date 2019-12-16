@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -60,6 +61,7 @@ public class LookActivity extends AppCompatActivity {
     private LookAdapter lookAdapter;
 
     private ImageView ivReturn;
+    private LinearLayout linearLayout;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +69,10 @@ public class LookActivity extends AppCompatActivity {
 
         findView();
 
+        if (lists.isEmpty()){
+            linearLayout.setVisibility(View.VISIBLE);
+            listView.setVisibility(View.GONE);
+        }
         //给返回按钮添加监听器
         ivReturn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +122,8 @@ public class LookActivity extends AppCompatActivity {
                         String str = response.body().string();
                         Log.e("LookActivity",str);
                         if(str!=null){
+                            linearLayout.setVisibility(View.GONE);
+                            listView.setVisibility(View.VISIBLE);
                             //lists中有grimg的id，内容content，更新时间upTime，图片路径imgPath
                             lists = new Gson().fromJson(str,new TypeToken<List<Map<String,Object>>>(){}.getType());
                             Log.e("LookActivity",lists.toString());
@@ -153,6 +161,9 @@ public class LookActivity extends AppCompatActivity {
                             }
                             Log.e("LookActivity展示的数据",data.toString());
                             EventBus.getDefault().post("展示");
+                        }else {
+                            listView.setVisibility(View.GONE);
+                            linearLayout.setVisibility(View.VISIBLE);
                         }
 
                     }
@@ -172,6 +183,8 @@ public class LookActivity extends AppCompatActivity {
         parentId = 1;
         listView = findViewById(R.id.lv_records);
         ivReturn = findViewById(R.id.iv_return);
+        linearLayout = findViewById(R.id.ll);
+       // Log.e("aa",lists.isEmpty()+"");
         /*SharedPreferences sharedPreferences = getSharedPreferences("parent",MODE_PRIVATE);
         parentId = sharedPreferences.getInt("parentId",-1);*/
     }

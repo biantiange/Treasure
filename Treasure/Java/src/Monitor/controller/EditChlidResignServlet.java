@@ -18,14 +18,14 @@ import entity.Child;
 /**
  * Servlet implementation class ListServlet
  */
-@WebServlet("/find/child")
-public class FindChildByParentPhoneNumeberAndChildNameServlet extends HttpServlet {
+@WebServlet("/editisResign/child")
+public class EditChlidResignServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FindChildByParentPhoneNumeberAndChildNameServlet() {
+    public EditChlidResignServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,18 +37,10 @@ public class FindChildByParentPhoneNumeberAndChildNameServlet extends HttpServle
 		//根据家长的Id获取全部孩子信息
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		String parentPhoneNumber= request.getParameter("phoneNumber");
-		String childName = request.getParameter("childName");
-		if(parentPhoneNumber!=null && !parentPhoneNumber.equals(" ") && childName!=null && !childName.equals("")){
-			System.out.println("查询孩子信息——"+"phoneNumber:"+parentPhoneNumber+" childName:"+childName);
-			List<Child> list = new MonitorServiceImpl().getChildByParentPhoneNumberAndChildName(parentPhoneNumber, childName);
-			if(list.size()>0){
-				//String childId=list.get(0).getId()+"";
-				//System.out.println(childId);
-				response.getWriter().append(new Gson().toJson(list.get(0)));
-			}else{
-				response.getWriter().append("no");
-			}
+		String childId = request.getParameter("childId");
+		if(childId!=null && !childId.equals("")){
+			System.out.println("修改孩子注册信息——"+childId);
+			new MonitorServiceImpl().EditIsRegistChildById(Integer.parseInt(childId));
 		}
 	}
 

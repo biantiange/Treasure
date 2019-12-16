@@ -19,9 +19,18 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.SDKInitializer;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -31,8 +40,10 @@ import cn.jpush.android.api.TagAliasCallback;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 
@@ -47,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     private OkHttpClient okHttpClient;
     private Handler mainHandler;
     private TextView tvWait;
+    private int childId=-1;
 
 
     @Override
@@ -84,8 +96,41 @@ public class MainActivity extends AppCompatActivity {
                             tvWait.setText("孩子未注册，绑定失败");
 
                         }else{
-                            Log.e("childId", info);
-                            setAlias(info);
+                            Log.e("childInfo",info);
+                            Child child=new Child();
+                            JSONObject jsonObject = null;
+                            try {
+                                jsonObject = new JSONObject(info);
+                                child.setName(jsonObject.getString("name"));
+                                //因为数据库中的数据是孩子的出生日期，不是年龄，只是年龄无法更新
+                                // 获取当前年月日期，设置孩子的年龄，后期不仅需要从年上判断，也需要将月份也算进去
+                                String strAge=jsonObject.getString("age");
+                                //int child_age=Integer.parseInt(jsonObject.getString("age").substring( 0,4));
+                                SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-mm-dd" );
+                                Date curdate = new Date( System.currentTimeMillis() );
+                                //int t = Integer.parseInt( simpleDateFormat.format(strAge));
+                                Date childdate =new Date(simpleDateFormat.parse(strAge).toString());
+                                child.setAge(curdate.getYear()-childdate.getYear());//年龄：简单的判断
+                                child.setHeaderPath(jsonObject.getString("headerPath"));
+                                child.setId(Integer.parseInt(jsonObject.getString("id")));
+                                child.setParentId(Integer.parseInt(jsonObject.getString("parentId")));
+                                child.setIsResign(Integer.parseInt(jsonObject.getString("isResign")));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+                            childId=child.getId();
+                            if(child.getIsResign()==0){
+                                Log.e("childid",childId+"");
+                                editIsResign(childId+"");
+                                Intent intent=new Intent(MainActivity.this,SuccessActivity.class);
+                                startActivity(intent);
+                            }
+                            if(child.getIsResign()==1){
+                                Intent intent=new Intent(MainActivity.this,SuccessActivity.class);
+                                startActivity(intent);
+                            }
                         }
                         break;
                 }
@@ -104,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //初始化孩子数据
-    public void findChild(String phoneNumber,String childId) {
+    public void findChild(String phoneNumber, final String childId) {
         Log.e("test", Constant.BASE_URL + "find/child");
         FormBody formBody=new FormBody.Builder().add("phoneNumber",phoneNumber).add("childName",childId).build();
         //2、创建Request对象
@@ -119,14 +164,12 @@ public class MainActivity extends AppCompatActivity {
             //请求失败之后回调
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.e("tt","11");
                 e.printStackTrace();
             }
 
             //请求成功之后回调
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                Log.e("tt","22");
                 String json = response.body().string();
                 wrapperMessage(json,1);
             }
@@ -141,6 +184,34 @@ public class MainActivity extends AppCompatActivity {
         mainHandler.sendMessage(msg);
     }
 
+    public void editIsResign(String childid){
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Log.e("test2", Constant.BASE_URL + "/editisResign/child");
+        //2、创建Request对象
+        FormBody formBody =new FormBody.Builder().add("childId",childid).build();;
+        Request request = new Request.Builder() //创建Builder对象
+                .url(Constant.BASE_URL + "/editisResign/child")//设置网络请求的UrL地址
+                .post(formBody)
+                .build();
+        //3、创建Call对象
+        final Call call = okHttpClient.newCall(request);
+        //4、发送请求
+        call.enqueue(new Callback() {
+            //请求失败之后回调
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            //请求成功之后回调
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String json = response.body().string();
+            }
+        });
+    }
+
+
     // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以。
     private void setAlias(String DEVICE_ID) {
         if (TextUtils.isEmpty(DEVICE_ID)) {
@@ -149,6 +220,7 @@ public class MainActivity extends AppCompatActivity {
         // 调用 Handler 来异步设置别名
         mHandler.sendMessage(mHandler.obtainMessage(MSG_SET_ALIAS, DEVICE_ID));
     }
+
 
     /**
      * /**
@@ -175,6 +247,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     logs = "Set tag and alias success";
                     Log.e("logs", logs);
+
                     btnOk.setEnabled(false);
                     tvWait.setVisibility(View.GONE);
                     Intent intent=new Intent(MainActivity.this,SuccessActivity.class);
@@ -210,6 +283,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
 
 
 }

@@ -39,7 +39,7 @@ public class LoginServlet extends HttpServlet {
 		User user = null;
 		if(phoneNumber!=null){
 			user = new UserService().login(phoneNumber, password);
-			System.out.println("要登录的是"+phoneNumber+"-"+password+"-"+user.getId());
+			//System.out.println("要登录的是"+phoneNumber+"-"+password+"-"+user.getId());
 			
 		}
 		if(user!=null){

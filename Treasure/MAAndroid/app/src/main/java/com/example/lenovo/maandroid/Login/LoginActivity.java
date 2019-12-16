@@ -147,7 +147,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("headerPath",parent.getHeaderPath());
                     editor.putString("nickName",parent.getNickName());
                     editor.commit();   //提交
-                    Log.e("LoginActivity","存储结束了");
+                    Log.e("LoginActivity","存储结束了"+parent.toString()+parent.getId());
                     //跳转到MainActivity
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     Looper.loop();

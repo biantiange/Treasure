@@ -1,6 +1,8 @@
 package Monitor.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -32,10 +34,12 @@ public class ToChildPositionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String childId = request.getParameter("childId");
-		System.out.println("服务器向ChildDemo推送获取位置信息开始了");
-		//学生端虚拟机   358240051111110      真机860649040120944
-		JPushToChildPositionDemo.testSendPush(appKey, masterSecret,"358240051111110","position");
-		System.out.println("服务器向ChildDemo推送获取位置信息结束了");
+		if(childId!=null && !childId.equals("")){
+			System.out.println("服务器向(childId="+childId+")ChildDemo推送获取位置信息开始了");
+			//学生端虚拟机   358240051111110      真机860649040120944
+			JPushToChildPositionDemo.testSendPush(appKey, masterSecret,childId,"position","childId",childId);
+			System.out.println("服务器向(childId="+childId+")ChildDemo推送获取位置信息结束了");
+		}
 	}
 
 	/**

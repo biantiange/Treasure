@@ -73,8 +73,9 @@ public class LookAdapter extends BaseAdapter {
                 str = Constant.BASE_IP+str;
                 paths.add(str);
             }
-            holder.textView.setText(key);
-            adapter=new GrideAdapter(context,paths, R.layout.list_gride);
+            String str = key.substring(0,key.length()-2);
+            holder.textView.setText(str);
+            adapter=new GrideAdapter(context,paths, R.layout.list_gride2);
             holder.gridView.setAdapter(adapter);
         }
            /* Iterator<String> iter = map.keySet().iterator();

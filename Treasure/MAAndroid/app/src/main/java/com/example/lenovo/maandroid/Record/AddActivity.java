@@ -155,7 +155,8 @@ public class AddActivity extends AppCompatActivity {
         growthRecord = new GrowthRecord();
         grimg = new Grimg();
         //获得控件值
-        String content = etContent.getText().toString();
+        String content = "";
+        content = etContent.getText().toString();
         int parentId = getSharedPreferences("parent",MODE_PRIVATE).getInt("parentId",-1);
         //String tag = "";
         //String imgPath = "";
@@ -171,6 +172,7 @@ public class AddActivity extends AppCompatActivity {
         grimg.setUpTime(simpleDateFormat.format(date));
     }
     public void addRecordImgPath() {
+        Log.e("AddActivity","添加记录图片");
         for (int i = 0; i < mSelectPath.size(); i++) {
             Log.e("路径", mSelectPath.get(i).toString());
             //上传至服务器
@@ -199,6 +201,7 @@ public class AddActivity extends AppCompatActivity {
 
     public void addRecordImgOther(int imgId){
         //修改数据库
+        Log.e("AddActivity","添加记录其他");
         Log.e("AddActivity",grimg.toString());
         FormBody body = new FormBody.Builder()
                 .add("id",imgId+"")
@@ -259,6 +262,7 @@ public class AddActivity extends AppCompatActivity {
         if(requestCode==2&&resultCode==RESULT_OK){
             if (data != null) {
                 mSelectPath = data.getStringArrayListExtra(MultiImageSelectorActivity.EXTRA_RESULT);
+                Log.e("aa",mSelectPath.toString());
                 grideAdapter=new GrideAdapter(this,mSelectPath,R.layout.list_gride);
                 gridView.setAdapter(grideAdapter);
                 }

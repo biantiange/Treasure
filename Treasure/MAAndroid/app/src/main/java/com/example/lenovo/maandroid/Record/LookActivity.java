@@ -2,6 +2,7 @@ package com.example.lenovo.maandroid.Record;
 
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -67,6 +68,9 @@ public class LookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.look_record);
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(0xff7adfb8 );
+        }
         findView();
 
         if (lists.isEmpty()){
@@ -194,7 +198,8 @@ public class LookActivity extends AppCompatActivity {
         mFlowLayout =  findViewById(R.id.afl_cotent);
         tags="";
         btnSearch = findViewById(R.id.btn_search);
-        parentId = 1;
+        //parentId = 1;
+        parentId = getSharedPreferences( "parent",MODE_PRIVATE ).getInt( "parentId",-1 );
         listView = findViewById(R.id.lv_records);
         ivReturn = findViewById(R.id.iv_return);
         linearLayout = findViewById(R.id.ll);

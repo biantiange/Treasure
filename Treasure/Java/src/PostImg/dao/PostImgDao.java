@@ -1,5 +1,7 @@
 package PostImg.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,8 +18,11 @@ public class PostImgDao {
 	}
 
 	public int savePostImg(PostImg img) {
+		long time = System.currentTimeMillis(); 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String now = sdf.format(new Date(time));
 		return DBUtil.executeUpdate("insert into tbl_postImg(path,postId,time) "
 				+ "values(?,?,?)"
-				,new Object[] {img.getPath(),img.getPostId(),img.getTime()});
+				,new Object[] {img.getPath(),img.getPostId(),now});
 	}
 }

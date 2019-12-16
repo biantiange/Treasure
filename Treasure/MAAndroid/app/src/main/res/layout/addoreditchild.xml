@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="35dp"
-        android:background="#00bffe"
+        android:background="#7adfb8"
         android:orientation="horizontal">
 
         <ImageButton
@@ -15,7 +15,7 @@
 
             android:layout_width="28dp"
             android:layout_height="30dp"
-            android:background="#00bffe"
+            android:background="#7adfb8"
             android:src="@drawable/fanhui32" />
 
         <TextView
@@ -36,7 +36,7 @@
                android:layout_width="28dp"
                android:layout_height="match_parent"
                android:layout_marginRight="20dp"
-               android:background="#00bffe"
+               android:background="#7adfb8"
                android:src="@drawable/delete" />
 
 
@@ -256,7 +256,7 @@
                 android:id="@+id/child_submit"
                 android:layout_width="120dp"
                 android:layout_height="40dp"
-                android:background="#00bffe"
+                android:background="#7adfb8"
                 android:text="完成"
                 android:textColor="#ffffff"
                 android:textSize="19dp"

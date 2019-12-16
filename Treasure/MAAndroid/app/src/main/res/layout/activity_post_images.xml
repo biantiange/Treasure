@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f0f0f0"
-    tools:context="com.kuyue.wechatpublishimagesdrag.PostImagesActivity">
+    >
 
     <RelativeLayout
         android:id="@+id/rl_push_speak_header"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#f0f0f0"
+        android:background="#7adfb8"
         android:elevation="2dp"
         android:orientation="horizontal">
 
@@ -20,7 +20,7 @@
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_centerVertical="true"
-            android:src="@drawable/left_exit" />
+            android:src="@drawable/fanhui32" />
 
         <Button
             android:id="@+id/btn_push_speak_push"

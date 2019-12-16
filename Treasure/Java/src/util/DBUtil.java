@@ -13,6 +13,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 
+import entity.Post;
+
 public class DBUtil {
 
 	private static Properties dbProps = new Properties();
@@ -151,6 +153,30 @@ public class DBUtil {
 				}
 			}
 			return obj;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			close(rs, pstm, con);
+		}
+	}
+	
+	public static Post findMaxId() {
+		Connection con = null;
+		PreparedStatement pstm = null;
+		ResultSet rs = null;
+		try {
+			con = getCon();
+			pstm = con.prepareStatement("select * from " + "tbl_post" + " order by id desc limit 0,1");
+			
+			rs = pstm.executeQuery();
+			ResultSetMetaData metaData = rs.getMetaData();
+			Post post = new Post();
+			if (rs.next()) {
+				post.setId(rs.getInt("id"));
+				post.setContent(rs.getString("content"));
+			}
+			return post;
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

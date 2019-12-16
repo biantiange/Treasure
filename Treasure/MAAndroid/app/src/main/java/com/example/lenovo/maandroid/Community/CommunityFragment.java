@@ -88,6 +88,17 @@ public class CommunityFragment extends Fragment {
         return newView;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult( requestCode, resultCode, data );
+        switch (requestCode){
+            case 2019:
+                posts.add( 0 , (Post) data.getSerializableExtra("myPost") );
+                postAdapter.notifyDataSetChanged();
+                break;
+        }
+    }
+
     private void setListeners() {
         ivAddPost.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -32,6 +32,8 @@ public class LoginServlet extends HttpServlet {
 	 */
     //http://localhost:8080/bigwork/LoginServlet?phoneNumber=15032742188&&password=45678
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
 		System.out.println("LoginServlet");
 		String phoneNumber = request.getParameter("phoneNumber");
 		String password = request.getParameter("password");

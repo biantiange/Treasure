@@ -58,6 +58,9 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //setContentView( R.layout.activity_login1);
         setContentView( R.layout.activity_login);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(0xffffcc00 );
+        }
         findViews();
         //okHttpClient
         okHttpClient = new OkHttpClient();

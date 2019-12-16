@@ -69,7 +69,7 @@ public class MyMessage extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.my_message );
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(0xff00bffe );
+            getWindow().setStatusBarColor(0xff7adfb8 );
         }
         okHttpClient=new OkHttpClient();
         sharedPreferences=getSharedPreferences( "parent",MODE_PRIVATE );

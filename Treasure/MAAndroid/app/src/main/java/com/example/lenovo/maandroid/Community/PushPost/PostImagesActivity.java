@@ -39,6 +39,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.example.lenovo.maandroid.Community.CommunityFragment;
+import com.example.lenovo.maandroid.Entity.Comment;
+import com.example.lenovo.maandroid.Entity.Parent;
+import com.example.lenovo.maandroid.Entity.Post;
+import com.example.lenovo.maandroid.Entity.PostImg;
+import com.example.lenovo.maandroid.Host.MainActivity;
 import com.example.lenovo.maandroid.Jpush.MyApplication;
 import com.example.lenovo.maandroid.R;
 import com.example.lenovo.maandroid.Utils.Constant;
@@ -61,7 +67,10 @@ import java.io.UnsupportedEncodingException;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import indi.liyi.viewer.ImageViewer;
@@ -109,7 +118,7 @@ public class PostImagesActivity extends AppCompatActivity implements View.OnClic
     private Gson gson = new Gson();
     private String keepContent;
     private OkHttpClient client = new OkHttpClient();
-
+    private SharedPreferences spPost;
     public static void startPostActivity(Context context, ArrayList<String> images) {
         Intent intent = new Intent(context, PostImagesActivity.class);
         intent.putStringArrayListExtra("img", images);
@@ -120,6 +129,9 @@ public class PostImagesActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_images);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(0xff7adfb8 );
+        }
         // 自定义图片加载器
         ISNav.getInstance().init(new ImageLoader() {
             @Override
@@ -221,12 +233,14 @@ public class PostImagesActivity extends AppCompatActivity implements View.OnClic
                 }
                 break;
             case R.id.btn_push_speak_push:
+                spPost = getSharedPreferences("parent",MODE_PRIVATE );
+                int id = spPost.getInt( "parentId",-1 );
                 MediaType MutilPart_Form_Data = MediaType.parse("application/octet-stream;charset=utf-8");
                 MultipartBody.Builder requestBodyBuilder = null;
                 try {
                     requestBodyBuilder = new MultipartBody.Builder()
                             .setType(MediaType.parse("multipart/form-data;charset=utf-8"))
-                            .addFormDataPart("id", "2016")// 传递表单数据
+                            .addFormDataPart("id", id+"")// 传递表单数据
                             .setType(MediaType.parse("multipart/form-data;charset=utf-8"))
                             .addFormDataPart("content", URLEncoder.encode(etContent.getText().toString(), "utf-8"));
                 } catch (UnsupportedEncodingException e) {
@@ -578,8 +592,32 @@ public class PostImagesActivity extends AppCompatActivity implements View.OnClic
                         }
                         break;
                     case POST_ACHIEVE:
-                        Toast.makeText(activity, msg.obj.toString(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(activity, "发布成功", Toast.LENGTH_SHORT).show();
                         activity.sp.edit().clear().commit();
+                        Intent intent = new Intent( activity , CommunityFragment.class );
+                        Post post = new Gson().fromJson( msg.obj.toString(),Post.class );
+                        post.setTime( Timestamp.valueOf((new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" ).format( new Date(System.currentTimeMillis()) ) ) ));
+                        post.setPraiseCount( 0 );
+                        //图片
+                        List<PostImg> imgs = new ArrayList<>(  );
+                        for (int i=0;i<activity.originImages.size()-1;i++){
+                            PostImg image = new PostImg();
+                            image.setPath( activity.originImages.get( i ) );
+                        }
+                        post.setImgs( imgs );
+                        //评论
+                        List<Comment> comments = new ArrayList<>();
+                        post.setComments(comments);
+                        post.setIsPraise(0);
+                        //发帖人
+                        Parent parent = new Parent(  );
+                        activity.spPost = activity.getSharedPreferences( "parent",MODE_PRIVATE );
+                        parent.setId( activity.spPost.getInt( "parentId",-1 ) );
+                        parent.setHeaderPath( activity.spPost.getString( "headerPath" ,"") );
+                        parent.setNickName( activity.spPost.getString( "nickName","" ) );
+                        post.setParent(parent);
+                        intent.putExtra( "myPost",post);
+                        activity.setResult( 2019,intent );
                         activity.finish();
                         break;
                 }

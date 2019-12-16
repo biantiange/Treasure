@@ -69,7 +69,7 @@ public class AddOrEditChild extends AppCompatActivity {
 
         setContentView( R.layout.addoreditchild );
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(0xff00bffe );
+            getWindow().setStatusBarColor(0xff7adfb8 );
         }
         po = getIntent().getIntExtra( "position", -1 );//设置默认值-1；如果不是-1；则说明接受到数据
         findView();

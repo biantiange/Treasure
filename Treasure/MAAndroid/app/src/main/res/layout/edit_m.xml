@@ -7,11 +7,11 @@
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="35dp"
         android:orientation="horizontal"
-        android:background="#00bffe"
+        android:background="#7adfb8"
         >
 
         <ImageButton android:layout_width="28dp"
-            android:background="#00bffe"
+            android:background="#7adfb8"
             android:src="@drawable/fanhui32"
             android:id="@+id/return0"
             android:layout_gravity="center"
@@ -25,7 +25,7 @@
             android:padding="5dp"
             />
         <ImageButton android:layout_width="28dp"
-            android:background="#00bffe"
+            android:background="#7adfb8"
             android:layout_height="40dp"/>
     </LinearLayout>
     <LinearLayout android:layout_width="match_parent"
@@ -132,7 +132,7 @@
         android:textColor="#fff"
         android:id="@+id/edit_submit"
         android:textSize="18dp"
-        android:backgroundTint="#00bffe"
+        android:backgroundTint="#7adfb8"
         />
 
 </LinearLayout>

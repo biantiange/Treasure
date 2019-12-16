@@ -168,6 +168,8 @@
         android:id="@+id/community_commenting"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_marginBottom="8dp"
         android:layout_weight="1"
         android:background="@drawable/shape"

@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(0xff00bffe );
+            getWindow().setStatusBarColor(0xff7adfb8 );
         }
         initData();
         setListener();

@@ -53,7 +53,7 @@ public class MyChild extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.add_child );
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(0xff00bffe );
+            getWindow().setStatusBarColor(0xff7adfb8 );
         }
         EventBus.getDefault().register( this );
         okHttpClient = new OkHttpClient();

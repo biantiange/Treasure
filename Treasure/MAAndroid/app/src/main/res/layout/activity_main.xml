@@ -30,8 +30,8 @@
                 android:src="@drawable/jiankong0"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp" />
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
             <TextView
                 android:id="@+id/tv_1"
                 android:text="监控"
@@ -50,8 +50,8 @@
                 android:src="@drawable/chengchangjilu0"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp" />
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
             <TextView
                 android:id="@+id/tv_2"
                 android:text="成长记录"
@@ -70,8 +70,8 @@
                 android:src="@drawable/shequ0"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp" />
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
             <TextView
                 android:id="@+id/tv_3"
                 android:text="社区"
@@ -90,8 +90,8 @@
                 android:src="@drawable/wode"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="5dp"
-                android:layout_width="40dp"
-                android:layout_height="40dp" />
+                android:layout_width="30dp"
+                android:layout_height="30dp" />
             <TextView
                 android:id="@+id/tv_4"
                 android:text="我的"

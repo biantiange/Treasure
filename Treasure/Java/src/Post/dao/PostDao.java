@@ -1,5 +1,7 @@
 package Post.dao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -21,12 +23,19 @@ public class PostDao {
 
 	public int savePost(Post post) {
 		// TODO Auto-generated method stub
+		long time = System.currentTimeMillis(); 
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String now = sdf.format(new Date(time));
 		return DBUtil.executeUpdate("insert into tbl_post(content,time,praiseCount,posterId)"
 				+ " values(?,?,?,?)"
-				,new Object[] {post.getContent(),post.getTime(),post.getPraiseCount(),post.getPosterId()});
+				,new Object[] {post.getContent(),now,post.getPraiseCount(),post.getPosterId()});
 	}
 	public int addPraise(int postId,int count) {
 		return DBUtil.executeUpdate("UPDATE tbl_post SET praiseCount = ? WHERE id = ?"
 				, new Object[] {count,postId});
+	}
+	
+	public Post maxId(){
+		return DBUtil.findMaxId();
 	}
 }

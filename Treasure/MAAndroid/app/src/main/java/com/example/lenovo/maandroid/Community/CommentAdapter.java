@@ -5,11 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.lenovo.maandroid.Entity.Comment;
 import com.example.lenovo.maandroid.R;
+import com.example.lenovo.maandroid.Utils.Data;
 
 import java.util.List;
 
@@ -17,6 +21,7 @@ public class CommentAdapter extends BaseAdapter {
     private List<Comment> comments;
     private Context context;
     private int item_id;
+    private RequestOptions options;
 
     public CommentAdapter(List<Comment> comments, Context context, int item_id) {
         this.comments = comments;
@@ -48,9 +53,18 @@ public class CommentAdapter extends BaseAdapter {
         TextView name = convertView.findViewById(R.id.comment_parentName);
         name.setText(comments.get(position).getCommentator().getNickName());
         TextView time = convertView.findViewById(R.id.comment_time);
-        time.setText(comments.get(position).getTime().toString());
+        String time1 = comments.get(position).getTime().toString().substring( 0,16 );
+        time.setText(time1);
         TextView content = convertView.findViewById(R.id.comment_content);
         content.setText(comments.get(position).getContent());
+        //头像
+        ImageView header = convertView.findViewById(R.id.comment_parentHeader);
+        options = new RequestOptions()
+                .circleCrop()
+                .placeholder( R.drawable.aaa)
+                .error( R.drawable.aaa)
+                .fallback( R.drawable.aaa);
+        Glide.with(context).load( Data.url+comments.get( position ).getCommentator().getHeaderPath()).apply( options).into(header);
 
         //回复
         LinearLayout L = convertView.findViewById(R.id.comment_response_L);

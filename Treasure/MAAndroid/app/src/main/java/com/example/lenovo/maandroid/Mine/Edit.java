@@ -61,7 +61,7 @@ public class Edit extends AppCompatActivity {
         super.onCreate( savedInstanceState );
         setContentView( R.layout.edit_m );
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(0xff00bffe );
+            getWindow().setStatusBarColor(0xff7adfb8 );
         }
         sharedPreferences = getSharedPreferences( "parent", MODE_PRIVATE );
         okHttpClient = new OkHttpClient();

@@ -48,17 +48,21 @@ public class RecordFragment extends Fragment {
     List<Map<String,Object>> contentArray=new ArrayList<>();
     private HorizontalListView mlv;
     private Banner banner;
-    private OkHttpClient okHttpClient;
+    private OkHttpClient okHttpClient =new OkHttpClient();
     private List<String> mTitleList = new ArrayList<>();
     private List<String > mImgList = new ArrayList<>();
     private List<Integer > ImgList = new ArrayList<>();
     private Handler mainHandler=null;
+    private View newView;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View newView=inflater.inflate(R.layout.record_main,container,false);
+        newView=inflater.inflate(R.layout.record_main,container,false);
         mlv = newView.findViewById(R.id.mlv);
-        okHttpClient=new OkHttpClient();
+        contentArray.clear();
+        datas.clear();
+        mTitleList.clear();
+        mImgList.clear();
         //查找
         ImageView look=newView.findViewById(R.id.look);
         ImageView add=newView.findViewById(R.id.add);
@@ -109,6 +113,63 @@ public class RecordFragment extends Fragment {
         lookTime();
         return newView;
     }
+
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        contentArray.clear();
+//        mTitleList.clear();
+//        mImgList.clear();
+//        datas.clear();
+//        //查找
+//        ImageView look=newView.findViewById(R.id.look);
+//        ImageView add=newView.findViewById(R.id.add);
+//        look.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent=new Intent(getContext(),LookActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        //添加
+//        add.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent=new Intent(getContext(),AddActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        mainHandler=new Handler(){
+//            //当handler在消息队列中
+//            @Override
+//            public void handleMessage(Message msg) {
+//                Log.e("1",Thread.currentThread().getName()+"发送数据"+msg);
+//                switch (msg.what){
+//                    case 1:
+//                        TimeAdapter adapter = new TimeAdapter((ArrayList<Dates>) datas, getContext(),datas.size()-1);
+//                        mlv.setAdapter(adapter);
+//                        mlv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                            @Override
+//                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                                TimeAdapter adapter = new TimeAdapter((ArrayList<Dates>) datas, getContext(),position);
+//                                mlv.setAdapter(adapter);
+//                                String time=datas.get(position).getTime();
+//                                lookContent(time);
+//
+//                            }
+//                        });
+//                        break;
+//                    case 2:
+//                        banner =newView.findViewById(R.id.home_play_banner);
+//                        // 设置轮播图
+//                        BannerSet();
+//                        break;
+//                }
+//
+//            }
+//        };
+//        lookTime();
+//    }
 
     private void lookTime() {
         Request request=new Request.Builder().url(Constant.BASE_IP +"LookTimeServlet").build();

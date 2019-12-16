@@ -35,7 +35,7 @@
                 android:layout_height="30dp"
                 android:text="效益"
                 android:textColor="#101010"
-                android:textSize="20dp" />
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/child_years"
@@ -51,8 +51,8 @@
 
         <ImageButton
             android:id="@+id/child_xiugai"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:layout_gravity="center"
             android:background="@drawable/xiangxi" />
     </LinearLayout>

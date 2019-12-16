@@ -101,7 +101,6 @@ public class MineFragment extends Fragment {
     }
 
     private void init() {
-
         phoneNumber = sharedPreferences.getString( "phoneNumber", "" );
     }
 

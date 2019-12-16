@@ -106,11 +106,6 @@ public class MainActivity extends AppCompatActivity {
         setListener();
         changeTab(tabStrId[0]);
         //虚假存入数据，合成时删除
-        sharedPreferences = getSharedPreferences("parent",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("phoneNumber","15231174460");
-        editor.putInt("parentId",12);
-        editor.commit();
         //---------虚假数据到此结束-------------
 
     }

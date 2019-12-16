@@ -73,7 +73,6 @@ dependencies {
     androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    implementation project(':multi-image-selector')
     implementation files('libs/BaiduLBS_Android.jar')
 
     implementation 'com.android.support:recyclerview-v7:28.0.0'

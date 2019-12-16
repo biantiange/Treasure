@@ -140,6 +140,7 @@ public class MonitorFragment extends Fragment {
         Log.e("MonitorFragment", "接收到信息" + event);
         List<Map<String, Object>> list = new Gson().fromJson(event, new TypeToken<List<Map<String, Object>>>() {}.getType());
         String str=list.get(0).get("tag").toString();
+        Log.e("tt",str);
         Map<String, Object> map = new HashMap<String, Object>();
         map = new Gson().fromJson(str, map.getClass());
         String tag1=null;

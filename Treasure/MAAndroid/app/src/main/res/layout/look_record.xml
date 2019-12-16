@@ -74,12 +74,12 @@
             android:id="@+id/afl_cotent"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-       <TextView
+       <!--<TextView
            android:layout_marginTop="5dp"
              android:background="?android:attr/listDivider"
              android:textColor="@color/Gainsboro"
              android:layout_width="match_parent"
-             android:layout_height="2dp" />
+             android:layout_height="2dp" />-->
     </LinearLayout>
 
     <LinearLayout
@@ -111,6 +111,7 @@
     </LinearLayout>
 
     <ListView
+        android:layout_marginTop="10dp"
         android:background="#FFFFFF"
         android:id="@+id/lv_records"
         android:layout_width="match_parent"

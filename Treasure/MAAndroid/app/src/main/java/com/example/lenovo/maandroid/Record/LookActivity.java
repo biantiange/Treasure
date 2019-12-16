@@ -120,10 +120,10 @@ public class LookActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
                         String str = response.body().string();
+                        lists = new Gson().fromJson(str,new TypeToken<List<Map<String,Object>>>(){}.getType());
                         Log.e("LookActivity",str);
-                        if(str!=null){
-                            linearLayout.setVisibility(View.GONE);
-                            listView.setVisibility(View.VISIBLE);
+                        if(!lists.isEmpty()){
+                            Log.e("aa","有数据");
                             //lists中有grimg的id，内容content，更新时间upTime，图片路径imgPath
                             lists = new Gson().fromJson(str,new TypeToken<List<Map<String,Object>>>(){}.getType());
                             Log.e("LookActivity",lists.toString());
@@ -160,10 +160,24 @@ public class LookActivity extends AppCompatActivity {
                                 }
                             }
                             Log.e("LookActivity展示的数据",data.toString());
-                            EventBus.getDefault().post("展示");
+                            List<Map<String,Object>> list=new ArrayList<>();
+                            Map<String,Object> mapp=new HashMap<>();
+                            Map<String,Object> mapp1=new HashMap<>();
+                            mapp1.put("show","展示");
+                            mapp.put("tag",mapp1);
+                            mapp.put("content",data);
+                            list.add(mapp);
+                            EventBus.getDefault().post(new Gson().toJson(list));
                         }else {
-                            listView.setVisibility(View.GONE);
-                            linearLayout.setVisibility(View.VISIBLE);
+                            Log.e("aa","无数据");
+                            List<Map<String,Object>> list=new ArrayList<>();
+                            Map<String,Object> mapp=new HashMap<>();
+                            Map<String,Object> mapp1=new HashMap<>();
+                            mapp1.put("show","隐藏");
+                            mapp.put("tag",mapp1);
+                            mapp.put("content",data);
+                            list.add(mapp);
+                            EventBus.getDefault().post(new Gson().toJson(list));
                         }
 
                     }
@@ -202,10 +216,27 @@ public class LookActivity extends AppCompatActivity {
     }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(String event){
-        if(event.equals("展示")){
+        List<Map<String, Object>> list = new Gson().fromJson(event, new TypeToken<List<Map<String, Object>>>() {}.getType());
+        String str=list.get(0).get("tag").toString();
+        Map<String, Object> map = new HashMap<String, Object>();
+        map = new Gson().fromJson(str, map.getClass());
+        String tag1=null;
+        Iterator<String> iter = map.keySet().iterator();
+        while(iter.hasNext()){
+            String key=iter.next();
+            tag1 = map.get(key).toString();
+        }
+        if(tag1.equals("展示")){
             Log.e("LookActivity","展示");
+            linearLayout.setVisibility(View.GONE);
+            listView.setVisibility(View.VISIBLE);
             lookAdapter = new LookAdapter(data,LookActivity.this,R.layout.item_lookbytag);
             listView.setAdapter(lookAdapter);
+        }
+        if(tag1.equals("隐藏")){
+            Log.e("LookActivity","隐藏");
+            listView.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.VISIBLE);
         }
     }
 }

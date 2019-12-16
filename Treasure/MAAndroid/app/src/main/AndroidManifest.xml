@@ -47,7 +47,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".Host.MainActivity">
+        <activity android:name=".Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -65,7 +65,7 @@
         <activity android:name=".Mine.MyChild" />
         <activity android:name=".Mine.MyMessage" />
         <activity android:name=".Login.RegisterActivity" />
-        <activity android:name=".Login.LoginActivity" />
+        <activity android:name=".Host.MainActivity" />
         <activity android:name=".Mine.Edit" />
 
         <provider

@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.lenovo.maandroid.R;
 import com.example.lenovo.maandroid.Utils.Constant;
+import com.google.gson.Gson;
 import com.mob.MobSDK;
 
 import java.io.IOException;
@@ -124,13 +125,13 @@ public class RegisterActivity extends AppCompatActivity {
                         Intent intent = getIntent();
                         //注册
                         if (intent.getIntExtra("flag", 0) == 1) {
-                            MyOkHttp(Constant.BASE_IP + "Java/AddUserServlet/" + etPhone.getText().toString() + "-" + etPwd.getText().toString());
-                            // finish();
+                            MyOkHttp(Constant.BASE_IP + "AddUserServlet?phoneNumber=" + etPhone.getText().toString() + "&&password=" + etPwd.getText().toString());
+                            finish();
                         }
                         //忘记密码
                         else {
-                            MyOkHttp(Constant.BASE_IP + "Java/ForgetServlet/" + etPhone.getText().toString() + "-" + etPwd.getText().toString());
-                            // finish();
+                            MyOkHttp(Constant.BASE_IP + "ForgetServlet?phoneNumber=" + etPhone.getText().toString() + "&&password=" + etPwd.getText().toString());
+                            finish();
                         }
 
                         //Toast.makeText(RegisterActivity.this,"操作成功", Toast.LENGTH_SHORT).show();
@@ -192,17 +193,17 @@ public class RegisterActivity extends AppCompatActivity {
                     break;
 
                 case R.id.btn_submit:
-                    if (etPhone.getText().toString() == null) {
+                    if (etPhone.getText().toString() == null || etPhone.getText().toString().equals("")) {
                         Toast.makeText(RegisterActivity.this, "手机号不能为空", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "onClick: 手机号不能为空");
                     }
-                    if (etYanzhengma.getText().toString() == null) {
+                    if (etYanzhengma.getText().toString() == null || etYanzhengma.getText().toString().equals("")) {
                         Toast.makeText(RegisterActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
                     }
-                    if (etPwd.getText().toString() == null) {
+                    if (etPwd.getText().toString() == null || etPwd.getText().toString().equals("")) {
                         Toast.makeText(RegisterActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
                     }
-                    if (etPwd1.getText().toString() == null) {
+                    if (etPwd1.getText().toString() == null || etPwd1.getText().toString().equals("")) {
                         Toast.makeText(RegisterActivity.this, "确认密码不能为空", Toast.LENGTH_SHORT).show();
                     }
                     if (!etPwd.getText().toString().equals(etPwd1.getText().toString())) {
@@ -284,13 +285,17 @@ public class RegisterActivity extends AppCompatActivity {
                 // Toast.makeText(RegisterActivity.this,"操作成功", Toast.LENGTH_SHORT).show();
                 String jsonStr = response.body().string();
                 Log.e("RegisterActivity", "响应：" + jsonStr);
+               // jsonStr = new Gson().fromJson(jsonStr,String.class);
                 Looper.prepare();
                 if (jsonStr.equals("OK")) {
                     //Looper.prepare();
                     Toast.makeText(RegisterActivity.this, "操作成功", Toast.LENGTH_SHORT).show();
                     Looper.loop();
-                } else {
+                } else if(jsonStr.equals("")){
                     //Looper.prepare();
+                    Toast.makeText(RegisterActivity.this, "该手机号已被注册了哦", Toast.LENGTH_SHORT).show();
+                    Looper.loop();
+                }else {
                     Toast.makeText(RegisterActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
                     Looper.loop();
                 }

@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
+
 import User.service.UserService;
+import entity.User;
 
 /**
  * Servlet implementation class LoginServlet
@@ -29,15 +32,22 @@ public class LoginServlet extends HttpServlet {
 	 */
     //http://localhost:8080/bigwork/LoginServlet?phoneNumber=15032742188&&password=45678
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("LoginServlet");
 		String phoneNumber = request.getParameter("phoneNumber");
 		String password = request.getParameter("password");
 		int id =-1;
+		User user = null;
 		if(phoneNumber!=null){
-			id = new UserService().login(phoneNumber, password);
-			System.out.println("要登录的是"+phoneNumber+"-"+password+"-"+id);
-		
+			user = new UserService().login(phoneNumber, password);
+			//System.out.println("要登录的是"+phoneNumber+"-"+password+"-"+user.getId());
+			
 		}
-		response.getWriter().append(id+"");
+		if(user!=null){
+			System.out.println(user);
+			response.getWriter().append(new Gson().toJson(user));
+		}else{
+			response.getWriter().append("");
+		}
 	}
 
 	/**

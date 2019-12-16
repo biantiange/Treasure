@@ -13,6 +13,9 @@ public class MonitorServiceImpl {
 	public List<Child> listChildByParentId(int parentId) {
 		return new MonitorDaoImpl().findChildByParentId(parentId);
 	}
+	public int EditIsRegistChildById(int childId) {
+		return new MonitorDaoImpl().EditIsRegistChildById(childId);
+	}
 	
 	public List<Parent> getParentIdByChildId(int childId){
 		return new MonitorDaoImpl().findParentIdByChildId(childId);

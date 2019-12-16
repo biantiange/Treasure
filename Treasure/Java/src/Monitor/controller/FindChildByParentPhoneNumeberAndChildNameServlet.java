@@ -43,9 +43,9 @@ public class FindChildByParentPhoneNumeberAndChildNameServlet extends HttpServle
 			System.out.println("查询孩子信息——"+"phoneNumber:"+parentPhoneNumber+" childName:"+childName);
 			List<Child> list = new MonitorServiceImpl().getChildByParentPhoneNumberAndChildName(parentPhoneNumber, childName);
 			if(list.size()>0){
-				String childId=list.get(0).getId()+"";
-				System.out.println(childId);
-				response.getWriter().append(childId);
+				//String childId=list.get(0).getId()+"";
+				//System.out.println(childId);
+				response.getWriter().append(new Gson().toJson(list.get(0)));
 			}else{
 				response.getWriter().append("no");
 			}

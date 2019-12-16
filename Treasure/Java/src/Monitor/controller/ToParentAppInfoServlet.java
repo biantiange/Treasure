@@ -68,7 +68,7 @@ public class ToParentAppInfoServlet extends HttpServlet {
 			System.out.println("服务器向(parentId="+parentId+")MAAndroid推送APP信息开始了");
 			//家长端虚拟机 358240051111110
 			JPushToParentAppInfoDemo.testSendPush(appKey, masterSecret,parentId,jsonStr,"tag","appInfo");
-			System.out.println("服务器向(childId="+childId+")MAAndroid推送APP信息结束了");
+			System.out.println("服务器向(paretId="+childId+")MAAndroid推送APP信息结束了");
 			response.getWriter().append("成功!");
 		}
 				

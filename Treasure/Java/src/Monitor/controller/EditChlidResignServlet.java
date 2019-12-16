@@ -18,14 +18,14 @@ import entity.Child;
 /**
  * Servlet implementation class ListServlet
  */
-@WebServlet("/monitor/child")
-public class ChildrenListServlet extends HttpServlet {
+@WebServlet("/editisResign/child")
+public class EditChlidResignServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ChildrenListServlet() {
+    public EditChlidResignServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,14 +37,10 @@ public class ChildrenListServlet extends HttpServlet {
 		//根据家长的Id获取全部孩子信息
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		String parentId = request.getParameter("parentId");
-		System.out.println("获取孩子信息——"+"parentId:+"+parentId);
-		List<Child> list = new MonitorServiceImpl().listChildByParentId(Integer.parseInt(parentId));
-		if(list.size()>0){
-			String msgStr=new Gson().toJson(list);
-			response.getWriter().append(msgStr);	
-		}else{
-			response.getWriter().append("no");	
+		String childId = request.getParameter("childId");
+		if(childId!=null && !childId.equals("")){
+			System.out.println("修改孩子注册信息——"+childId);
+			new MonitorServiceImpl().EditIsRegistChildById(Integer.parseInt(childId));
 		}
 	}
 

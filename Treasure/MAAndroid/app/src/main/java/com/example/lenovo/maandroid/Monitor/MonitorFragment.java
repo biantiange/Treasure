@@ -227,7 +227,7 @@ public class MonitorFragment extends Fragment {
                 Date curdate = new Date( System.currentTimeMillis() );
                 //int t = Integer.parseInt( simpleDateFormat.format(strAge));
                 Date childdate =new Date(simpleDateFormat.parse(strAge).toString());
-                child.setAge(curdate.getYear()-childdate.getYear()+"");//年龄：简单的判断
+                child.setAge(curdate.getYear()-childdate.getYear());//年龄：简单的判断
 
                 child.setHeaderPath(jsonObject.getString("headerPath"));
                 child.setId(Integer.parseInt(jsonObject.getString("id")));

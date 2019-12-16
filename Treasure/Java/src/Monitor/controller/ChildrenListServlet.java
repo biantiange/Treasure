@@ -41,6 +41,7 @@ public class ChildrenListServlet extends HttpServlet {
 		System.out.println("获取孩子信息——"+"parentId:+"+parentId);
 		List<Child> list = new MonitorServiceImpl().listChildByParentId(Integer.parseInt(parentId));
 		String msgStr=new Gson().toJson(list);
+		System.out.println(list);
 		response.getWriter().append(msgStr);
 	}
 

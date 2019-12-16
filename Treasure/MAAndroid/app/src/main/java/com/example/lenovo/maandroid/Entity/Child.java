@@ -6,6 +6,7 @@ public class Child {
 	private int age;
 	private String headerPath;
 	private int parentId;
+    private int isResign;
 	public String getHeaderPath() {
 		return headerPath;
 	}
@@ -36,7 +37,13 @@ public class Child {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+	    public int getIsResign() {
+        return isResign;
+    }
+
+    public void setIsResign(int isResign) {
+        this.isResign = isResign;
+    }
 	
 	
 	

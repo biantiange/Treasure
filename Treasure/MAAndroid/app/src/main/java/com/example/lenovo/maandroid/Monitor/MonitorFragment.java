@@ -2,6 +2,7 @@
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.os.Bundle;
@@ -30,6 +31,7 @@ import com.baidu.mapapi.model.LatLng;
 import com.example.lenovo.maandroid.Entity.AppInfo;
 import com.example.lenovo.maandroid.Entity.Child;
 import com.example.lenovo.maandroid.Entity.PositionInfo;
+import com.example.lenovo.maandroid.Mine.AddOrEditChild;
 import com.example.lenovo.maandroid.R;
 import com.example.lenovo.maandroid.Utils.Constant;
 import com.example.lenovo.maandroid.Utils.PieChart;
@@ -78,6 +80,7 @@ public class MonitorFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private int parentId;
     private int tag=0;
+    private LinearLayout lladdChild;
 
     @Nullable
     @Override
@@ -101,7 +104,14 @@ public class MonitorFragment extends Fragment {
             child.setVisibility(View.GONE);
         }
         llmp = view.findViewById(R.id.ll_mp);
-
+        lladdChild=view.findViewById(R.id.add_child_a);
+        lladdChild.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(), AddOrEditChild.class);
+                startActivity(intent);
+            }
+        });
         //pc = view.findViewById(R.id.pc);
         //1、构造方法创建OkHttpClient对象————属性都为默认值
         okHttpClient = new OkHttpClient();
@@ -116,7 +126,7 @@ public class MonitorFragment extends Fragment {
                     case 1:
                         String info = (String) msg.obj;
                         if(info.equals("no")){
-
+                            llmp.setVisibility(View.VISIBLE);
                         }else {
                             Log.e("childInfo", info);
                             childList = Analysis(info);
@@ -140,7 +150,6 @@ public class MonitorFragment extends Fragment {
         Log.e("MonitorFragment", "接收到信息" + event);
         List<Map<String, Object>> list = new Gson().fromJson(event, new TypeToken<List<Map<String, Object>>>() {}.getType());
         String str=list.get(0).get("tag").toString();
-        Log.e("tt",str);
         Map<String, Object> map = new HashMap<String, Object>();
         map = new Gson().fromJson(str, map.getClass());
         String tag1=null;
@@ -240,7 +249,7 @@ public class MonitorFragment extends Fragment {
                 // 获取当前年月日期，设置孩子的年龄，后期不仅需要从年上判断，也需要将月份也算进去
                 String strAge=jsonObject.getString("age");
                 //int child_age=Integer.parseInt(jsonObject.getString("age").substring( 0,4));
-                SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy年mm月dd日" );
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat( "yyyy-mm-dd" );
                 Date curdate = new Date( System.currentTimeMillis() );
                 //int t = Integer.parseInt( simpleDateFormat.format(strAge));
                 Date childdate =new Date(simpleDateFormat.parse(strAge).toString());
@@ -248,6 +257,7 @@ public class MonitorFragment extends Fragment {
                 child.setHeaderPath(jsonObject.getString("headerPath"));
                 child.setId(Integer.parseInt(jsonObject.getString("id")));
                 child.setParentId(Integer.parseInt(jsonObject.getString("parentId")));
+                child.setIsResign(Integer.parseInt(jsonObject.getString("isResign")));
                 list.add(child);
             }
         } catch (JSONException e) {

@@ -11,6 +11,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.mapapi.map.MapView;
 import com.bumptech.glide.Glide;
@@ -48,6 +49,7 @@ public class CustomAdapterMonitor extends BaseAdapter {
     private PieChart pc;
     private MapView mapView;
     private RequestOptions options;
+    private int tag=0;
 
 
     //第一：自定义Adapter类———对Adapter构造器进行初始化
@@ -109,44 +111,57 @@ public class CustomAdapterMonitor extends BaseAdapter {
         llmonitor.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getAppInfo(child.getId()+"");
-                llmp.setVisibility(View.VISIBLE);
-                llmp.addView(pc);
-                mapView.setVisibility(View.GONE);
-                mainHandler = new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-                        super.handleMessage(msg);
-                        switch (msg.what){
-                            case 1:
-                                String info = (String) msg.obj;
-                                Log.e("childInfo", info);
-                                break;
-                        }
+                if(child.getIsResign()==0){
+                    Toast.makeText(context,"请绑定孩子",Toast.LENGTH_LONG).show();
+                }else{
+                    getAppInfo(child.getId()+"");
+                    llmp.setVisibility(View.VISIBLE);
+                    if(tag==0){
+                        llmp.addView(pc);
+                        tag=1;
                     }
-                };
+                    mapView.setVisibility(View.GONE);
+                    mainHandler = new Handler() {
+                        @Override
+                        public void handleMessage(Message msg) {
+                            super.handleMessage(msg);
+                            switch (msg.what){
+                                case 1:
+                                    String info = (String) msg.obj;
+                                    Log.e("childInfo", info);
+                                    break;
+                            }
+                        }
+                    };
+                }
             }
         });
         //定位
         llposition.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getPositionInfo(child.getId()+"");
-                llmp.setVisibility(View.VISIBLE);
-                llmp.removeView(pc);
-                mapView.setVisibility(View.VISIBLE);
-                mainHandler = new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-                        super.handleMessage(msg);
-                        switch (msg.what){
-                            case 2:
-                                String info = (String) msg.obj;
-                                Log.e("childInfo", info);
-                                break;
-                        }
+                if(child.getIsResign()==0){
+                    Toast.makeText(context,"请绑定孩子",Toast.LENGTH_LONG).show();
+                }else {
+                    getPositionInfo(child.getId()+"");
+                    llmp.setVisibility(View.VISIBLE);
+                    if(tag==1){
+                        llmp.removeView(pc);
                     }
-                };
+                    mapView.setVisibility(View.VISIBLE);
+                    mainHandler = new Handler() {
+                        @Override
+                        public void handleMessage(Message msg) {
+                            super.handleMessage(msg);
+                            switch (msg.what){
+                                case 2:
+                                    String info = (String) msg.obj;
+                                    Log.e("childInfo", info);
+                                    break;
+                            }
+                        }
+                    };
+                }
             }
         });
         return convertView;

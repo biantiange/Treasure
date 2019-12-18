@@ -8,7 +8,7 @@ public class Parent implements Serializable {
     private String nickName;
     private String password;
     private String headerPath;
-
+    private String deviceId;
     public Parent() {
     }
 
@@ -59,6 +59,12 @@ public class Parent implements Serializable {
     public void setHeaderPath(String headerPath) {
         this.headerPath = headerPath;
     }
+	public String getDeviceId() {
+		return deviceId;
+	}
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
+	}
 
     @Override
     public String toString() {

@@ -34,11 +34,12 @@ public class ToChildPositionServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String childId = request.getParameter("childId");
-		if(childId!=null && !childId.equals("")){
-			System.out.println("服务器向(childId="+childId+")ChildDemo推送获取位置信息开始了");
+		String deviceId = request.getParameter("deviceId");
+		if(childId!=null && !childId.equals("") && !deviceId.equals("") && deviceId!=null){
+			System.out.println("服务器向(deviceId="+deviceId+")ChildDemo推送获取位置信息开始了");
 			//学生端虚拟机   358240051111110      真机860649040120944
-			JPushToChildPositionDemo.testSendPush(appKey, masterSecret,childId,"position","childId",childId);
-			System.out.println("服务器向(childId="+childId+")ChildDemo推送获取位置信息结束了");
+			JPushToChildPositionDemo.testSendPush(appKey, masterSecret,deviceId,"position","childId",childId);
+			System.out.println("服务器向(deviceId="+deviceId+")ChildDemo推送获取位置信息结束了");
 		}
 	}
 

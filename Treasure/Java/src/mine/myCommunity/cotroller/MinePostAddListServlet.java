@@ -23,17 +23,16 @@ import User.dao.UserDao;
 import entity.User;
 
 /**
- * Servlet implementation class MinePostListServlet
+ * Servlet implementation class MinePostAddListServlet
  */
-@WebServlet("/MinePostListServlet")
-public class MinePostListServlet extends HttpServlet {
+@WebServlet("/MinePostAddListServlet")
+public class MinePostAddListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private int praiserId;
-       
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MinePostListServlet() {
+    public MinePostAddListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -62,10 +61,14 @@ public class MinePostListServlet extends HttpServlet {
 		String param = new String(bs,0,len);
 		JSONObject object = new JSONObject(param);
 		int praiserId = object.getInt("praiserId");
+		int page = object.getInt("page");
+		System.out.println(page);
 		
 		JSONArray jsonArray = new JSONArray();
-        List<Map<String, Object>> list = new PostServicelmpl().MylistPost(praiserId);
-        for(Map<String,Object> map:list) {
+        List<Map<String, Object>> list = new PostServicelmpl().MylistPost(praiserId,page*5);
+        
+        if (list != null) {
+			for(Map<String,Object> map:list) {
         	//post
         	JSONObject jsonObject = new JSONObject();
         	jsonObject.put("id", map.get("id"));
@@ -113,11 +116,11 @@ public class MinePostListServlet extends HttpServlet {
         		i++;
         	}
         	jsonObject.put("comments", jcomments);
-      	
+        	
         	//isPraise
         	int isPraise = new PraiseDao().isPraise(praiserId, (int)map.get("id"));
         	jsonObject.put("isPraise",isPraise);
-        	System.out.println(isPraise);
+
         	jsonArray.put(jsonObject);
         	
         }
@@ -126,6 +129,9 @@ public class MinePostListServlet extends HttpServlet {
         out.write(jsonArray.toString().getBytes());
         out.flush();
         out.close();
+		}else {
+			System.out.println("没有更多了");
+		} 
 	}
 
 }

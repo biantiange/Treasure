@@ -5,6 +5,7 @@ import java.util.Map;
 
 import Post.dao.PostDao;
 import entity.Post;
+import mine.MineDBUtil;
 
 public class PostServicelmpl {
 	public List<Map<String,Object>> listPost(){
@@ -13,7 +14,12 @@ public class PostServicelmpl {
 	public List<Map<String,Object>> MylistPost(int id){
 		return new PostDao().findMyAll(id);
 	}
-	
+	public List<Map<String,Object>> MylistPost(int id,int page){
+		System.out.println(page);
+		return new PostDao().findMyAll(id,page);
+	}
+
+
 	public List<Map<String,Object>> listPost(int start){
 		return new PostDao().findAll(start);
 	}

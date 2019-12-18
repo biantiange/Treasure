@@ -7,6 +7,7 @@ public class User{
 	private String nickName;
 	private String password;
 	private String headerPath;   //头像
+	private String deviceId;
 	public int getId() {
 		return id;
 	}
@@ -36,6 +37,12 @@ public class User{
 	}
 	public void setHeaderPath(String headerPath) {
 		this.headerPath = headerPath;
+	}
+	public String getDeviceId() {
+		return deviceId;
+	}
+	public void setDeviceId(String deviceId) {
+		this.deviceId = deviceId;
 	}
 	
 }

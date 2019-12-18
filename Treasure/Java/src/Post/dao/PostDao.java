@@ -17,6 +17,11 @@ public class PostDao {
 		return MineDBUtil.findAll("select * from tbl_post where posterId=? order by time desc limit 0,5",new Object[]{id});
 	}
 	
+	public List<Map<String,Object>> findMyAll(int id,int page){
+		return DBUtil.findAll("select * from tbl_post where posterId="+id+" order by time desc limit "+page+",5");
+
+	}
+	
 	public List<Map<String,Object>> findAll(int start){
 		return DBUtil.findAll("select * from tbl_post order by time desc limit "+start+",5");
 	}

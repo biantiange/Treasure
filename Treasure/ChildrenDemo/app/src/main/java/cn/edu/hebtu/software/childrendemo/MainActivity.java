@@ -1,11 +1,16 @@
 package cn.edu.hebtu.software.childrendemo;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -59,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
     private Handler mainHandler;
     private TextView tvWait;
     private int childId=-1;
+    private SharedPreferences sharedPreferences;
+    private String  DEVICE_ID=null;
 
 
     @Override
@@ -66,6 +73,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         SDKInitializer.initialize(getApplicationContext());
         setContentView(R.layout.activity_main);
+        TelephonyManager tm = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            return;
+        }
+        DEVICE_ID = tm.getDeviceId();
+        Log.e("DEVICE_ID",DEVICE_ID);
 
         findView();
         okHttpClient = new OkHttpClient();
@@ -79,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
                 if (cname != null && !cname.equals("") && pname != null && !pname.equals("") && pphone != null && !pphone.equals("")) {
                     tvWait.setVisibility(View.VISIBLE);
                     tvWait.setText("正在绑定请耐心等待...");
+                    setAlias(DEVICE_ID);
                     //绑定孩子与父母的设备
                     findChild(pphone,cname);
                 }
@@ -98,6 +113,24 @@ public class MainActivity extends AppCompatActivity {
                         }else{
                             Log.e("childInfo",info);
                             Child child=new Child();
+                          /*  // 2. 判断sharedP中是否已经有登录用户
+                            sharedPreferences = getSharedPreferences("child", MODE_PRIVATE);
+                            // if (sharedPreferences.getBoolean(Constant.AUTO_LOGIN_KEY, Constant.DEFAULT_LOGIN_KEY)) {
+                            if (child.getDeviceId()!=null){
+                                if(child.getDeviceId().equals(DEVICE_ID)) {
+                                    Log.e("tt","1");
+                                    // 此时不为第一次登陆或退出登录情况，自动登陆
+                                    //Intent intent = new Intent(this, SuccessActivity.class);
+                                    //startActivity(intent);
+                                    //finish();
+                                }else{
+                                    Log.e("tt","2");
+                                    editDeviceId(DEVICE_ID,sharedPreferences.getString("childId",null));
+                                }
+                            }else {
+                                Log.e("tt","3");
+                                editDeviceId(DEVICE_ID,childId+"");
+                            }*/
                             JSONObject jsonObject = null;
                             try {
                                 jsonObject = new JSONObject(info);
@@ -115,29 +148,61 @@ public class MainActivity extends AppCompatActivity {
                                 child.setId(Integer.parseInt(jsonObject.getString("id")));
                                 child.setParentId(Integer.parseInt(jsonObject.getString("parentId")));
                                 child.setIsResign(Integer.parseInt(jsonObject.getString("isResign")));
+                                child.setDeviceId(jsonObject.getString("deviceId"));
+                                sharedPreferences = getSharedPreferences("child", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putInt("id", child.getId());
+                                editor.putInt("parentId", child.getParentId());
+                                editor.putString("headerPath", child.getHeaderPath());
+                                editor.putString("nickName",child.getName());
+                                editor.putString("deviceId",DEVICE_ID);
+                                editor.putBoolean(Constant.AUTO_LOGIN_KEY , true);
+                                editor.commit();   //提交
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             } catch (ParseException e) {
                                 e.printStackTrace();
                             }
                             childId=child.getId();
-                            if(child.getIsResign()==0){
+                           // if(child.getIsResign()==0){
                                 Log.e("childid",childId+"");
                                 editIsResign(childId+"");
+                                editDeviceId(DEVICE_ID,childId+"");
                                 Intent intent=new Intent(MainActivity.this,SuccessActivity.class);
                                 startActivity(intent);
-                            }
-                            if(child.getIsResign()==1){
-                                Intent intent=new Intent(MainActivity.this,SuccessActivity.class);
-                                startActivity(intent);
-                            }
+                           //     tvWait.setText("");
+                         //   }
+                          //  if(child.getIsResign()==1){
+                               // Intent intent=new Intent(MainActivity.this,SuccessActivity.class);
+                               // startActivity(intent);
+                                tvWait.setText("");
+                         //   }
                         }
                         break;
                 }
-
-
             }
         };
+
+
+       /*// 2. 判断sharedP中是否已经有登录用户
+        sharedPreferences = getSharedPreferences("child", MODE_PRIVATE);
+       // if (sharedPreferences.getBoolean(Constant.AUTO_LOGIN_KEY, Constant.DEFAULT_LOGIN_KEY)) {
+        if (sharedPreferences.getString("deviceId",null)!=null){
+            if(.equals(DEVICE_ID)) {
+                Log.e("tt","1");
+                // 此时不为第一次登陆或退出登录情况，自动登陆
+                //Intent intent = new Intent(this, SuccessActivity.class);
+                //startActivity(intent);
+                //finish();
+            }else{
+                Log.e("tt","2");
+                editDeviceId(DEVICE_ID,sharedPreferences.getString("childId",null));
+            }
+        }else {
+            Log.e("tt","3");
+        }*/
+
+      //  }
     }
 
     private void findView() {
@@ -164,13 +229,16 @@ public class MainActivity extends AppCompatActivity {
             //请求失败之后回调
             @Override
             public void onFailure(Call call, IOException e) {
+                Log.e("设备","1111");
                 e.printStackTrace();
             }
 
             //请求成功之后回调
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                Log.e("设备","2222");
                 String json = response.body().string();
+                Log.e("json",json);
                 wrapperMessage(json,1);
             }
         });
@@ -191,6 +259,34 @@ public class MainActivity extends AppCompatActivity {
         FormBody formBody =new FormBody.Builder().add("childId",childid).build();;
         Request request = new Request.Builder() //创建Builder对象
                 .url(Constant.BASE_URL + "/editisResign/child")//设置网络请求的UrL地址
+                .post(formBody)
+                .build();
+        //3、创建Call对象
+        final Call call = okHttpClient.newCall(request);
+        //4、发送请求
+        call.enqueue(new Callback() {
+            //请求失败之后回调
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            //请求成功之后回调
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Log.e("设备","2222");
+                String json = response.body().string();
+            }
+        });
+    }
+
+    public void editDeviceId(String deviceId,String childId){
+        OkHttpClient okHttpClient = new OkHttpClient();
+        Log.e("test2", Constant.BASE_URL + "editDeviceId/child");
+        //2、创建Request对象
+        FormBody formBody =new FormBody.Builder().add("deviceId",deviceId).add("childId",childId).build();;
+        Request request = new Request.Builder() //创建Builder对象
+                .url(Constant.BASE_URL + "editDeviceId/child")//设置网络请求的UrL地址
                 .post(formBody)
                 .build();
         //3、创建Call对象
@@ -245,8 +341,8 @@ public class MainActivity extends AppCompatActivity {
             Log.e("code",code+"");
             switch (code) {
                 case 0:
-                    logs = "Set tag and alias success";
-                    Log.e("logs", logs);
+                    logs = "Set tag and alias success*";
+                    Log.e("logs*", logs);
 
                     btnOk.setEnabled(false);
                     tvWait.setVisibility(View.GONE);

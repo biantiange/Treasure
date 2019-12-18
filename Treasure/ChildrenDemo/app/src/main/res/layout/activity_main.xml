@@ -1,97 +1,163 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:layout_margin="20dip"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:padding="10dip">
+<!--    android:background="@drawable/radius_drawable_bg"-->
+    <TextView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:text="孩子端绑定"
+        android:layout_marginBottom="30dp"
+    android:textColor="@color/colorAccent"
+    android:textSize="25dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+android:layout_marginBottom="10dp"
+        android:textSize="16dp"
+        android:text="注意：孩子信息与家长端保持一致"
+        android:textColor="@color/colorAccent"
+      />
 
+    <!--手机号-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:src="@drawable/weichengnianrenjianchamokuai" />
+
+        <EditText
+            android:id="@+id/et_cname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="#00000000"
+            android:hint="孩子姓名"
+            android:text="儿子"
+
+            android:padding="5dip"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
+        android:background="#eeeeee" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
+        android:background="#eeeeee" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="15dp">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="学生端绑定"
-            android:textColor="@color/colorAccent"
-            android:textSize="25dp" />
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:src="@drawable/jiachang" />
 
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:textColor="#000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="孩子姓名:"
-                android:textSize="18dp" />
-
-            <EditText
-                android:id="@+id/et_cname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Lucy"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:textColor="#000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="父母姓名:"
-                android:textSize="18dp" />
-
-            <EditText
-                android:id="@+id/et_pname"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="parent1"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:textColor="#000"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="父母手机号:"
-                android:textSize="18dp" />
-
-            <EditText
-                android:id="@+id/et_pphone"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="12345678912"/>
-        </LinearLayout>
-
-        <Button
-            android:layout_marginTop="10dp"
-            android:id="@+id/btn_ok"
+        <EditText
+            android:id="@+id/et_pname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorAccent"
-            android:text="确定"
-            android:textColor="#fff"
-            android:textSize="16dp" />
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/tvWait"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_marginLeft="10dip"
+            android:background="#00000000"
+            android:hint="家长姓名"
+            android:text="1234"
+            android:padding="5dip"
+            android:textSize="16sp" />
     </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
+        android:background="#eeeeee" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
+        android:background="#eeeeee" />
+
+    <!--确认密码-->
+    <LinearLayout
+        android:id="@+id/input_layout_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="50dp"
+            android:src="@drawable/phone" />
+
+        <EditText
+            android:id="@+id/et_pphone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dip"
+            android:background="#00000000"
+            android:hint="家长手机号"
+            android:text="13513028117"
+            android:padding="5dip"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
+        android:background="#eeeeee" />
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
+        android:background="#eeeeee" />
+    <Button
+        android:layout_marginTop="10dp"
+        android:id="@+id/btn_ok"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="确定"
+        android:textColor="#fff"
+        android:textSize="16dp" />
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/tvWait"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
 </LinearLayout>

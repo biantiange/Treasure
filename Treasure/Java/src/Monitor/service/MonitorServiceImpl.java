@@ -16,6 +16,12 @@ public class MonitorServiceImpl {
 	public int EditIsRegistChildById(int childId) {
 		return new MonitorDaoImpl().EditIsRegistChildById(childId);
 	}
+	public int EditDeviceIdChildById(String deviceId,int childId) {
+		return new MonitorDaoImpl(). EditDeviceIdChildById(deviceId,childId);
+	}
+	public int EditDeviceIdParentById(String deviceId,int parentId) {
+		return new MonitorDaoImpl(). EditDeviceIdParentById(deviceId,parentId);
+	}
 	
 	public List<Parent> getParentIdByChildId(int childId){
 		return new MonitorDaoImpl().findParentIdByChildId(childId);

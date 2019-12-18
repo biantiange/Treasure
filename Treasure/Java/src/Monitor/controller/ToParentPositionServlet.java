@@ -54,7 +54,7 @@ public class ToParentPositionServlet extends HttpServlet {
 		if(childId!=null && !childId.equals("")){
 			System.out.println("接收到(childId="+childId+")ChildDemo发送的POST请求");
 			List<Parent> parent=new MonitorServiceImpl().getParentIdByChildId(Integer.parseInt(childId));
-			String parentId=parent.get(0).getId()+"";
+			String parentId=parent.get(0).getDeviceId()+"";
 			// 使用输入流获取客户端的Json数据
 			InputStream is = request.getInputStream();
 			// 转换流

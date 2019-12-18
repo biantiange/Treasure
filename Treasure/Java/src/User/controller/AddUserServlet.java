@@ -29,7 +29,6 @@ public class AddUserServlet extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -65,11 +64,10 @@ public class AddUserServlet extends HttpServlet {
 				}
 			}
 		}else{
-			response.getWriter().append(new Gson().toJson("OK"));
+			response.getWriter().append("FAIL");
 			return;
 		}
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

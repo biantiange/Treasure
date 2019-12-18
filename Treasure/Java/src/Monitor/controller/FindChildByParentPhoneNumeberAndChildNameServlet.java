@@ -37,14 +37,16 @@ public class FindChildByParentPhoneNumeberAndChildNameServlet extends HttpServle
 		//根据家长的Id获取全部孩子信息
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
+		System.out.println("findChild");
 		String parentPhoneNumber= request.getParameter("phoneNumber");
 		String childName = request.getParameter("childName");
 		if(parentPhoneNumber!=null && !parentPhoneNumber.equals(" ") && childName!=null && !childName.equals("")){
 			System.out.println("查询孩子信息——"+"phoneNumber:"+parentPhoneNumber+" childName:"+childName);
 			List<Child> list = new MonitorServiceImpl().getChildByParentPhoneNumberAndChildName(parentPhoneNumber, childName);
+			System.out.println(list.size());
 			if(list.size()>0){
 				//String childId=list.get(0).getId()+"";
-				//System.out.println(childId);
+				
 				response.getWriter().append(new Gson().toJson(list.get(0)));
 			}else{
 				response.getWriter().append("no");

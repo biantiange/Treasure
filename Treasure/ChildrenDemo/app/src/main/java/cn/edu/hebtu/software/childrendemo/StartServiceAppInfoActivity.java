@@ -68,7 +68,7 @@ public class StartServiceAppInfoActivity extends AppCompatActivity implements Da
                         if (totalTimeInForeground > 0) {
                             AppInfo appInfo = new AppInfo(pm.getApplicationLabel(applicationInfo).toString(), totalTimeInForeground, lastTimeUsed, pm.getApplicationIcon(applicationInfo));
                             appList.add(appInfo);
-                            //Log.e("tt",pm.getApplicationLabel(applicationInfo) + "\t" + lastTimeUsed+ "\t" +format1.format(new Date(totalTimeInForeground))+ "\t"+pm.getApplicationIcon(applicationInfo)+"\n");
+                            Log.e("tt",pm.getApplicationLabel(applicationInfo) + "\t" + lastTimeUsed+ "\t" +format1.format(new Date(totalTimeInForeground))+ "\t"+pm.getApplicationIcon(applicationInfo)+"\n");
                         }
                     }
                 }

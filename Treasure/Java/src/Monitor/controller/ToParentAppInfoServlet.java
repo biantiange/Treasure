@@ -56,7 +56,7 @@ public class ToParentAppInfoServlet extends HttpServlet {
 		System.out.println("接收到ChildDemo发送的POST请求:"+childId);
 		if(childId!=null && !childId.equals("")){
 			List<Parent> parents=new MonitorServiceImpl().getParentIdByChildId(Integer.parseInt(childId));
-			String parentId=parents.get(0).getId()+"";
+			String parentId=parents.get(0).getDeviceId()+"";
 			// 使用输入流获取客户端的Json数据
 			InputStream is = request.getInputStream();
 			// 转换流

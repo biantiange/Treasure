@@ -1,9 +1,8 @@
-package GrowthRecord.controller;
+package Monitor.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,19 +12,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 
-import GrowthRecord.service.GrowthRecordService;
+import Monitor.service.MonitorServiceImpl;
+import entity.Child;
 
 /**
- * Servlet implementation class LookTimeServlet
+ * Servlet implementation class ListServlet
  */
-@WebServlet("/LookTimeServlet")
-public class LookTimeServlet extends HttpServlet {
+@WebServlet("/editDeviceId/parent")
+public class EditParentDeviceIdServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LookTimeServlet() {
+    public EditParentDeviceIdServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,25 +34,21 @@ public class LookTimeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("获取时间列表");
+		//根据家长的Id获取全部孩子信息
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		int parentId=Integer.parseInt(request.getParameter("parentId"));
-		List<String> list =new GrowthRecordService().listTimes(parentId);
-		List<String> newList = new  ArrayList<String>(); 
-         for (String cd:list) {
-            if(!newList.contains(cd)){
-                newList.add(cd);
-            }
-        }
-		response.getWriter().append(new Gson().toJson(newList));
+		String parentId = request.getParameter("parentId");
+		String deviceId = request.getParameter("deviceId");
+		if(deviceId!=null && !deviceId.equals("") && parentId!=null && !parentId.equals("")){
+			System.out.println("修改家长deviceId信息——deviceId:"+deviceId+" parentId:"+parentId);
+			new MonitorServiceImpl().EditDeviceIdParentById(deviceId,Integer.parseInt(parentId));
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

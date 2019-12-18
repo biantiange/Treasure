@@ -13,9 +13,17 @@ public class MonitorDaoImpl {
 	public List<Child> findChildByParentId(int parentId) {
 		return DBUtil.find(Child.class, "select * from tbl_children where parentId=?", new Object[] {parentId});
 	}
-	// 根据孩子Id查找孩子
+	// 根据孩子Id修改孩子IsRegin
 	public int EditIsRegistChildById(int childId) {
 		return DBUtil.executeUpdate("update tbl_children set isResign=? where id=?",new Object[] { "1", childId});
+	}
+	// 根据孩子Id修改孩子DeviceId
+	public int EditDeviceIdChildById(String deviceId,int childId) {
+		return DBUtil.executeUpdate("update tbl_children set deviceId=? where id=?",new Object[] {deviceId,childId});
+	}
+	// 根据父母Id修改服务DeviceId
+	public int EditDeviceIdParentById(String deviceId,int parentId) {
+		return DBUtil.executeUpdate("update tbl_parent set deviceId=? where id=?",new Object[] {deviceId,parentId});
 	}
 	//根据孩子ID查找父母
 	public List<Parent> findParentIdByChildId(int childId) {

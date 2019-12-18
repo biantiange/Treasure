@@ -42,13 +42,14 @@ public class GrowthRecordDao {
 	}
 	
 	//时间轴查找时间
-	public  List<String> findTime() {
+	public  List<String> findTime(int parentId) {
 		Connection con = DBUtil.getCon();
 		PreparedStatement pstm = null;
 		ResultSet rs = null;
 		List<String> list = new ArrayList<String>();
 		try {
-			pstm = con.prepareStatement("select upTime from tbl_growthrecord");
+			pstm = con.prepareStatement("select upTime from tbl_growthrecord where parentId=? order by uptime ASC");
+			pstm.setInt(1, parentId);
 			rs = pstm.executeQuery();
 			while(rs.next()) {
 				String upTime=rs.getString(1);

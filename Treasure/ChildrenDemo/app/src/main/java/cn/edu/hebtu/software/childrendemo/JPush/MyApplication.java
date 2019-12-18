@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.HashSet;
 import java.util.Set;
 
+import cn.edu.hebtu.software.childrendemo.Constant;
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.api.TagAliasCallback;
 
@@ -36,9 +37,9 @@ public class MyApplication extends Application {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        String DEVICE_ID = tm.getDeviceId();
-        Log.e("DEVICE_ID",DEVICE_ID);//358240051111110虚拟机         860649040120944真机
-        setAlias(DEVICE_ID);*/
+        DEVICE_ID = tm.getDeviceId();
+        Log.e("DEVICE_ID",DEVICE_ID);*///358240051111110虚拟机         860649040120944真机
+        //setAlias(DEVICE_ID);
     }
 
    /* // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以。

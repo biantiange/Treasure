@@ -39,7 +39,7 @@ public class EditChlidResignServlet extends HttpServlet {
 		response.setCharacterEncoding("UTF-8");
 		String childId = request.getParameter("childId");
 		if(childId!=null && !childId.equals("")){
-			System.out.println("修改孩子注册信息——"+childId);
+			System.out.println("修改孩子IsRegist信息——"+childId);
 			new MonitorServiceImpl().EditIsRegistChildById(Integer.parseInt(childId));
 		}
 	}

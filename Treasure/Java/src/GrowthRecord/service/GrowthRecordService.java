@@ -12,8 +12,8 @@ public class GrowthRecordService {
 		return new GrowthRecordDao().addGrowthRecord(growthRecord);
 	}
 	
-	public List<String> listTimes(){
-		return new  GrowthRecordDao().findTime();
+	public List<String> listTimes(int parentId){
+		return new  GrowthRecordDao().findTime(parentId);
 	}
 	public List<Map<String,Object>> findByTag(String str,int parentId){
 		return new GrowthRecordDao().findByTag(str, parentId);

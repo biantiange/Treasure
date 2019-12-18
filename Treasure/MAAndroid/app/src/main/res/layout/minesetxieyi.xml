@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#7adfb8"
+        >
+
+        <ImageButton android:layout_width="28dp"
+            android:background="#7adfb8"
+            android:src="@drawable/fanhui32"
+            android:id="@+id/return0"
+            android:layout_gravity="center"
+            android:layout_height="30dp"/>
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:textSize="20dp"
+            android:textColor="#fcfcfc"
+            android:text="软件许可及服务协议"
+            android:padding="5dp"
+            />
+        <ImageButton android:layout_width="28dp"
+            android:background="#7adfb8"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+<TextView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+  android:textColor="#101010"
+    android:text="欢迎您使用乖宝软件及服务!"
+
+    />
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textColor="#101010"
+        android:text="          为使用乖宝软件（以下简称“本软件”）及服务，您应当阅读并遵守《乖宝软件许可及服务协议》（以下简称“本协议”），以及《乖宝服务协议》和《乖号号码规则》。请您务必审慎阅读、充分理解各条款内容，特别是免除或者限制责任的条款，以及开通或使用某项服务的单独协议，并选择接受或不接受。限制、免责条款可能以黑体加粗形式提示您注意。
+    除非您已阅读并接受本协议所有 条款，否则您无权下载、安装或使用本软件及相关服务。您的下载、安装、使用、 获取乖宝号码、登录等行为即视为您已 阅读并同意上述协议的约束。"
+        />
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="         用户个人信息保护:
+2.1 保护用户个人信息是乖宝的一项基本原则。本软件不含有任何旨在破坏用户计算机数据和获取用户个人信息的恶意代码；不会监控用户网上、线下的行为和泄漏用户个人信息。
+2.2 未经您的同意，乖宝不会向乖宝以外的任何公司、组织和个人披露您的个人信息，但法律法规另有规定的除外。
+2.3 您同意授权乖宝基于下列原因使用您的相关信息资源：
+（1）执行软件验证服务；
+（2）执行软件升级服务；
+（3）提高您的使用安全性或提供客服支持；
+（4）因您在注册或开通某项服务、功能时选择或同意，或因您要求乖宝或第三方提供特定服务时，乖宝需要把您的相关信息提供给与此相关联的第三方或其他用户；
+（5）对您的昵称、头像以及在本软件中的相关操作信息等信息进行使用，并可通过乖宝服务或乖宝服务中的第三方提供的服务向您本人、其他用户展示。"
+        android:textColor="#101010"/>
+    <TextView android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="              用户行为规范：
+10.1 除非法律允许或乖宝书面许可，您不得从事下列行为：
+（1）删除本软件及其副本上关于著作权的信息；
+（2）对本软件进行反向工程、反向汇编、反向编译，或者以其他方式尝试发现本软件的源代码；
+（3）对乖宝拥有知识产权的内容进行使用、出租、出借、复制、修改、链接、转载、汇编、发表、出版、建立镜像站点等；
+（4）对本软件或者本软件运行过程中释放到任何终端内存中的数据、软件运行过程中客户端与服务器端的交互数据，以及本软件运行所必需的系统数据，进行复制、修改、增加、删除、挂接运行或创作任何衍生作品，形式包括但不限于使用插件、外挂或非经腾讯授权的第三方工具/服务接入本软件和相关系统；
+（5）通过修改或伪造软件运行中的指令、数据，增加、删减、变动软件的功能或运行效果，或者将用于上述用途的软件、方法进行运营或向公众传播，无论这些行为是否为商业目的；
+（6）通过非乖宝开发、授权的第三方软件、插件、外挂、系统，登录或使用乖宝软件及服务，或制作、发布、传播上述工具；
+（7）其他未经乖宝明示授权的行为。
+10.2 如果您实施了前款约定的行为，乖宝将保留依法追究法律责任的权利。"
+        android:textColor="#101010"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#7adfb8"
+        android:alpha="0.1"
+        />
+
+
+
+
+</LinearLayout>

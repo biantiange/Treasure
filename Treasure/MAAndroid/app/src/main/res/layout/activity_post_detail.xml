@@ -3,6 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="#7adfb8"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <ImageView
+            android:id="@+id/detail_back"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/fanhui32" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:text="帖子详细"
+            android:textColor="#FFFFFF"
+            android:textSize="20dp" />
+
+        <ImageView
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/jiaoyu" />
+    </LinearLayout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -60,46 +89,47 @@
                 android:rowCount="2">
 
                 <ImageView
+                    android:layout_margin="2dp"
                     android:id="@+id/im1"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/jiankong0" />
+                    />
 
                 <ImageView
                     android:id="@+id/im2"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/jiankong0" />
+                    android:layout_margin="2dp" />
 
                 <ImageView
                     android:id="@+id/im3"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/jiankong0" />
+                    android:layout_margin="2dp" />
 
                 <ImageView
                     android:id="@+id/im4"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/jiankong0" />
+                    android:layout_margin="2dp" />
 
                 <ImageView
                     android:id="@+id/im5"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/jiankong0" />
+                    android:layout_margin="2dp" />
 
                 <ImageView
                     android:id="@+id/im6"
                     android:layout_width="100dp"
                     android:layout_height="100dp"
                     android:scaleType="fitCenter"
-                    android:src="@drawable/jiankong0" />
+                    android:layout_margin="2dp"/>
             </GridLayout>
         </LinearLayout>
 
@@ -143,13 +173,17 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:background="#b9b9b9" />
+            android:layout_height="0.2dp"
+            android:background="#7adfb8"
+            android:alpha="0.2"
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
+            android:background="#7adfb8"
+            android:alpha="0.2"
             android:focusableInTouchMode="true"
             android:padding="3dp">
 
@@ -161,17 +195,16 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="12"
-        android:divider="#000000"
+        android:divider="#227adfb8"
         android:dividerHeight="0.618dp" />
 
     <Button
         android:id="@+id/community_commenting"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="35dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:layout_marginBottom="8dp"
-        android:layout_weight="1"
         android:background="@drawable/shape"
         android:hint="评论" />
 

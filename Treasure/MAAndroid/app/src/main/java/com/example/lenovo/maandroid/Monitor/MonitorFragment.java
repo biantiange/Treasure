@@ -38,6 +38,7 @@ import com.example.lenovo.maandroid.Utils.PieChart;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONArray;
@@ -88,10 +89,10 @@ public class MonitorFragment extends Fragment {
         View view = inflater.inflate(R.layout.fagment_monitor, container, false);
         pc=new PieChart(view.getContext());
         sharedPreferences=getContext().getSharedPreferences( "parent", Context.MODE_PRIVATE );
-        //parentId=sharedPreferences.getInt( "parentId",0 );
-        parentId=1;
+        parentId=sharedPreferences.getInt( "parentId",0 );
+        //parentId=1;
         //设置别名
-        setAlias(parentId+"");
+       // setAlias(parentId+"");
 
         EventBus.getDefault().register(this);
         monitorlistView = view.findViewById(R.id.lv_monitor);
@@ -186,6 +187,8 @@ public class MonitorFragment extends Fragment {
             pc.setmValues(mValues);
             pc.setmTitles(mTitles);
             pc.draw(new Canvas());
+            //pc.notify();
+            pc.invalidate();
         }
     }
 
@@ -258,6 +261,7 @@ public class MonitorFragment extends Fragment {
                 child.setId(Integer.parseInt(jsonObject.getString("id")));
                 child.setParentId(Integer.parseInt(jsonObject.getString("parentId")));
                 child.setIsResign(Integer.parseInt(jsonObject.getString("isResign")));
+                child.setDeviceId(jsonObject.getString("deviceId"));
                 list.add(child);
             }
         } catch (JSONException e) {
@@ -328,7 +332,7 @@ public class MonitorFragment extends Fragment {
     private static final int MSG_SET_ALIAS = 1001;
     private final Handler mHandler = new Handler() {
         @Override
-        public void handleMessage(android.os.Message msg) {
+        public void handleMessage(Message msg) {
             super.handleMessage(msg);
             switch (msg.what) {
                 case MSG_SET_ALIAS:

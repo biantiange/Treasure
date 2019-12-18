@@ -24,6 +24,7 @@ import com.example.lenovo.maandroid.Entity.Parent;
 import com.example.lenovo.maandroid.Entity.Post;
 import com.example.lenovo.maandroid.Entity.PostImg;
 import com.example.lenovo.maandroid.R;
+import com.example.lenovo.maandroid.Utils.Constant;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -91,7 +92,7 @@ public class CommunityFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult( requestCode, resultCode, data );
-        switch (requestCode){
+        switch (resultCode){
             case 2019:
                 posts.add( 0 , (Post) data.getSerializableExtra("myPost") );
                 postAdapter.notifyDataSetChanged();
@@ -104,7 +105,7 @@ public class CommunityFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), PostImagesActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,1000);
             }
         });
         //监听下拉刷新
@@ -155,9 +156,9 @@ public class CommunityFragment extends Fragment {
 
         @Override
         protected Object doInBackground(Object[] objects) {
-            Log.e("post", "开始" + getString(R.string.ip));
+            Log.e("post", "开始" + Constant.BASE_IP + "PostListServlet");
             try {
-                URL url = new URL("http://" + getString(R.string.ip) + ":8080/Java/PostListServlet");
+                URL url = new URL(Constant.BASE_IP + "PostListServlet");
                 HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
                 con.setRequestMethod("POST");
@@ -275,7 +276,7 @@ public class CommunityFragment extends Fragment {
                 con.setRequestMethod("POST");
                 JSONObject User_id = new JSONObject();
 
-                User_id.put("praiserId", 1);//发送登录者ID
+                User_id.put("praiserId", parentId);//发送登录者ID
                 User_id.put("page", page);
 
                 OutputStream os = con.getOutputStream();

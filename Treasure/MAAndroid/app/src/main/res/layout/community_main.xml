@@ -49,8 +49,8 @@
             android:id="@+id/listView_community"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="#E0FFFF"
-            android:dividerHeight="10dp" />
+            android:divider="#FFFFFF"
+            android:dividerHeight="8dp" />
 
         <com.scwang.smartrefresh.layout.footer.ClassicsFooter
             android:layout_width="match_parent"

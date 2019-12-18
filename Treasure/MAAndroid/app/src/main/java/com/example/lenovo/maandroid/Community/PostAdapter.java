@@ -83,7 +83,7 @@ public class PostAdapter extends BaseAdapter {
                 .placeholder( R.drawable.aaa)
                 .error( R.drawable.aaa)
                 .fallback( R.drawable.aaa);
-        Glide.with(context).load( Data.url+posts.get(position).getParent().getHeaderPath()).apply( options).into(header);
+        Glide.with(context).load( Data.ip+"childImg/"+posts.get(position).getParent().getHeaderPath()).apply( options).into(header);
 
 
 //img
@@ -105,50 +105,68 @@ public class PostAdapter extends BaseAdapter {
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
         }else if(posts.get(position).getImgs().size() == 1){
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
+            img1.setVisibility(View.VISIBLE);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img1);
             img2.setVisibility(View.GONE);
             img3.setVisibility(View.GONE);
             img4.setVisibility(View.GONE);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
         }else  if (posts.get(position).getImgs().size() == 2){
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
+            img1.setVisibility(View.VISIBLE);
+            img2.setVisibility(View.VISIBLE);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img1);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img2);
             img3.setVisibility(View.GONE);
             img4.setVisibility(View.GONE);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
         }else if(posts.get(position).getImgs().size() == 3){
-
-            Log.e("imgss",posts.get(position).getImgs().toString());
-
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
+            img1.setVisibility(View.VISIBLE);
+            img2.setVisibility(View.VISIBLE);
+            img3.setVisibility(View.VISIBLE);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img1);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img2);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img3);
             img4.setVisibility(View.GONE);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
         }else if(posts.get(position).getImgs().size() == 4){
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
+            img1.setVisibility(View.VISIBLE);
+            img2.setVisibility(View.VISIBLE);
+            img3.setVisibility(View.VISIBLE);
+            img4.setVisibility(View.VISIBLE);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img1);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img2);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img3);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img4);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
         }else if(posts.get(position).getImgs().size() == 5){
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(4).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img5);
+            img1.setVisibility(View.VISIBLE);
+            img2.setVisibility(View.VISIBLE);
+            img3.setVisibility(View.VISIBLE);
+            img4.setVisibility(View.VISIBLE);
+            img5.setVisibility(View.VISIBLE);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img1);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img2);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img3);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img4);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(4).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img5);
             img6.setVisibility(View.GONE);
         }else {
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(4).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img5);
-            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(5).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img6);
+            img1.setVisibility(View.VISIBLE);
+            img2.setVisibility(View.VISIBLE);
+            img3.setVisibility(View.VISIBLE);
+            img4.setVisibility(View.VISIBLE);
+            img5.setVisibility(View.VISIBLE);
+            img6.setVisibility(View.VISIBLE);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img1);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img2);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img3);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img4);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(4).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img5);
+            Glide.with(context).load(Constant.POST_IMG_BASE_IP+posts.get(position).getImgs().get(5).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img6);
         }
 
 //评论

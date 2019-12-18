@@ -64,7 +64,7 @@ public class CommentAdapter extends BaseAdapter {
                 .placeholder( R.drawable.aaa)
                 .error( R.drawable.aaa)
                 .fallback( R.drawable.aaa);
-        Glide.with(context).load( Data.url+comments.get( position ).getCommentator().getHeaderPath()).apply( options).into(header);
+        Glide.with(context).load( Data.ip+"childImg/"+comments.get( position ).getCommentator().getHeaderPath()).apply( options).into(header);
 
         //回复
         LinearLayout L = convertView.findViewById(R.id.comment_response_L);

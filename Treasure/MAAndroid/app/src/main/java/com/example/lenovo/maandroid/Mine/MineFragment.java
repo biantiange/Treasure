@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -39,6 +41,7 @@ public class MineFragment extends Fragment {
     private LinearLayout message_t;
     private LinearLayout my_tiezi;
     private LinearLayout mychild;
+    private LinearLayout set;
     private SharedPreferences sharedPreferences;
     private List<Map<String, Object>> data;
     private Map<String, Object> map;
@@ -48,6 +51,8 @@ public class MineFragment extends Fragment {
     private String phoneNumber;
     private RequestOptions options;
     private int parentId;
+    private int i = 0;
+
 
     @Nullable
     @Override
@@ -92,12 +97,13 @@ public class MineFragment extends Fragment {
     }
 
     private void initData() {
-        url = sharedPreferences.getString( "imgPath", "" );
+        url = sharedPreferences.getString( "headerPath", "" );
         name = sharedPreferences.getString( "nickName", "" );
         user_id.setText( "乖号：" + phoneNumber );
         username.setText( name );
         Log.e( "nickname", name );
-        Glide.with( this ).load( Data.url+url ).apply( options ).into( user_img );
+        Log.e("tt",Data.ip+"childImg/"+url);
+        Glide.with( this ).load( Data.ip+"childImg/"+url ).apply( options ).into( user_img );
     }
 
     private void init() {
@@ -111,7 +117,7 @@ public class MineFragment extends Fragment {
         edit.setOnClickListener( myListener );
         mychild.setOnClickListener( myListener );
         my_tiezi.setOnClickListener( myListener );
-
+        set.setOnClickListener( myListener );
     }
 
     private void findView() {
@@ -122,6 +128,7 @@ public class MineFragment extends Fragment {
         message_t = getActivity().findViewById( R.id.message_t );
         my_tiezi = getActivity().findViewById( R.id.my_tiezi );
         mychild = getActivity().findViewById( R.id.add_child1 );
+        set=getActivity().findViewById( R.id.set);
 
 
     }
@@ -148,8 +155,10 @@ public class MineFragment extends Fragment {
                     Log.e( "啥问题？","这句运行了" );
                    startActivity(intent3);
                     break;
-
-
+                case R.id.set:
+                    Intent intent4=new Intent( getActivity(),Set.class);
+                    startActivity( intent4);
+                    break;
 
             }
 

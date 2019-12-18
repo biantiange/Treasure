@@ -84,27 +84,48 @@ public class LookActivity extends AppCompatActivity {
                 finish();
             }
         });
-
         for (int i = 0; i< 9; i ++ ){
             View item = LayoutInflater.from(this).inflate(R.layout.sub_item, null);
             final TextView tvAttrTag = item.findViewById(R.id.tv_attr_tag);
             tvAttrTag.setText(mData[i]);
             mFlowLayout.addView(item);
-
+            tvAttrTag.setTag(false);
             tvAttrTag.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    tvAttrTag.setBackgroundColor(Color.parseColor("#d71345"));
-                    if (tags.equals("")){
-                        tags = tags+tvAttrTag.getText().toString();
-                    }else{
-                        tags=tags+"-"+tvAttrTag.getText().toString();
-                    }
-                    Log.e("LookActivity搜索的字符串",tags);
-                }
+                    if (tvAttrTag.getTag().equals(false)) {
+                        Log.e("aa", "没点过");
+                        tvAttrTag.setBackgroundResource(R.drawable.textview_border2);
+                        Log.e("11",tvAttrTag.getBackground()+"");
+                        if (tags.equals("")) {
+                            tags = tags + tvAttrTag.getText().toString();
+                        } else {
+                            if (!tags.contains(tvAttrTag.getText())) {
+                                tags = tags + "-" + tvAttrTag.getText().toString();
+                            }
+                        }
+                        tvAttrTag.setTag(true);
+                    } else {
+                        Log.e("aa", "点过");
+                        tvAttrTag.setBackgroundResource(R.drawable.textview_border);
+                        tvAttrTag.setTag(false);
+                        int position = tags.indexOf(tvAttrTag.getText().toString());
+                        Log.e("aa", position + "");
+                        Log.e("len", tags.length() + "");
+                        if (position > 2) {
+                            tags = tags.replace("-" + tvAttrTag.getText(), "");
+                        } else if (position == 0 && tags.length() != 2) {
 
+                            tags = tags.replace(tvAttrTag.getText() + "-", "");
+                        } else {
+                            tags = tags.replace(tvAttrTag.getText(), "");
+                        }
+                    }
+                    Log.e("AddActivity成长记录的字符串", tags);
+                }
             });
         }
+
         //搜索按钮
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override

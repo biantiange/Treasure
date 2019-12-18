@@ -82,7 +82,8 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="2dp"
-        android:background="#b9b9b9"
+        android:background="#7adfb8"
+        android:alpha="0.2"
         android:layout_margin="15dp"/>
     <LinearLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -124,7 +125,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#b9b9b9"
+            android:background="#7adfb8"
+            android:alpha="0.2"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="15dp"
             />
@@ -162,7 +164,8 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#b9b9b9"
+            android:background="#7adfb8"
+            android:alpha="0.2"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="15dp"
             />
@@ -200,19 +203,54 @@
                 />
 
         </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:background="#7adfb8"
+            android:alpha="0.2"
+            />
+        <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="17dp"
+        android:id="@+id/set"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+
+        >
+        <ImageButton
+            android:layout_marginRight="15dp"
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:background="@drawable/set"
+            />
+        <TextView android:layout_width="0dp"
+            android:layout_weight="5"
+            android:textSize="18dp"
+            android:gravity="center_vertical"
+            android:textColor="#101010"
+            android:layout_height="match_parent"
+            android:text="设置"/>
+        <ImageButton
+
+            android:layout_height="30dp"
+            android:layout_width="30dp"
+            android:background="@drawable/xiangxi"
+            />
+
+    </LinearLayout>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#b9b9b9"
+            android:background="#7adfb8"
+            android:alpha="0.2"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="15dp"
             />
 
     </LinearLayout>
-
-
-
-
-
 
 </LinearLayout>

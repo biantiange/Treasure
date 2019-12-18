@@ -610,7 +610,7 @@ public class PostImagesActivity extends AppCompatActivity implements View.OnClic
                         post.setComments(comments);
                         post.setIsPraise(0);
                         //发帖人
-                        Parent parent = new Parent(  );
+                        Parent parent = new Parent( );
                         activity.spPost = activity.getSharedPreferences( "parent",MODE_PRIVATE );
                         parent.setId( activity.spPost.getInt( "parentId",-1 ) );
                         parent.setHeaderPath( activity.spPost.getString( "headerPath" ,"") );

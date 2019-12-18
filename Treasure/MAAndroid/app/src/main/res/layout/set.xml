@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#7adfb8"
+        >
+
+        <ImageButton android:layout_width="28dp"
+            android:background="#7adfb8"
+            android:src="@drawable/fanhui32"
+            android:id="@+id/return0"
+            android:layout_gravity="center"
+            android:layout_height="30dp"/>
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:textSize="20dp"
+            android:textColor="#fcfcfc"
+            android:text="设置"
+            android:padding="5dp"
+            />
+        <ImageButton android:layout_width="28dp"
+            android:background="#7adfb8"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="17dp"
+        android:id="@+id/message_t"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+
+        >
+
+
+        <TextView android:layout_width="0dp"
+            android:layout_weight="5"
+            android:textSize="18dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:textColor="#101010"
+            android:layout_height="match_parent"
+            android:text="关于乖宝"/>
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#7adfb8"
+        android:alpha="0.2"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        />
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="17dp"
+        android:id="@+id/set"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+
+        >
+        <TextView android:layout_width="0dp"
+            android:layout_weight="5"
+            android:textSize="16dp"
+      android:layout_gravity="center_vertical"
+            android:layout_marginLeft="40dp"
+
+            android:textColor="#101010"
+            android:layout_height="wrap_content"
+            android:text="功能介绍"/>
+        <ImageButton
+            android:id="@+id/gongneng"
+            android:layout_height="25dp"
+            android:layout_width="25dp"
+            android:background="@drawable/xiangxi"
+            />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#7adfb8"
+        android:alpha="0.2"
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="15dp"
+        />
+
+    <LinearLayout
+    android:layout_margin="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layout_marginLeft="17dp"
+    android:layout_marginTop="5dp"
+    android:layout_marginBottom="5dp"
+
+    >
+    <TextView android:layout_width="0dp"
+        android:layout_weight="5"
+        android:textSize="16dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="40dp"
+
+        android:textColor="#101010"
+        android:layout_height="wrap_content"
+        android:text="软件许可及服务协议"/>
+    <ImageButton
+        android:id="@+id/xieyi"
+        android:layout_height="25dp"
+        android:layout_width="25dp"
+        android:background="@drawable/xiangxi"
+        />
+
+
+</LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:background="#7adfb8"
+        android:alpha="0.2"
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="15dp"
+        />
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+
+        >
+        <TextView android:layout_width="0dp"
+            android:layout_weight="5"
+            android:textSize="16dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="40dp"
+
+            android:textColor="#101010"
+            android:layout_height="wrap_content"
+            android:text="当前版本"/>
+        <ImageButton
+            android:id="@+id/banben"
+            android:layout_height="25dp"
+            android:layout_width="25dp"
+            android:background="@drawable/xiangxi"
+            />
+
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:background="#7adfb8"
+        android:alpha="0.2"
+
+        />
+
+    <LinearLayout
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="17dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+
+        >
+        <TextView android:layout_width="0dp"
+            android:layout_weight="5"
+            android:textSize="17dp"
+            android:layout_gravity="center_vertical"
+            android:textColor="#101010"
+            android:layout_height="wrap_content"
+            android:text="帮助"/>
+        <ImageButton
+            android:id="@+id/help"
+            android:layout_height="25dp"
+            android:layout_width="25dp"
+            android:background="@drawable/xiangxi"
+            />
+
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="15dp"
+        android:background="#7adfb8"
+        android:alpha="0.2"
+
+        />
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/add_child_a"
+        android:gravity="center"
+
+       >
+
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:background="#7adfb8"
+            android:alpha="0.2"
+            >
+        </LinearLayout>
+        <LinearLayout android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+
+            <TextView
+                android:id="@+id/tuichu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff"
+                android:gravity="center"
+                android:text="退出登录"
+                android:textColor="#ff0000"
+                android:textSize="17dp" />
+
+        </LinearLayout>
+
+
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

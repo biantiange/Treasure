@@ -2,6 +2,8 @@ package com.example.lenovo.maandroid.Record;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -48,21 +50,21 @@ public class RecordFragment extends Fragment {
     List<Map<String,Object>> contentArray=new ArrayList<>();
     private HorizontalListView mlv;
     private Banner banner;
-    private OkHttpClient okHttpClient =new OkHttpClient();
+    private OkHttpClient okHttpClient;
     private List<String> mTitleList = new ArrayList<>();
     private List<String > mImgList = new ArrayList<>();
     private List<Integer > ImgList = new ArrayList<>();
     private Handler mainHandler=null;
-    private View newView;
+    int parentId;
+    SharedPreferences sharedPreferences;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        newView=inflater.inflate(R.layout.record_main,container,false);
+        final View newView=inflater.inflate(R.layout.record_main,container,false);
         mlv = newView.findViewById(R.id.mlv);
-        contentArray.clear();
-        datas.clear();
-        mTitleList.clear();
-        mImgList.clear();
+        okHttpClient=new OkHttpClient();
+//        sharedPreferences=getContext().getSharedPreferences("parent",Context.MODE_PRIVATE);
+//        parentId=sharedPreferences.getInt("parentId",-1);
         //查找
         ImageView look=newView.findViewById(R.id.look);
         ImageView add=newView.findViewById(R.id.add);
@@ -88,13 +90,15 @@ public class RecordFragment extends Fragment {
                 Log.e("1",Thread.currentThread().getName()+"发送数据"+msg);
                 switch (msg.what){
                     case 1:
-                        TimeAdapter adapter = new TimeAdapter((ArrayList<Dates>) datas, getContext(),datas.size()-1);
+                        final TimeAdapter adapter = new TimeAdapter((ArrayList<Dates>) datas, getContext());
                         mlv.setAdapter(adapter);
                         mlv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                TimeAdapter adapter = new TimeAdapter((ArrayList<Dates>) datas, getContext(),position);
-                                mlv.setAdapter(adapter);
+//                                TimeAdapter adapter = new TimeAdapter((ArrayList<Dates>) datas, getContext(),position);
+//                                mlv.setAdapter(adapter);
+                                datas.get(position).setStatu(1);
+                                adapter.notifyDataSetChanged();
                                 String time=datas.get(position).getTime();
                                 lookContent(time);
 
@@ -110,14 +114,12 @@ public class RecordFragment extends Fragment {
 
             }
         };
-        lookTime();
+      //  lookTime();
         return newView;
     }
 
-
-
     private void lookTime() {
-        Request request=new Request.Builder().url(Constant.BASE_IP +"LookTimeServlet").build();
+        Request request=new Request.Builder().url(Constant.BASE_IP +"LookTimeServlet?parentId="+1).build();
         Call call=okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -131,6 +133,7 @@ public class RecordFragment extends Fragment {
                 Log.e("时间列表",timeList);
                 Gson gson=new Gson();
                 timeArray= gson.fromJson(timeList,String[].class);
+               // Log.e("timeArray",timeArray.toString());
                 if(timeArray==null||timeArray.length==0 ){
                     inData();
                     SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd ");
@@ -140,6 +143,8 @@ public class RecordFragment extends Fragment {
                     msg.what=1;
                     mainHandler.sendMessage(msg);
                 }else{
+//                    Gson gson=new Gson();
+//                    timeArray= gson.fromJson(timeList,String[].class);
                     initData();
                     if(timeArray.length>0){
                         lookContent(timeArray[timeArray.length-1]);
@@ -149,11 +154,11 @@ public class RecordFragment extends Fragment {
                     mainHandler.sendMessage(msg);
                 }
 
-
             }
         });
     }
 
+    //时间轴初始化
     private void inData() {
         datas.clear();
         Log.e("inData","iniData");
@@ -161,6 +166,7 @@ public class RecordFragment extends Fragment {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd ");
         Date date = new Date(System.currentTimeMillis());
         item.setTime(simpleDateFormat.format(date));
+        item.setStatu(1);
         Log.e("当前时间",simpleDateFormat.format(date));
 
         Dates item1 = new Dates();
@@ -181,15 +187,22 @@ public class RecordFragment extends Fragment {
         datas.add(item1);
         datas.add(item);
     }
-  //时间轴初始化
+
+
+    //时间轴初始化
     private void initData() {
         datas.clear();
-        Log.e("initData","时间轴初始化");
+         Log.e("initData","时间轴初始化"+datas.size());
         for(int i=0;i<timeArray.length;i++){
             Dates item = new Dates();
             item.setTime(timeArray[i]);
+            if(i==timeArray.length-1){
+                item.setStatu(1);
+            }
             datas.add(item);
         }
+//        TimeAdapter adapter = new TimeAdapter((ArrayList<Dates>) datas, getContext());
+//        mlv.setAdapter(adapter);
     }
 
     private void lookContent(String time) {
@@ -203,7 +216,7 @@ public class RecordFragment extends Fragment {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                String contentList= response.body().string();
+                 contentList= response.body().string();
                 Log.e("最后一天的图片列表",contentList);
                 Gson gson=new Gson();
                 Type listType=new TypeToken<List<Map<String,Object>>>(){}.getType();
@@ -211,10 +224,12 @@ public class RecordFragment extends Fragment {
                 Message msg=new Message();
                 msg.what=2;
                 mainHandler.sendMessage(msg);
+              //  BannerSet();
             }
         });
     }
-//轮播图
+
+    //轮播图
     private void BannerSet() {
         if(contentArray==null||contentArray.size()==0){
             Log.e("BanSet","BanSet");
@@ -231,7 +246,7 @@ public class RecordFragment extends Fragment {
             }
             banner.setImages(ImgList);
         }
-        else{
+       else{
             Log.e("轮播图","轮播图");
             mImgList.clear();
             for(int i=0;i<contentArray.size();i++){
@@ -247,12 +262,13 @@ public class RecordFragment extends Fragment {
             }
             banner.setImages(mImgList);
         }
+
         // 显示圆形指示器和标题（水平显示
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         //设置图片加载器
         banner.setImageLoader(new MyLoader());
         //设置图片集合
-        // banner.setImages(mImgList);
+       // banner.setImages(mImgList);
         //设置banner动画效果
         banner.setBannerAnimation(Transformer.DepthPage);
         //设置标题集合（当banner样式有显示title时）
@@ -273,5 +289,17 @@ public class RecordFragment extends Fragment {
         public void displayImage(Context context, Object path, ImageView imageView) {
             Glide.with(context).load(path).into(imageView);
         }
+    }
+
+    @Override
+    public void onStart() {
+//        int id = getActivity().getIntent().getIntExtra("id", 0);
+//        if(id==2){
+//            lookTime();
+//        }
+        Log.e("start","start");
+        lookTime();
+        super.onStart();
+
     }
 }

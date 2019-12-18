@@ -1,16 +1,18 @@
 package com.example.lenovo.maandroid.Host;
 
-import android.content.SharedPreferences;
+
 import android.graphics.Color;
 import android.os.Build;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.example.lenovo.maandroid.Community.CommunityFragment;
@@ -23,9 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-
-    //虚假数据SharedPreferences，合成的时候删除
-    private SharedPreferences sharedPreferences;
+    private long mExitTime;
 
 
     private class MyTabSpec {
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
             if(b) {
                 imageView.setImageResource(selectImage);
                 textView.setTextColor(
-                        Color.parseColor("#0099FF"));
+                        Color.parseColor("#00FF00"));
             } else {
                 imageView.setImageResource(normalImage);
                 textView.setTextColor(
@@ -105,9 +105,33 @@ public class MainActivity extends AppCompatActivity {
         initData();
         setListener();
         changeTab(tabStrId[0]);
-        //虚假存入数据，合成时删除
-        //---------虚假数据到此结束-------------
 
+       // Intent intent=getIntent();
+        //2是退出登录
+        /*if(intent!=null && intent.getIntExtra("flag",0) ==2){
+            finish();
+            Intent intent2 =new Intent(MainActivity.this, LoginActivity.class);
+            // intent2.putExtra("flag",1);
+            startActivity(intent2);
+        }*/
+        //3是Add Activity
+        /*if(intent!=null && intent.getIntExtra("flag",0) ==3 && intent.getAction().equals( "inter" )){
+            changeTab(tabStrId[1]);
+        }*/
+
+
+    }
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private class MyListener implements View.OnClickListener{

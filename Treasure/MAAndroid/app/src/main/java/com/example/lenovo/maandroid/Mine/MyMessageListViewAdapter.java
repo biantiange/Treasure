@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.lenovo.maandroid.R;
+import com.example.lenovo.maandroid.Utils.Constant;
 import com.example.lenovo.maandroid.Utils.Data;
 
 import java.util.List;
@@ -108,7 +109,7 @@ public class MyMessageListViewAdapter extends BaseAdapter {
         String day=time.substring( 0,10);
         String hour=time.substring( 11,16 );
         Glide.with( context )
-                .load( Data.url+url)
+                .load( Data.ip+"childImg/"+url)
                 .apply( options )
                 .into( holder.userImg );
         holder.comment_user_name.setText(commenterName );
@@ -133,7 +134,7 @@ public class MyMessageListViewAdapter extends BaseAdapter {
        if(imgnum.equals( "0" )){
          holder.post_img.setVisibility( View.GONE);
        }else {
-           Glide.with( context ).load( Data.url+ map.get( "postImgPath" ).toString() ).into( holder.post_img );
+           Glide.with( context ).load( Constant.POST_IMG_BASE_IP+ map.get( "postImgPath" ).toString() ).into( holder.post_img );
        }
         String post_time= (String) map.get( "postTime" );
        Log.e( "tome",post_time );

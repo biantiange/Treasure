@@ -7,7 +7,9 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -55,7 +57,21 @@ public class Edit extends AppCompatActivity {
     private OkHttpClient okHttpClient;
     private RequestOptions options;
     private String phoneNumber;
+    private int i=0;
+    private Handler mainHandle = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    i = 1;
+                    break;
+                case 2:
 
+                    break;
+            }
+        }
+    };
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate( savedInstanceState );
@@ -86,10 +102,10 @@ public class Edit extends AppCompatActivity {
 
     private void init() {
         //查看是否已经存入数据如果已有，则使用
-        imgPath = sharedPreferences.getString( "imgPath", "aaa.jpg" );
+        imgPath = sharedPreferences.getString( "headerPath", "aaa.jpg" );
         Log.e( "int.......imgPath", imgPath );
         puser_name = sharedPreferences.getString( "nickName", "" );
-        Glide.with( this ).load( Data.url+imgPath ).apply( options ).into( user_img );
+        Glide.with( this ).load( Data.ip+"childImg/"+imgPath ).apply( options ).into( user_img );
         username.setText( puser_name );
         phoneNumber = sharedPreferences.getString( "phoneNumber", "" );
     }
@@ -120,8 +136,9 @@ public class Edit extends AppCompatActivity {
                 case R.id.edit_submit:
                     //获取更改的信息,提交到数据库
                     final String username0 = username.getText().toString();
-                    if (username0.length() > 0 && username0.length() < 13)//数据可以进行更改
+                    if (username0.length() > 0 && username0.length() < 13 && i==1)//数据可以进行更改
                     {
+                        i=0;
                         //提交到数据库
                         FormBody body = new FormBody.Builder().add( "phoneNumber", phoneNumber ).add( "imgPath", imgPath )
                                 .add( "nickname", username0 )
@@ -141,7 +158,7 @@ public class Edit extends AppCompatActivity {
                                 String jsonStr = response.body().string();
                                 if (jsonStr != "修改失败") {
                                     Looper.prepare();
-                                    sharedPreferences.edit().putString( "imgPath", jsonStr ).putString( "nickName", username0 ).apply();
+                                    sharedPreferences.edit().putString( "headerPath", jsonStr ).putString( "nickName", username0 ).apply();
                                     Intent intent = new Intent( "android.intent.action.CART_BROADCAST" );
                                     intent.putExtra( "data", "refresh" );
                                     LocalBroadcastManager.getInstance( Edit.this ).sendBroadcast( intent );
@@ -155,12 +172,7 @@ public class Edit extends AppCompatActivity {
                         Toast.makeText( Edit.this, "昵称格式错误,不能为空且小于13个字", Toast.LENGTH_SHORT ).show();
 
                     }
-                    //广播刷新fragment
-                    /*Intent intent = new Intent("android.intent.action.CART_BROADCAST");
-                    intent.putExtra("data","refresh");
-                    LocalBroadcastManager.getInstance(Edit.this).sendBroadcast(intent);
-                    sendBroadcast(intent);
-                    finish();*/
+
                     break;
             }
         }
@@ -204,6 +216,9 @@ public class Edit extends AppCompatActivity {
                         imgPath = response.body().string();
                         Log.e( "上传头像", imgPath );
                         sharedPreferences.edit().putString( "imgPath",imgPath).apply();
+                        Message message = new Message();
+                        message.what = 1;
+                        mainHandle.sendMessage(message);
                     }
                 } );
             }

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <LinearLayout android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:background="#7adfb8"
+        >
+
+        <ImageButton android:layout_width="28dp"
+            android:background="#7adfb8"
+            android:src="@drawable/fanhui32"
+            android:id="@+id/return0"
+            android:layout_gravity="center"
+            android:layout_height="30dp"/>
+        <TextView android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_weight="6"
+            android:textSize="20dp"
+            android:textColor="#fcfcfc"
+            android:text="功能介绍"
+            android:padding="5dp"
+            />
+        <ImageButton android:layout_width="28dp"
+            android:background="#7adfb8"
+            android:layout_height="40dp"/>
+    </LinearLayout>
+    <TextView
+        android:layout_marginTop="8dp"
+        android:text="
+        这是一款关注孩子的日常生活、记录孩子的成长、使家长树立正确的教育观念等功能助力孩子健康成长的APP。"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:text="        a.推送：
+            （1）用户：社区消息提示，系统功能推送
+	                     （2）系统：监控信息的推送"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:text="       b.关联设备信息的获取：学生端通过Android 内置服务获取设备用电信息并上传至服务器，再由服务器发送给家长客户端。"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:text="      c.宝宝成长的点滴记录
+            （1）家长可在APP上传宝宝成长点滴
+            （2）家长想要搜索方便，本APP支持多方搜索，比如按时间、照片标签搜
+            （3）有美观的界面，用户可拖动时间轴来搜索相关记录"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:text="      d.社区
+            （1）家长可发表自己的帖
+            （2）本APP支持评论、回复、点赞功能"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:layout_marginTop="5dp"
+        android:text="     e.个人中心
+            （1）支持登录、退出登录等基本操作
+            （2）享有消息通知等免费服务"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>

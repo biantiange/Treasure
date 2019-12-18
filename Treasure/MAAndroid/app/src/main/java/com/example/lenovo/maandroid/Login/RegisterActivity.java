@@ -31,6 +31,8 @@ import com.google.gson.Gson;
 import com.mob.MobSDK;
 
 import java.io.IOException;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import cn.smssdk.EventHandler;
 import cn.smssdk.SMSSDK;
@@ -53,20 +55,17 @@ public class RegisterActivity extends AppCompatActivity {
     //next按钮
     private FloatingActionButton fab;
     private CardView cvAdd;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            getWindow().setStatusBarColor(0xff7adfb8 );
+            getWindow().setStatusBarColor(0xff7adfb8);
         }
-        //setContentView(R.layout.activity_register1);
         //onCreate里注册
         findViews();
-       /* if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ShowEnterAnimation();
-        }*/
         //如果 targetSdkVersion小于或等于22，可以忽略这一步，如果大于或等于23，需要做权限的动态申请：
         if (Build.VERSION.SDK_INT >= 23) {
             String[] mPermissionList = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.CALL_PHONE, Manifest.permission.READ_LOGS, Manifest.permission.READ_PHONE_STATE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.SET_DEBUG_APP, Manifest.permission.SYSTEM_ALERT_WINDOW, Manifest.permission.GET_ACCOUNTS, Manifest.permission.WRITE_APN_SETTINGS};
@@ -90,6 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void findViews() {
+        intent = getIntent();
         okHttpClient = new OkHttpClient();
         etPhone = findViewById(R.id.et_phone);
         etYanzhengma = findViewById(R.id.et_yanzhengma);
@@ -103,9 +103,45 @@ public class RegisterActivity extends AppCompatActivity {
         btnReturn = findViewById(R.id.btn_return);
         btnReturn.setOnClickListener(myListener);
 
-        /*fab = findViewById(R.id.fab);   //叉号
-        fab.setOnClickListener(myListener);*/
-        /* cvAdd = findViewById(R.id.cv_add);*/
+        //给按钮添加失去焦点事件
+        etPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!etPhone.isFocused()) {
+                    Log.e("aa", "失去焦点了");
+                    if (etPhone.getText().toString().length() == 11) {
+                        Toast.makeText(RegisterActivity.this, "您输入的手机号格式正确", Toast.LENGTH_SHORT).show();
+                        //btnSubmit.setClickable(true);
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "请输入正确的手机号", Toast.LENGTH_SHORT).show();
+                        //btnSubmit.setClickable(false);
+                    }
+                }
+            }
+        });
+        etPwd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!etPwd.isFocused()) {
+                    Log.e("aaa", "失去焦点了");
+                    if (isSpecialChar(etPwd.getText().toString())) {   //含有非法字符
+                        Toast.makeText(RegisterActivity.this, "密码含有非法字符", Toast.LENGTH_SHORT).show();
+                        // btnSubmit.setClickable(false);
+                    }
+                    if (etPwd.getText().toString().length() < 8 || etPwd.getText().toString().length() > 12) {
+                        Log.e("aaa", "密码长度错误");
+                        Toast.makeText(RegisterActivity.this, "密码长度错误", Toast.LENGTH_SHORT).show();
+                        // btnSubmit.setClickable(false);
+                    }
+                    if (!isSpecialChar(etPwd.getText().toString()) && etPwd.getText().toString().length() <= 8 && etPwd.getText().toString().length() >= 12) {
+                        Toast.makeText(RegisterActivity.this, "密码格式正确", Toast.LENGTH_SHORT).show();
+                        // btnSubmit.setClickable(true);
+                    }
+                }
+            }
+        });
+
+
     }
 
     Handler handler = new Handler() {
@@ -117,40 +153,52 @@ public class RegisterActivity extends AppCompatActivity {
                 btnGetMsg.setText("获取验证码");
                 btnGetMsg.setClickable(true);
                 i = 30;
+            } else if (msg.what == 4) {
+
+                if (intent.getIntExtra("flag", 0) == 1) {  //注册
+                    Log.e("注册","注册");
+                    if (etPwd.getText().toString().equals(etPwd1.getText().toString())) {
+                        MyOkHttp(Constant.BASE_IP + "AddUserServlet?phoneNumber=" + etPhone.getText().toString() + "&&password=" + etPwd.getText().toString());
+
+                    } else {
+                        Toast.makeText(RegisterActivity.this, "操作失败", Toast.LENGTH_LONG);
+                    }
+
+                }
+                //忘记密码
+                else {
+                    MyOkHttp(Constant.BASE_IP + "ForgetServlet?phoneNumber=" + etPhone.getText().toString() + "&&password=" + etPwd.getText().toString());
+                    //finish();
+                }
             } else {
                 int i = msg.arg1;
                 int i1 = msg.arg2;
                 Object o = msg.obj;
                 if (i1 == SMSSDK.RESULT_COMPLETE) {
                     // 短信注册成功后，返回LoginActivity,然后提示
-                    if (i == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
+                    /*if (i == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {
                         //Toast.makeText(RegisterActivity.this, "提交成功", Toast.LENGTH_SHORT).show();
                         Intent intent = getIntent();
                         //注册
                         if (intent.getIntExtra("flag", 0) == 1) {
-                            MyOkHttp(Constant.BASE_IP + "AddUserServlet?phoneNumber=" + etPhone.getText().toString() + "&&password=" + etPwd.getText().toString());
-                            finish();
+                           *//* if(etPwd.getText().toString().equals(etPwd1.getText().toString())){
+                                MyOkHttp(Constant.BASE_IP + "AddUserServlet?phoneNumber=" + etPhone.getText().toString() + "&&password=" + etPwd.getText().toString());
+
+                            }else{
+                                Toast.makeText(RegisterActivity.this,"操作失败",Toast.LENGTH_LONG);
+                            }*//*
+
                         }
                         //忘记密码
                         else {
-                            MyOkHttp(Constant.BASE_IP + "ForgetServlet?phoneNumber=" + etPhone.getText().toString() + "&&password=" + etPwd.getText().toString());
-                            finish();
-                        }
-
-                        //Toast.makeText(RegisterActivity.this,"操作成功", Toast.LENGTH_SHORT).show();
-
-                        /*Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                        Bundle bundle = new Bundle();
-                        bundle.putString("phone", etPhone.getText().toString().trim());
-                        bundle.putString("password",etPwd.getText().toString());
-                        intent.putExtras(bundle);
-                        startActivity(intent);*/
-
+                            //MyOkHttp(Constant.BASE_IP + "ForgetServlet?phoneNumber=" + etPhone.getText().toString() + "&&password=" + etPwd.getText().toString());
+                           // finish();
+                        }*/
                     } else if (i == SMSSDK.EVENT_GET_VOICE_VERIFICATION_CODE) {
                         Toast.makeText(RegisterActivity.this, "正在获取验证码", Toast.LENGTH_SHORT).show();
                     }
                 }
-            }
+           // }
         }
     };
 
@@ -196,6 +244,7 @@ public class RegisterActivity extends AppCompatActivity {
                     break;
 
                 case R.id.btn_submit:
+                    Log.e("提交", "点击了");
                     if (etPhone.getText().toString() == null || etPhone.getText().toString().equals("")) {
                         Toast.makeText(RegisterActivity.this, "手机号不能为空", Toast.LENGTH_SHORT).show();
                         Log.d(TAG, "onClick: 手机号不能为空");
@@ -212,8 +261,12 @@ public class RegisterActivity extends AppCompatActivity {
                     if (!etPwd.getText().toString().equals(etPwd1.getText().toString())) {
                         Toast.makeText(RegisterActivity.this, "密码与确认密码不一致", Toast.LENGTH_SHORT).show();
                     }
+
                     //将收到的验证码和手机号提交再次核对
                     SMSSDK.submitVerificationCode("86", phoneNum, etYanzhengma.getText().toString());
+                    Message message = new Message();
+                    message.what = 4;
+                    handler.sendMessage(message);
                     break;
             }
         }
@@ -271,6 +324,15 @@ public class RegisterActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
+    //判断是否含有特殊字符
+
+    public static boolean isSpecialChar(String str) {
+        String regEx = "[ _`~!@#$%^&*()+=|{}':;',\\[\\].<>/~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]|\n|\r|\t";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(str);
+        return m.find();
+    }
+
     //修改数据库，在数据库中加入新用户
     public void MyOkHttp(String url) {
         Request request = new Request.Builder().url(url).build();
@@ -288,18 +350,19 @@ public class RegisterActivity extends AppCompatActivity {
                 // Toast.makeText(RegisterActivity.this,"操作成功", Toast.LENGTH_SHORT).show();
                 String jsonStr = response.body().string();
                 Log.e("RegisterActivity", "响应：" + jsonStr);
-               // jsonStr = new Gson().fromJson(jsonStr,String.class);
+                // jsonStr = new Gson().fromJson(jsonStr,String.class);
                 Looper.prepare();
                 if (jsonStr.equals("OK")) {
                     //Looper.prepare();
-                    Toast.makeText(RegisterActivity.this, "操作成功", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "操作成功", Toast.LENGTH_LONG).show();
+                    finish();
                     Looper.loop();
-                } else if(jsonStr.equals("")){
+                } else if (jsonStr.equals("")) {
                     //Looper.prepare();
-                    Toast.makeText(RegisterActivity.this, "该手机号已被注册了哦", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterActivity.this, "该手机号已被注册了哦", Toast.LENGTH_LONG).show();
                     Looper.loop();
-                }else {
-                    Toast.makeText(RegisterActivity.this, "操作失败", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "操作失败", Toast.LENGTH_LONG).show();
                     Looper.loop();
                 }
             }

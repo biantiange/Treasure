@@ -17,13 +17,12 @@ import java.util.ArrayList;
 public class TimeAdapter extends BaseAdapter {
     private ArrayList<Dates> datas;
     Context context;
-    int curposition;
+   // int curposition;
 
-    public TimeAdapter(ArrayList<Dates> dates, Context context,int position) {
+    public TimeAdapter(ArrayList<Dates> dates, Context context) {
         super();
         this.datas = dates;
         this.context = context;
-        this.curposition=position;
     }
 
     @Override
@@ -55,11 +54,11 @@ public class TimeAdapter extends BaseAdapter {
             lineNorma.setVisibility(View.INVISIBLE);
             lineHiLight.setVisibility(View.INVISIBLE);
         }
-        if(position==curposition){
-            image.setImageResource(R.drawable.check);
-        }else{
-            image.setImageResource(R.drawable.circle);
-        }
+//        if(position==curposition){
+//            image.setImageResource(R.drawable.check);
+//        }else{
+//            image.setImageResource(R.drawable.circle);
+//        }
 
 //        image.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -74,6 +73,9 @@ public class TimeAdapter extends BaseAdapter {
             Log.e("Statu","Statu");
             image.setImageResource(R.drawable.check);
             time.setVisibility(View.VISIBLE);
+            datas.get(position).setStatu(0);
+        }else{
+            image.setImageResource(R.drawable.circle);
         }
         return convertView;
 

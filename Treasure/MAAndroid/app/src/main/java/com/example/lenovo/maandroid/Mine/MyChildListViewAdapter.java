@@ -104,7 +104,7 @@ public class MyChildListViewAdapter extends BaseAdapter {
                 .error( R.drawable.ertong )
                 .fallback( R.drawable.ertong );
         Glide.with( context )
-                .load( Data.url+url )
+                .load( Data.ip+url )
                 .apply( options )
                 .into( holder.childImg );
         final String name = (String) map.get( "nickName" );

@@ -19,9 +19,9 @@
             android:layout_width="0dp"
             android:layout_weight="6"
             android:textSize="20dp"
-            android:textColor="#7adfb8"
+            android:textColor="#FFFFFF"
             android:gravity="center"
-            android:text="爱语说说"
+            android:text="我的帖子"
             android:padding="5dp"
             />
         <ImageView
@@ -29,7 +29,7 @@
             android:layout_width="35dp"
             android:layout_gravity="center"
             android:layout_height="35dp"
-            android:background="@drawable/baiseadd" />
+            android:background="@drawable/jiaoyu" />
     </LinearLayout>
 
 

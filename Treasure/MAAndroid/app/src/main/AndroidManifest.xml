@@ -42,13 +42,16 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
 
-        <activity android:name=".Login.LoginActivity">
+        <activity android:name=".Host.WelcomeActivity"
+            android:theme="@style/FullScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Login.LoginActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".Community.PushPost.PostImagesActivity" />
         <activity android:name=".Community.PostDetailActivity" />
         <activity android:name=".Record.LookActivity" />
@@ -166,6 +169,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".Mine.MineCommunity" />
+        <activity android:name=".Mine.Set" />
+        <activity android:name=".Mine.MineSetxieyi" />
+        <activity android:name=".Mine.MineSethelp" />
+        <activity android:name=".Mine.MineSetgongneng" />
 
         <!-- since 3.3.0 Required SDK 核心功能 -->
         <!-- 可配置android:process参数将PushService放在其他进程中 -->

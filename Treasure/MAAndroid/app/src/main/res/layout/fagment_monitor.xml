@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-<LinearLayout
+    android:orientation="vertical">
+    <LinearLayout
+        android:background="#7adfb8"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:textColor="#ffffff"
+            android:textSize="20dp"
+            android:gravity="center_horizontal"
+            android:paddingTop="5dp"
+            android:text="我的监控"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/add_child_a"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:visibility="gone">
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -25,32 +40,31 @@
     </LinearLayout>
 
     <ListView
+        android:id="@+id/lv_monitor"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"
-        android:id="@+id/lv_monitor">
-    </ListView>
+        android:layout_weight="3"></ListView>
 
     <LinearLayout
+        android:id="@+id/ll_mp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
         android:orientation="vertical"
-        android:id="@+id/ll_mp"
         android:visibility="gone">
         <!-- 百度地图-->
-       <com.baidu.mapapi.map.MapView
-            android:visibility="gone"
+        <com.baidu.mapapi.map.MapView
             android:id="@+id/map_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.baidu.mapapi.map.MapView>
-
-   <!--     &lt;!&ndash;监控&ndash;&gt;
-        <com.example.lenovo.maandroid.Utils.PieChart
             android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:id="@+id/pc"
-            android:visibility="gone"/>-->
+            android:visibility="gone"></com.baidu.mapapi.map.MapView>
+
+        <!--     &lt;!&ndash;监控&ndash;&gt;
+             <com.example.lenovo.maandroid.Utils.PieChart
+                 android:layout_height="match_parent"
+                 android:layout_width="match_parent"
+                 android:id="@+id/pc"
+                 android:visibility="gone"/>-->
     </LinearLayout>
 
 

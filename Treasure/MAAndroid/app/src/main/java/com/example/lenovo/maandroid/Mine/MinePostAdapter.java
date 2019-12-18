@@ -91,47 +91,47 @@ public class MinePostAdapter extends BaseAdapter {
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
         }else if(imgs.size() == 1){
-            Glide.with(context).load(Data.url+imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
+            Glide.with(context).load(Data.url+imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img1);
             img2.setVisibility(View.GONE);
             img3.setVisibility(View.GONE);
             img4.setVisibility(View.GONE);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
         }else  if (imgs.size() == 2){
-            Glide.with(context).load(Data.url+imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(Data.url+imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
+            Glide.with(context).load(Data.url+imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img1);
+            Glide.with(context).load(Data.url+imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img2);
             img3.setVisibility(View.GONE);
             img4.setVisibility(View.GONE);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
         }else if(imgs.size() == 3){
-            Glide.with(context).load(Data.url+imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(Data.url+imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
-            Glide.with(context).load(Data.url+imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
+            Glide.with(context).load(Data.url+imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img1);
+            Glide.with(context).load(Data.url+imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img2);
+            Glide.with(context).load(Data.url+imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img3);
             img4.setVisibility(View.GONE);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
         }else if(imgs.size() == 4){
-            Glide.with(context).load(Data.url+imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(Data.url+imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
-            Glide.with(context).load(Data.url+imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
-            Glide.with(context).load(Data.url+imgs.get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
+            Glide.with(context).load(Data.url+imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img1);
+            Glide.with(context).load(Data.url+imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img2);
+            Glide.with(context).load(Data.url+imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img3);
+            Glide.with(context).load(Data.url+imgs.get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img4);
             img5.setVisibility(View.GONE);
             img6.setVisibility(View.GONE);
         }else if(imgs.size() == 5){
-            Glide.with(context).load(Data.url+imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(Data.url+imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
-            Glide.with(context).load(Data.url+imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
-            Glide.with(context).load(Data.url+imgs.get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
-            Glide.with(context).load(Data.url+imgs.get(4).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img5);
+            Glide.with(context).load(Data.url+imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img1);
+            Glide.with(context).load(Data.url+imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img2);
+            Glide.with(context).load(Data.url+imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img3);
+            Glide.with(context).load(Data.url+imgs.get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img4);
+            Glide.with(context).load(Data.url+imgs.get(4).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img5);
             img6.setVisibility(View.GONE);
         }else {
-            Glide.with(context).load( Data.url+imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img1);
-            Glide.with(context).load(Data.url+imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img2);
-            Glide.with(context).load(Data.url+imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img3);
-            Glide.with(context).load(Data.url+imgs.get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img4);
-            Glide.with(context).load(Data.url+imgs.get(4).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img5);
-            Glide.with(context).load(Data.url+imgs.get(5).getPath()).fallback(R.drawable.left).placeholder(R.drawable.add).error(R.drawable.check).into(img6);
+            Glide.with(context).load(Data.url+imgs.get(0).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img1);
+            Glide.with(context).load(Data.url+imgs.get(1).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img2);
+            Glide.with(context).load(Data.url+imgs.get(2).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img3);
+            Glide.with(context).load(Data.url+imgs.get(3).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img4);
+            Glide.with(context).load(Data.url+imgs.get(4).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img5);
+            Glide.with(context).load(Data.url+imgs.get(5).getPath()).fallback(R.drawable.left).placeholder(R.drawable.dengdai).error(R.drawable.imgcuowu).into(img6);
         }
 
 //评论
@@ -155,7 +155,7 @@ public class MinePostAdapter extends BaseAdapter {
         });
         RequestOptions options = new RequestOptions().circleCrop();
         Log.e( "headerpath",posts.get( position ).getParent().getHeaderPath());
-        Glide.with( context ).load( Data.url+posts.get(position).getParent().getHeaderPath()).apply(options).into( headerPath );
+        Glide.with( context ).load( Data.ip+"childImg/"+posts.get(position).getParent().getHeaderPath()).apply(options).into( headerPath );
         TextView nickName = convertView.findViewById(R.id.community_parent_name);
         nickName.setText(posts.get(position).getParent().getNickName());
         TextView time = convertView.findViewById(R.id.community_time);

@@ -5,6 +5,7 @@
     android:orientation="horizontal">
 
     <ImageView
+        android:layout_marginLeft="7dp"
         android:id="@+id/iv_img"
         android:layout_width="0dp"
         android:layout_weight="1"
@@ -54,7 +55,7 @@
         android:id="@+id/ll_monitor">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="32dp"
             android:layout_height="wrap_content"
             android:src="@drawable/monitor" />
 
@@ -62,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="电量监控"
-            android:textSize="16dp"/>
+            android:textSize="14dp"/>
 
     </LinearLayout>
 
@@ -75,7 +76,7 @@
         android:id="@+id/ll_position">
 
         <ImageView
-            android:layout_width="wrap_content"
+            android:layout_width="32dp"
             android:layout_height="wrap_content"
             android:src="@drawable/location" />
 
@@ -83,6 +84,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="定位"
-            android:textSize="16dp"/>
+            android:textSize="14dp"/>
     </LinearLayout>
 </LinearLayout>

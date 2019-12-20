@@ -63,8 +63,8 @@ public class RecordFragment extends Fragment {
         final View newView=inflater.inflate(R.layout.record_main,container,false);
         mlv = newView.findViewById(R.id.mlv);
         okHttpClient=new OkHttpClient();
-//        sharedPreferences=getContext().getSharedPreferences("parent",Context.MODE_PRIVATE);
-//        parentId=sharedPreferences.getInt("parentId",-1);
+       sharedPreferences=getContext().getSharedPreferences("parent",Context.MODE_PRIVATE);
+       parentId=sharedPreferences.getInt("parentId",-1);
         //查找
         ImageView look=newView.findViewById(R.id.look);
         ImageView add=newView.findViewById(R.id.add);
@@ -119,7 +119,7 @@ public class RecordFragment extends Fragment {
     }
 
     private void lookTime() {
-        Request request=new Request.Builder().url(Constant.BASE_IP +"LookTimeServlet?parentId="+1).build();
+        Request request=new Request.Builder().url(Constant.BASE_IP +"LookTimeServlet?parentId="+parentId).build();
         Call call=okHttpClient.newCall(request);
         call.enqueue(new Callback() {
             @Override

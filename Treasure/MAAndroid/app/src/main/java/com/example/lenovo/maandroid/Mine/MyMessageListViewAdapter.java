@@ -119,8 +119,7 @@ public class MyMessageListViewAdapter extends BaseAdapter {
 
         Log.e( "tomy",commentercontent );
 
-
-
+            Log.e("posterName", map.get( "posterName" ).toString()+":");
         holder.post_name.setText( map.get( "posterName" ).toString()+":" );
         String postContent=map.get( "postContent" ).toString();
         if(postContent==null || postContent.length()==0){
@@ -148,8 +147,6 @@ public class MyMessageListViewAdapter extends BaseAdapter {
                 //进入相应的详情页面：明天写
             }
         } );
-
-
         return convertView;
     }
     private class ViewHolder {

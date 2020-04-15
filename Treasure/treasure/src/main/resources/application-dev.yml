@@ -1,0 +1,36 @@
+server:
+  servlet:
+    context-path: /treasure
+  port: 8080
+
+spring:
+  mvc:
+    view:
+      prefix: /
+      suffix: .jsp
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  datasource:
+    username: root
+    password:
+    url: jdbc:mysql://127.0.0.1:3306/treasure_db?serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+
+mybatis:
+  mapper-locations: classpath*:mapping/*Mapper.xml
+  type-aliases-package: com.treasure.demo
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    ##showSql
+
+pagehelper:
+  helperDialect: mysql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+
+

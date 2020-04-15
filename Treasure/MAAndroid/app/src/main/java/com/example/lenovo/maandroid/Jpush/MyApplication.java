@@ -40,9 +40,9 @@ public class MyApplication extends Application {
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
-        String DEVICE_ID = tm.getDeviceId();
+        /*String DEVICE_ID = tm.getDeviceId();
         Log.e("DEVICE_ID",DEVICE_ID);
-        setAlias(DEVICE_ID);
+        setAlias(DEVICE_ID);*/
     }
 
     // 这是来自 JPush Example 的设置别名的 Activity 里的代码。一般 App 的设置的调用入口，在任何方便的地方调用都可以。

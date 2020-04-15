@@ -119,8 +119,8 @@ public class LoginActivity extends AppCompatActivity {
             // TODO: Consider calling
             return;
         }
-        DEVICE_ID = tm.getDeviceId();
-        Log.e("DEVICE_ID",DEVICE_ID);
+        /*DEVICE_ID = tm.getDeviceId();
+        Log.e("DEVICE_ID",DEVICE_ID);*/
         //setContentView( R.layout.activity_login1);
         setContentView(R.layout.activity_login);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {

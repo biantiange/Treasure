@@ -3,7 +3,7 @@ package com.example.lenovo.maandroid.Utils;
 public class Constant {
     // 15231174460
 
-    public static final   String URL="http://192.168.43.114:8080/Java/";
+    public static final   String URL="http://192.168.0.7:8080/Java/";
     public static final String BASE_IP =URL;
     public static final String POST_IMG_BASE_IP = BASE_IP + "postImgs/";
 

@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'
-// 添加Mob插件
+// ??Mob??
 apply plugin: 'com.mob.sdk'
 
-// 在MobSDK的扩展中注册SMSSDK的相关信息
+// ?MobSDK??????SMSSDK?????
 MobSDK {
     appKey "2d187ed5a57eb"
     appSecret "305f9725ab0bdb819a34927572fc8b9d"
@@ -35,6 +35,8 @@ android {
     }
     buildTypes {
         release {
+            aaptOptions.cruncherEnabled = false
+            aaptOptions.useNewCruncher = false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             lintOptions {
